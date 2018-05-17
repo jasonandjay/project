@@ -1,4 +1,4 @@
-#BaWay_Class
+# 我爱学习，学习使我快乐
 ## git日常用户
 > * 克隆仓库：git clone git@github.com:jasonandjay/project.git
 > * 拉取代码：git pull origin master
