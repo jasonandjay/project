@@ -3,17 +3,20 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin  = require('mini-css-extract-plugin');
+// 引入vue-loader
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 //配置插件
 const plugins = [
-    // 删除构建目录
-    new CleanWebpackPlugin(['build/assets/']),
-    // 处理css, 从html中剥离出来
+    // 引入vue插件
+    new VueLoaderPlugin(),
+    // 从页面中抽离css
     new MiniCssExtractPlugin({
         filename: '[name].[contenthash:6].css'
     }),
-    // 处理html，并自动引用output的文件
+    // 删除构建目录
+    new CleanWebpackPlugin(['build/assets/']),
+    //处理html，并自动引用output的文件
     new HtmlWebpackPlugin({
         //目标文件
         filename: '../index.html',
@@ -32,9 +35,7 @@ const plugins = [
             //压缩行内js
             minifyJS: false
         }
-    }),
-    // 处理vue
-    new VueLoaderPlugin()
+    })
 ];
 
 module.exports = {
@@ -42,7 +43,7 @@ module.exports = {
     mode: process.env.NODE_ENV || 'development',
     //输入配置
     entry: {
-        index: ['babel-polyfill','./src/js/index.js'],
+        index: './src/js/index.js',
         vendors: ['jquery']
     },
     //输出配置
@@ -73,13 +74,13 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(js|jsx)$/,  //正则判断文件类型
-                exclude: /node_modules/,    //排除这个文件夹不处理
-                use: 'babel-loader'     //使用加载器  
-            },
-            {
                 test: /\.vue$/,
                 loader: 'vue-loader'
+            },
+            {
+                test: /\.(js|jsx)$/,  //正则判断文件类型
+                exclude: /node_modules/,    //排除这个文件夹不处理
+                use: ['babel-loader']     //使用加载器  
             },
             {
                 test: /\.css$/,

@@ -1,6 +1,6 @@
 import {object} from './output';
-var $ = require('jquery');
 console.log('object...', object);
+
 class Cls{
     constructor(){
         console.log('my name is webpack4.0');
@@ -10,7 +10,7 @@ class Cls{
 let cls = new Cls();
 async function Async(){};
 let [...arr] = [1,2,3];
-import style from '../static/index.scss';
+import style from '../static/index.css';
 
 import img1 from '../static/IMG_0082.JPG';
 
@@ -21,21 +21,24 @@ import output2 from './output2';
 console.log('output2...', output2);
 
 
-console.log('chenmanjie');
 
-//加载字体
+
 import font from '../font/iconfont.css';
 
-//加载scss
-import sass from '../static/index2.scss';
+// 加载sass
+import sass from '../static/index.scss';
 
-//加载vue
-import Vue from 'vue';
-// import VueRoute from 'vue-router';npm
-import Index from '../component/index.vue';
 
+// 引入jquery
+import $ from "jquery";
+
+
+// 引入vue组件
+import Vue from "vue";
+import Index from "../component/index.vue";
+import Car from "../component/car.vue";
+// 新建一个vue实例
 new Vue({
     el: '#app',
-    render: h => h(Index)
+    render: h => h(Car)
 })
-
