@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h2 onclick="click()">八维教育</h2>
+</body>
+    <script>
+    /**
+    day2:
+    数值
+        Number.isFinite,isNaN,parseInt,parseFloat,isInteger,toFixed,trunc,**,
+    函数
+        函数的解构和默认值，lengh属性，函数作用域，name属性
+        箭头函数，this作用域（定义时的this指针，不是执行时的this指针），简单
+        双冒号运算符
+    数组
+        扩展运算符(...)->展开，替代apply方法，Array.prototype.slice.call
+        Array.from,应用argument和nodeList, 第二个参数处理元素
+        Array.of,将一组值转化为数组
+        copyWithin,复制成员到数组其他位置
+        find, findIndx 查找数组成员
+        数组遍历entries, keys, values
+        includes, indexOf
+        回顾 filter,map,forEach,some,every,reduce(迭代求和)
+    对象
+        简化属性名和属性值  
+        属性名支持变量表达式 [], 同时支持函数名
+        Object.is 判断相等, Object.assign 对象的合并    
+        对象的遍历
+    Symbol
+        生成独一无二的属性名 Symbol(), Symbol.for('key')
+    Set + Map
+        Set: add, delete, has, clear + size属性取代length, forEach
+        Map: set(key, value), get, has, delete, clear() + size, forEach
+    */
+    </script>
+    <script>
+        //数值的扩展
+        //isFinite
+        Number.isFinite(1);
+        Number.isNaN('a');
+        //函数的扩展
+        const arr = [1,2,3,4,5,[6,7,8]];
+        function func1(a,b,c,d,e, ...arr){
+            console.log('arr...', arr, typeof arr, arguments);
+        }
+        function func2(a,b,c,d,e,arr2){};
+        func1(arr);
+        let [a,b,c,d,e, ...arr1] = arr;
+        console.log(a,b,c,d,e, arr1);
+        func2(1,2,3,4,5, [6,7,8]);
+
+        //函数的属性 name,length=3
+        var func3 = function(a,b,c){
+
+        }
+        console.log('name...length', func3.name, func3.length)
+        func3()
+
+        //定义时的作用域，执行时的作用域
+        var arrowFunc = (b)=>{
+            return a+b+c
+        }
+        var arrowFunc = (a,b,c)=>{
+            return a+b+c
+        }
+        var arrowFunc1 = function(a,b,c){
+            return a+b+c
+        }
+        // func1(a,b,c,d,e, arr1);
+        var ele = document.getElementsByTagName('h2')[0];
+        {
+            let slogon = '好好学习，天天向上';
+        }
+        
+        var click = function(e){
+            console.log('this...', this, e, arguments);
+        }.bind(this);
+        ele.onclick = click;
+        // ele.onclick = (e)=>{
+            // console.log('this...', this, e);
+        // }
+
+        //数组的扩展
+        const array = ['a', 'b', 'c', 'd', 'e', 'f'];
+        // let [a, b, ...c] = array;
+        //Array.from
+        let array2 = Array.from(array, item=>item+'xyz');
+        console.log('array...', array2);
+        // copyWithin(target, start, end) 
+        console.log('array...', array.copyWithin(1, 4, 4));
+        // 'e', 
+        // 'a', 'e', 'c', 'd', 'e', 'f'
+        // map, forEach
+        let newArray = array.map((item, index)=>{
+            console.log('item...', item, index)
+            return item += index.toString();
+        })
+        console.log('newArray', newArray);
+        array.forEach((item, index)=>{
+            item += index.toString();
+        })
+        // [1,2,3].some(item=>item<2);
+        // [1,2,3].every(item=>item<2);
+        // [1,2,3].entries()
+        // [1,2,3].keys()
+        // [1,2,3].values()
+        const value = '1601N';
+        {value} {value: value}
+
+        // module.exports = {
+            // func1: func1,
+            // func2: func2
+        // }
+
+        var object = {}
+        const n = 'name';
+        object.name = '刘畅';
+        object[n] = '刘畅';
+
+        // Object.is 取代 '==', '==='
+        // Object.assign
+        //实现info的深拷贝，利用object.assign和array.concat， 递归调用
+        let info = {
+            name: '1601N',
+            health: {
+                weight: '120斤',
+                press: {
+                    'jau': '120',
+                    'feb': '130'
+                }
+            },
+            arr: [1,2,3,4,5]
+        }
+        let assignInfo = Object.assign({health: {weight: '0'}}, info, {shengao: function(){}}, {money: '100W'});
+        let assignInfo2 = Object.assign({}, info);
+
+        console.log('assign...', assignInfo, info===assignInfo, info===assignInfo2, info.health === assignInfo.health);
+        //set+map
+        let set = new Set();
+        set.add(1);
+        set.delete(2);
+        console.log('size...', set.size);
+        // for...of + keys(),values(),entries()+数组解构
+            item1.forEach((
+                [...item2]
+            )=>{
+                item2.forEach((value, key)=>{
+                    console.log(key, value)    
+                })
+            })
+    </script>
+</html>

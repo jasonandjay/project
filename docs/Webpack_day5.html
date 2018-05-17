@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Webpack day5</title>
+</head>
+<body>
+  <h2>八维研修学院网站工程1601N班</h2>
+  <script>
+    /**
+      day5&day6&day7: 
+        Webpack(版本4.0+)
+          了解什么是webpack
+          安装与基本配置(入口与输出，加载器，插件，devtool)
+        webpack安装
+          webpack     //webpack库
+          webpack-cli   //webpack客户端，包含webpack命令
+          webpack-dev-server  //启动一个web服务
+        常用loader：
+          //js处理
+          babel-loader，
+          //css处理
+          style-loader,css-loader,sass-loader,
+          //文件处理
+          url-loader,file-loader  如果文件小于限制就转成DataUrl
+          //处理vue文件
+          vue-loader  加载.vue文件并处理成js
+        常用插件
+          CommonsChunkPlugin  //抽取页面逻辑，已弃用，使用
+          html-webpack-plugin   //处理html
+          HotModuleReplacementPlugin  //模块热替换，webpack4.0的支持不够好
+          UglifyjsWebpackPlugin //处理js，已启用合并到webpack4.0 webpack -p会压缩js和css
+          clean-webpack-plugin  //删除构建的文件夹
+          mini-css-extract-plugin //抽取css，替代extract-text-webpack-plugin
+        安装命令
+          全局安装：cnpm install -g webpack, webpack-cli, webpack-dev-server
+          本地安装：cnpm install -D|--save-dev babel-loader
+        Webpack
+          webpack -w  //监听文件改动实时编译
+          webpack -p  //生产环境编译，自动压缩css、js
+        Vue需要的依赖
+          vue //vue库
+          vue-loader  //vue加载器
+          vue-template-compiler //模版编译器
+
+          vue-route //官方路由
+          vuex  //数据处理
+    */
+  </script>
+  <script>
+      
+  </script>
+</body>
+</html>

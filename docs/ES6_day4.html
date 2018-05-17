@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ES6 day4</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.4.4/babel.min.js"></script>
+</head>
+<body>
+  <h2>八维研修学院网站工程1601N班</h2>
+  <script>
+    /**
+      day4: 
+        Class
+          回顾传统生成实例对象的方法，为什么方法要写到原型链上
+          新的数据类型，定义一类有共同特征的物体
+          定义一个网站工程学院班级类
+          传统类的三个属性类型：private, public, protected
+          类的四大特征：抽象，封装，继承，多态
+          class WebSite{
+            constructor(name, num){
+              this.name = '八维研修学院';
+              this.num = num;
+              console.log('new.target...', new.target === WebSite);
+            }
+            //静态方法
+            static getGradeName(){
+              return 'WebSite'
+            }
+            //getter, setter操作
+            get mostValueClass(){
+              return '1601N'
+            }
+            set mostValueClass(val){
+              this.mostValueClass = '1601N';
+            }
+            getAddress(){
+              return this.address;
+            }
+          }
+          //静态属性
+          WebSite.gradeName = 'WebSite';
+          WebSite.address = '八维研修学院高翻楼'
+          //this的指向问题
+          指向运行时的宿主对象，解构之后的就会遇到问题
+          new.target 判断实例是否由new生成的,class实例一定只能通过new生成,传统方式可以通过call方法
+          主要用在类的继承那里，判断类的实例对象是由父类还是子类生成
+        Class继承
+          extends关键字，继承机制，基于对父类实例的加工
+          继承机制：拷贝一份父类对象，在新对象上添加子类的属性和方法
+          super关键字，
+            作为函数时调用父类的构造函数,写在代码第一行,返回this指针
+            作为对象时指向父类,
+          getPrototypeOf，返回指定对象的原型，判断一个类是否继承令一个类
+          两条继承链
+          没有的去父类找，子类有的优先使用子类，子类里可以通过super方法指向父类
+          function Func(){}, var f = new Func(); f.__proto__ == Func
+          Mixin模式的实现
+        Module
+          CommonJS,node的模块引入方式
+          import 语句导入  import...from 只能同步加载
+          export 语句导出   export default输出匿名模块
+          export...from 把引入的全部输出
+          as关键字，更改别名
+          ! import()
+    */
+  </script>
+  <script>
+    //传统封装类
+    function WebSite(){
+      this.gradeName = '网站工程';
+      this.getGradeName = ()=>{
+        return this.gradeName
+      }
+      this.setGradeName = ()=>{
+
+      }
+    }
+    var class1 = new WebSite();
+    WebSite.prototype.setGradeName = function(val){
+      this.gradeName = val;
+      console.log('val...', val, this.gradeName, this);
+    }
+    //定义Website类
+    class WebSite1{
+        constructor(name, num){
+          this.name = name;
+          this.num = num;
+          // this.gradeName = '';
+        }
+        setGradeName(val){
+          this.gradeName = val;
+        }
+        getGradeName(){
+          return this.name
+        }
+        static getMostValueClass(){
+          return '1601N';
+        }
+        //vue 数据驱动dom原理类似，就是重载属性的getter和setter方法来实现dom更新
+        get gradeName(){
+          return '网站'
+        }
+        set gradeName(val){
+          // this.gradeName = val;
+        }
+        
+    }
+    var info = {
+      // name: '1601N',
+      get name(){
+        // return '网站'
+        return this.name
+      },
+      set name(val){
+        // this.name1 = val;
+        this.name = val;
+      }
+    }
+    //在类外部定义
+    WebSite1.mostValueClass = '1601N';
+    var class2 = new WebSite1();
+    var class3 = new WebSite1('1601N', 43);
+    console.log('class2...', class2);
+    //类的继承
+    class N extends WebSite1{
+      constructor(name, num, clsName){
+        super(name, num);
+        this.name = clsName;
+      }
+      getName(){
+        return super.getGradeName()
+      }
+    }
+    var n = new N('网站工程', 2000, '1601N');
+
+    var Func = function(){
+      this.getName = function(){
+        return 'func'
+      }
+    }
+    Func.prototype.getName = ()=>{
+      return 'function';
+    }
+    var func = new Func();
+</script>
+</body>
+</html>

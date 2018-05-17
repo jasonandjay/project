@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ES6 day1</title>
+</head>
+<body>
+  <h2>八维研修学院网站工程1601N班</h2>
+  <script>
+    /**
+      day1: 
+        课程介绍，学习课程的方法;
+        let+const;
+          防止变量污染
+          var定义变量，变量提升
+          let定义局部变量， 块级作用域，{}，for循环
+          const定义静态变量
+          一定要先申明再使用，不允许重复申明  
+          内部变量保护，for循环变量泄露
+
+        变量的解构赋值;
+          解构，解构默认值
+          对象的解构赋值，保证属性名相同
+          字符串的解构赋值
+          函数参数解构赋值，其实就是对象或数组的解构
+
+
+        字符串的扩展
+        遍历：for...of(可以识别大于0xffff ), for...in, 数组下标, i++遍历 
+        charAt,includes,indexOf,startsWith,endsWith,repeat,padStart,padEnd(Date的日历)
+        模板字符串，最好用最常用的功能，${},raw方法
+
+        课后作业：  以前的日考题，月考题做扩展
+    */
+  </script>
+  <script>
+      //let+const
+      var name = '陈蔓杰';
+      var name = 'jason';
+      console.log('name...', name);
+      const host = 'http://baway.com';
+      const dbName = 'class';
+      // className = '1601N';
+      let className = '';
+      {
+        myName = '陈蔓杰'
+        myGender = 'man'
+      }
+      console.log('name..gender...', myName, myGender);
+      var info = (function func(){
+          innerName = '陈蔓杰';
+          innerGender = 'man';
+          innerAge = '未知';
+          return {
+             innerName,
+             innerGender
+          }
+      }());
+      {
+        let innerName1 = '陈蔓杰1';
+      }
+      // console.log('info...', info, innerName1)
+
+      for (let i=0;i<10;i++){
+
+      }
+      
+      let x = 1;
+      {
+        let y;
+        y = x;
+      }
+      (function func (x){
+        // console.log('x...', y);
+      })()
+
+      // console.log('i..', i);
+
+      //const指向对象，数组
+      const array = [],
+            object = {};
+      array.push(1);
+      object.className = '1601N';
+      //传统面向对象的写法
+      var cls = {};
+      cls.name, cls.address, cls.doRun
+  </script>
+  <script>
+    //数组解构赋值
+    var arr = [1,2,3];
+    var [a,b,c,d,[...e],f] = [1,2,3, [4,5,6],[7,8,9,['a','b', ['c']]]];
+    console.log('a...b...c...', a,  arr[0], arr[1], arr[2], d, f, e);
+    //对象解构赋值
+    var obj = {
+      name: '1601N', 
+      num: 43,
+      address: '二楼最西边',
+      marry: 'undefined',
+      gender: {
+        man: 23,
+        woman: 20
+      }
+    }
+    // let {name, num, address, param, gender, marry} = obj;
+    let {name:name1, num:num, address:address, param, gender, marry} = obj;
+    console.log('name...', name1, num, address, obj['name'], param, gender, marry, marry===param);
+    //字符串解构赋值
+    var str = 'abcdefghijklmn';
+    var [a,b,c,d,e,f,g,h,i,j,k,l,m] = str;
+    console.log('str...', a, b, c, d);
+    var {toString, length} = str;
+    console.log('param...', toString, length);
+    //函数参数解构赋值
+    function desArr([x, , z, m=100, n=1000]){
+        console.log('x+z+m+n=', x+z+m+n===1000+100+1+3);
+    }
+    desArr(arr)
+    function desObj({num, gender, name='八维研修学院'}){
+        console.log('我们是'+name+',班级里一共有'+num+'人,其中男生'+gender.man+'人,女生'+gender.woman+'人');
+    }
+    desObj(obj)
+  </script>
+  <script>
+    //字符串的扩展
+    var str = 'i am a student in baway';
+    // indexOf
+    var start = str.indexOf('student');
+    console.log('indexOf...', start);
+    //includes
+    var start = str.includes('student');
+    console.log('includes...', start);
+    //startsWith
+    var start = str.startsWith('i am');
+    var error = str.startsWith('student');
+    console.log('startsWith...', start, error);
+    //endsWith
+    var start = str.endsWith('baway');
+    var error = str.endsWith('student');
+    console.log('startsWith...', start, error);
+
+    var repeatStr = str.repeat(3);
+    var error = str.repeat('web');
+    console.log('repeatStr...', repeatStr, 'error...',error);
+    // 'YYYY-MM-DD HH:MM:SS' => '2018-05-08 15:34:36'
+    var date = new Date();
+    let year = date.getFullYear(),
+        month = date.getMonth()+1,
+        day = date.getDate()+'',
+        hour = date.getHours()+'',
+        min = date.getMinutes()+'',
+        sec = date.getSeconds()+'';
+    console.log('YYYY-MM-DD HH:MM:SS', year+'-'+month.toString().padStart(2, '0')+'-'+day.padStart(2, '0')+' '+hour.padStart(2, '0')+':'+min.padStart(2, '0')+':'+sec.padStart(2, '0'));
+    //字符串模版
+    var info = {
+      school: '八维',
+      class: '1601N',
+      slogon: '好好学习，天天向上',
+      target: '高薪就业'
+    };
+  console.log('我来自'+info.school+'的'+info.class+'我们的slogon是：'+info.slogon+'我们的目标是：'+info.target);
+  console.log(`我来自${info.school}的${info.class}我们的slogon是：${info.slogon}我们的目标是：${info.target}`);
+  </script>
+</body>
+</html>
