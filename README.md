@@ -1,5 +1,5 @@
 # 我爱学习，学习使我快乐
-## git日常用户
+## git日常操作
 > * 克隆仓库：git clone git@github.com:jasonandjay/project.git
 > * 拉取代码：git pull origin master
 > * 新建分支：git branch chenmanjie

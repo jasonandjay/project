@@ -31,8 +31,15 @@
           v-model  伪双向绑定，可以直接修改data的值
         绑定class和绑定原生css
           对象语法，数组语法，表达式生成字符串语法，内联样式，组件样式混合
-        条件渲染和列表渲染
 
+
+        更新机制
+          自动更新：有数据变化，以前存在的数据和属性变化会导致自动更新
+                   对数组和对象可以用解构的方式直接改变指针指向
+          手动更新：this.forecUpdate();
+        条件渲染和列表渲染
+          条件：v-if + v-else + v-elseif
+          列表：v-for
         事件处理器
           .stop
           .prevent
@@ -40,7 +47,8 @@
           .self
           .once
         模版定义和使用
-          render方法和component
+          注册组件：Vue.component
+          使用组建：render方法和template
     */
   </script>
   <script>
