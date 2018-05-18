@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack -w",
-    "server": "webpack-dev-server",
+    "server": "cross-env NODE_ENV=development webpack && webpack-dev-server",
     "build": "cross-env NODE_ENV=production webpack -p --progress"
   },
   "author": "",
@@ -28,6 +28,7 @@
     "vue-loader": "^15.0.11",
     "vue-template-compiler": "^2.5.16",
     "webpack": "^4.8.3",
-    "webpack-cli": "^2.1.3"
+    "webpack-cli": "^2.1.3",
+    "webpack-dev-server": "^3.1.4"
   }
 }

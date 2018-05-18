@@ -29,16 +29,43 @@ import font from '../font/iconfont.css';
 import sass from '../static/index.scss';
 
 
+
 // 引入jquery
 import $ from "jquery";
+
 
 
 // 引入vue组件
 import Vue from "vue";
 import Index from "../component/index.vue";
 import Car from "../component/car.vue";
-// 新建一个vue实例
-new Vue({
-    el: '#app',
-    render: h => h(Car)
+import Login from "../component/login.vue";
+
+Vue.component('Vue', Vue);
+Vue.component('Car', Car);
+Vue.component('Login', Login);
+Vue.component('Logout', {
+    data: function(){
+        return {
+            title: '断剑重铸之日，骑士归来之时'
+        }
+    },
+    template: `<p>{{title}}</p>`,
+    methods:{
+
+    },
+    mounted: function(){
+        console.log('挂载了组建 Logout');
+    }
 })
+// 新建一个vue实例
+let vue = new Vue({
+    el: '#app',
+    template: `<div><Index/><Car/><Login/><Logout/></div>`
+    // render: h => h(Logout)
+})
+
+setTimeout(()=>{
+    // vue.$destroy();
+}, 5000);
+console.log('vue...', vue);

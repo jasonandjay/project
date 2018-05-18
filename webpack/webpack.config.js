@@ -6,16 +6,19 @@ const MiniCssExtractPlugin  = require('mini-css-extract-plugin');
 // 引入vue-loader
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
+// 删除构建目录
+let cleanWebpack = process.env.NODE_ENV?new CleanWebpackPlugin(['build/assets/']):()=>{};
 //配置插件
 const plugins = [
+    // 开启热更新
+    new webpack.HotModuleReplacementPlugin(),
     // 引入vue插件
     new VueLoaderPlugin(),
     // 从页面中抽离css
     new MiniCssExtractPlugin({
-        filename: '[name].[contenthash:6].css'
+        filename: '[name].[hash:6].css'
     }),
-    // 删除构建目录
-    new CleanWebpackPlugin(['build/assets/']),
+    cleanWebpack,
     //处理html，并自动引用output的文件
     new HtmlWebpackPlugin({
         //目标文件
@@ -61,6 +64,22 @@ module.exports = {
         port: 9000,
         //打开浏览器
         open: true,
+        watchContentBase: true,
+        setup: function(app){
+            app.get('/login', (req, res)=>{
+                console.log('req...', req);
+                // 取传过来参数
+                let username = req.query.username,
+                    password = req.query.password;
+                // 判断用户名与密码是否可以登陆
+                let isLogin = username == 'CHNEMANJIE' && password == '123456'; 
+                // 返回值，code=1表示登陆成功，code=0表示登陆失败
+                res.json({
+                    code: isLogin?1:0,
+                    msg: isLogin?'登陆成功':'登陆失败'
+                })
+            })
+        },
         //启用gzip压缩文件
         compress: true,
         //强制页面访问index.html
@@ -69,6 +88,11 @@ module.exports = {
         inline: true,
         //支持模块热更新
         hot: true
+    },
+    resolve: {
+        alias: {
+            'vue': 'vue/dist/vue.esm.js'
+        }
     },
     //模块操作
     module: {

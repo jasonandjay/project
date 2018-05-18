@@ -3,7 +3,7 @@
     <div id="app">
         <div id="wrapper" class="wrapper">
             <ul>
-                <li v-for="val in list">
+                <li v-for="(val,key) in list" :key="key">
                     <img v-bind:src="val.CoverPhoto" alt="">  
                     <p>{{val.Name}}</p> 
                 </li>
