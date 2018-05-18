@@ -38,7 +38,7 @@
                    对数组和对象可以用解构的方式直接改变指针指向
           手动更新：this.forecUpdate();
         条件渲染和列表渲染
-          条件：v-if + v-else + v-elseif
+          条件：v-if + v-else + v-elseif, v-show控制元素的显示还是隐藏
           列表：v-for
         事件处理器
           .stop
@@ -49,6 +49,16 @@
         模版定义和使用
           注册组件：Vue.component
           使用组建：render方法和template
+
+        组件间数据传递和内容分发
+          props + slot
+          slot: 作为占位元素接受，组件传过来的元素
+                slot里调用数据时只能调用使用时的，访问不到定义时的
+                命名插槽写法，通过template的slot属性去关联替换
+        过滤器
+          filter: |
+        自定义指令
+          v-focus
     */
   </script>
   <script>

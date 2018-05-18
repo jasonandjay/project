@@ -1,5 +1,7 @@
 <template>
     <div class="container">
+        <slot></slot>  
+        <!-- <h3>{{data.title}}</h3> -->
         <div>
             <label>用户名：</label>
             <input type="text" v-model="username">
@@ -12,6 +14,7 @@
             <input id="checkbox" type="checkbox" v-model="isRemeber">
             <label for="checkbox">是否记住账号密码</label>
         </div>
+        <!-- <slot name="head"></slot> -->
         <button :class="cls" @click="doLogin">登陆</button>
     </div>
 </template>
@@ -40,6 +43,11 @@
                 cls: ''
             }
         },
+        props: {
+            parent: {
+                // type: String
+            } 
+        },
         methods: {
             doLogin: function(){
                 // 判断此时按钮是否可点击
@@ -62,11 +70,18 @@
                     }
                 }).then(res=>{
                     console.log('res...', res);
-                    if (res.data.code == 1){
-                        window.location = 'http://www.baidu.com';
-                    }else{
-                        alert(res.data.msg);
-                    }
+                    // this.parent.callback(res);
+                    this.parent.callback({
+                        username: this.username,
+                        password: this.password,
+                        isRemeber: this.isRemeber,
+                        cls: this.cls
+                    })
+                    // if (res.data.code == 1){
+                        // window.location = 'http://www.baidu.com';
+                    // }else{
+                        // alert(res.data.msg);
+                    // }
                 }).catch(err=>{
                     console.log('error...', err);
                 })
@@ -99,6 +114,11 @@
                     this.password = store.password;
                 }
             }
+
+            // 输出父组件传递过来的prop
+            setTimeout(()=>{
+                console.log('父组件传递过来的数据：', this.parent);
+            }, 300);
         }
     }
 </script>

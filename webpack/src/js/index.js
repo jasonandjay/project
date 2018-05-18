@@ -41,9 +41,15 @@ import Index from "../component/index.vue";
 import Car from "../component/car.vue";
 import Login from "../component/login.vue";
 
+// 引入首页组件index2
+import Index2 from '../component/index2.vue';
+
+// 注册单文件组建
 Vue.component('Vue', Vue);
 Vue.component('Car', Car);
 Vue.component('Login', Login);
+
+// 以前的注册组建方式
 Vue.component('Logout', {
     data: function(){
         return {
@@ -61,11 +67,14 @@ Vue.component('Logout', {
 // 新建一个vue实例
 let vue = new Vue({
     el: '#app',
-    template: `<div><Index/><Car/><Login/><Logout/></div>`
-    // render: h => h(Logout)
+    // 模板里面使用自定义组建
+    // template: `<div><Index/><Car/><Login/><Logout/></div>`
+    render: h => h(Index2)
+    
 })
 
 setTimeout(()=>{
+    // 调用destory方法注销组建
     // vue.$destroy();
 }, 5000);
 console.log('vue...', vue);
