@@ -46,6 +46,9 @@
         props: {
             parent: {
                 // type: String
+            },
+            object: {
+
             } 
         },
         methods: {
@@ -71,12 +74,14 @@
                 }).then(res=>{
                     console.log('res...', res);
                     // this.parent.callback(res);
-                    this.parent.callback({
-                        username: this.username,
-                        password: this.password,
-                        isRemeber: this.isRemeber,
-                        cls: this.cls
-                    })
+                    // this.parent.callback({
+                    //     username: this.username,
+                    //     password: this.password,
+                    //     isRemeber: this.isRemeber,
+                    //     cls: this.cls
+                    // })
+                    // 对main父组件执行登陆回调
+                    this.object.loginCallback(res);
                     // if (res.data.code == 1){
                         // window.location = 'http://www.baidu.com';
                     // }else{
