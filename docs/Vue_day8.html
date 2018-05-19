@@ -55,10 +55,12 @@
           slot: 作为占位元素接受，组件传过来的元素
                 slot里调用数据时只能调用使用时的，访问不到定义时的
                 命名插槽写法，通过template的slot属性去关联替换
+          props: 父组件传过来的数据，只能引用不准修改
+          data: 子组件内部数据，可以随意修改
         过滤器
           filter: |
         自定义指令
-          v-focus
+          v-focus: 
     */
   </script>
   <script>

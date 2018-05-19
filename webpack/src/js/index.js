@@ -47,6 +47,9 @@ import Index2 from '../component/index2.vue';
 // 引入父组件main
 import Main from '../component/main.vue';
 
+// 引入组件E
+import E from '../component/comE.vue';
+
 // 注册单文件组建
 Vue.component('Vue', Vue);
 Vue.component('Car', Car);
@@ -72,7 +75,7 @@ let vue = new Vue({
     el: '#app',
     // 模板里面使用自定义组建
     // template: `<div><Index/><Car/><Login/><Logout/></div>`
-    render: h => h(Main)
+    render: h => h(E)
 
 })
 
