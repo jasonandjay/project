@@ -1,10 +1,24 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Index from '@/components/Index'
-import Message from '@/components/Message'
-import Shopping from '@/components/Shopping'
-import My from '@/components/My'
-import Order from '@/components/Order'
+
+// 传统加载模式
+// import Index from '@/components/Index'
+// import Message from '@/components/Message'
+// import Shopping from '@/components/Shopping'
+// import My from '@/components/My'
+// import Order from '@/components/Order'
+// 引入二级组件
+// import Read from '@/components/message/read.vue'
+// import Unread from '@/components/message/unread.vue'
+
+// 懒加载模式
+const Index = () => import('@/components/Index')
+const Message = () => import('@/components/Message')
+const Shopping = () => import('@/components/Shopping')
+const My = () => import('@/components/My')
+const Order = () => import('@/components/Order')
+const Read = () => import('@/components/message/read.vue')
+const Unread = () => import('@/components/message/unread.vue')
 
 Vue.use(Router)
 
@@ -17,7 +31,18 @@ export default new Router({
     },{
       path: '/message/:id?', //id获取，this.$route.params.id
       name: 'Message',
-      component: Message
+      // props: true,    // id当作props来传递
+      component: Message,
+      children: [
+        {
+          path: 'read',
+          component: Read
+        },{
+          path: 'unread',
+          name: 'Unread',
+          component: Unread
+        }
+      ]
     },{
       path: '/shopping',
       name: 'Shopping',
@@ -25,26 +50,7 @@ export default new Router({
     },{
       path: '/my',
       name: 'My',
-      component: My,
-      children: [{
-        path: 'wallet',
-        component: Message
-      }, {
-        path: 'order',
-      component: Order,
-    children:[{
-      path: 'complete',
-      component: {
-        data:()=>{return {}},
-        template: '<h3>已完成订单</h3>'
-      }
-    },{
-      path: 'pennding',
-      component: {
-        data:()=>{return {}},
-        template: '<h3>未完成订单</h3>'
-      }
-    }]}]
+      component: My    
     }
   ]
 })

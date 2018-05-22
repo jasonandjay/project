@@ -48,7 +48,7 @@ module.exports = {
     //输入配置
     entry: {
         index: './src/js/index.js',
-        vendors: ['jquery']
+        // vendors: ['jquery']
     },
     //输出配置
     output: {
@@ -57,7 +57,7 @@ module.exports = {
         publicPath: 'assets/'
     },
     //是否生成source map以及如何生成
-    devtool: 'eval-source-map',
+    devtool: process.env.NODE_ENV==='production'?'none':'eval-source-map',
     // devtool: 'none',
     devServer: {
         //serve加载的目录
@@ -125,12 +125,7 @@ module.exports = {
     plugins,
     optimization: {
         splitChunks: {
-            cacheGroups: {
-                commons: {
-                    test: /[\\/]node_modules[\\/]/,
-                    name: "vendors",
-                }
-            }
+           chunks: 'all'
         }
     }
 };

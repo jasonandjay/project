@@ -1,5 +1,5 @@
 <template>
-    <h1>我是购物车</h1>
+    <h2>未读消息</h2>
 </template>
 
 <script>
@@ -8,8 +8,7 @@
             return {}
         },
         mounted: function(){
-            
-            console.log(this.$route);
+            console.log('router...', this.$router, 'route...', this.$route);
         }
     }
 </script>

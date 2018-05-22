@@ -1,15 +1,11 @@
 <template>
-    <h1>我是购物车</h1>
+    <h2>已读消息</h2>
 </template>
 
 <script>
     export default {
         data: function(){
             return {}
-        },
-        mounted: function(){
-            
-            console.log(this.$route);
         }
     }
 </script>
