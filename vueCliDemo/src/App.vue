@@ -21,8 +21,8 @@
     </div>
     
 
-    <div @click='back'>回退一步</div>
-    <div @click="replace">替换历史</div>
+    <!-- <div @click='back'>回退一步</div> -->
+    <!-- <div @click="replace">替换历史</div> -->
   </div>
 </template>
 
