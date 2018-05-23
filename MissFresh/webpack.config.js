@@ -80,7 +80,7 @@ module.exports = {
     noInfo: true,
     overlay: true,
     setup: (app)=>{
-      app.get('/index/index', (req, res)=>{
+      app.get('/index/data', (req, res)=>{
         let json = require('./src/json/index.json');
         res.json(json);
       })

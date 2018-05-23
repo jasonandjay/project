@@ -10,6 +10,10 @@ a{
 }
 footer{
     position: fixed;
+    background: #fff;
+    border-top: 1px solid #c6c6c6;
+    padding: .1rem 0;
+    box-sizing: border-box;
     z-index: 99;
     width: 100%;
     bottom: 0;
@@ -30,6 +34,90 @@ footer{
         }
     }
 }
+#app{
+    height: 100%;
+}
 .contain{
-    min-height: 100%;
+    height: 100%;
+    padding-bottom: .8rem;
+}
+.swiper img{
+    width: 100%
+}
+.index-page{
+    height: 100%;
+    overflow-y: scroll;
+}
+nav{
+    height: .84rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &>div{
+        flex: 1;
+        overflow-x: scroll;  
+        height: 100%;
+        div{
+            height: 100%;
+            display: flex;
+            span{
+                font-size: .24rem;
+                margin: 0 .1rem;
+                flex-shrink: 0;
+                line-height: .84rem
+            }
+        }
+    }
+    img{
+        height: .84rem;
+        width: .84rem;
+    }
+}
+.product{
+    li{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        &>img{
+            width: 2.4rem;
+            height: 2.4rem;
+            margin: .2rem;
+        }
+        &>div{
+            flex: 1;
+            margin: .1rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: space-between;
+            p:nth-child(1){
+                font-size: .32rem;
+                color:#474425;
+            }
+            p:nth-child(2){
+                font-size: .28rem;
+                color:#969696;
+            }
+            p:nth-child(3){
+                font-size: .24rem;
+                border: 1px solid rgb(245,159,193);
+                color:rgb(245,159,193);
+            }
+            &>div{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+                p{
+                    font-size: .24rem;
+                    color:rgb(245,159,193);
+                }
+                &>div>img{
+                    width: .9rem;
+                    height: .9rem;
+                }
+            }
+        }
+    }
 }
