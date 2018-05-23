@@ -29,11 +29,11 @@
                         <div>
                             <p>${{item.vip_price_pro && ((item.vip_price_pro.price_up.price)/100).toFixed(2)}}</p>
                             <div>
-                                <img v-if="item.showCart" :src="item.cart_image" alt="">
+                                <img v-if="item.showCart" :src="item.cart_image" alt="" @click="clickCart(item)">
                                 <div v-else>
-                                    <img src="" alt="">
-                                    <span></span>
-                                    <img src="" alt="">
+                                    <i @click="subCount(index)">-</i>
+                                    <span>{{item.count}}</span>
+                                    <i @click="addCount(index)">+</i>
                                 </div>
                             </div>
                         </div>
@@ -45,9 +45,13 @@
         
     </div>
 </template>
+<style scoped lang="scss">
+@import '../scss/_index.scss';
+</style>
 
 <script>
     import axios from 'axios';
+    import Dispatch from '../dispatch.js';
     // 引入swiper的样式
     import 'swiper/dist/css/swiper.css'
     // 引入组件swiper 和 swiperSlide
@@ -90,11 +94,48 @@
                         this.category_list = res.data.category_list;
                         this.product_list = res.data.product_list.products.slice(1);
                         this.product_list.forEach((item)=>{
+                            // 是否显示购物车
                             item.showCart = true;
+                            // 购买数量
+                            item.count = 0;
                         })
                         this.current_product = this.product_list.slice(0, 20);
                         // 
                     })
+            },
+            clickCart(item){
+                console.log('item...', item);
+                this.current_product.forEach((value)=>{
+                    if (value.name === item.name){
+                        value.showCart = false;
+                        value.count = 1;
+                    }
+                })
+                this.$forceUpdate();
+                this.changeCart();
+            },
+            subCount(index){
+                if (this.current_product[index].count == 1){
+                    this.current_product[index].showCart = true;
+                }else{
+                    this.current_product[index].count -= 1;
+                }
+                this.$forceUpdate();
+                this.changeCart();
+            },
+            addCount(index){
+                this.current_product[index].count += 1;
+                this.$forceUpdate();
+                this.changeCart();
+            },
+            changeCart(){
+                let carts = [];
+                this.current_product.forEach((item)=>{
+                    if (item.count){
+                        carts.push(item);
+                    }
+                })
+                Dispatch.emit('changeCart', carts)
             }
         },
         mounted(){
@@ -103,7 +144,6 @@
             const elem = document.querySelector('.index-page');
             const elemScroll = document.querySelector('.index-page>div');
             elem.onscroll = (e)=>{
-                console.log('e...', e, elem.scrollTop, elemScroll.clientHeight, elemScroll.clientHeight-document.documentElement.clientHeight);
                 if (this.isLoading){
                     return;
                 }

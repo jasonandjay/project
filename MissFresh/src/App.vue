@@ -20,6 +20,7 @@
         <div>
           <img src="./assets/img_shopping.png" alt="">
           <span>购物车</span>
+          <em v-if="cartNum">{{cartNum}}</em>
         </div>
       </router-link>
       <router-link to="/my">
@@ -33,16 +34,33 @@
 </template>
 
 <script>
+import Dispatch from './dispatch.js';
 export default {
   name: 'app',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+      carts: []
     }
+  },
+  computed:{
+    cartNum(){
+      let num = 0;
+      this.carts.forEach((item)=>{
+        num += item.count;
+      })
+      return num;
+    }
+  },
+  mounted(){
+    Dispatch.on(this, 'changeCart', res=>{
+      console.log('res...', res);
+        this.carts = res;
+    })
   }
 }
 </script>
 
-<style lang="scss">
-@import './scss/_index.scss';
+<style lang="scss" scoped>
+@import './scss/_app.scss';
 </style>
