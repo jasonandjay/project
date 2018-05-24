@@ -8,6 +8,8 @@ import Index from './component/Index.vue';
 import Vip from './component/Vip.vue';
 import Shopping from './component/Shopping.vue';
 import My from './component/My.vue';
+import City from './component/common/City.vue';
+
 Vue.use(VueRouter)
 const router = new VueRouter({
   routes: [
@@ -26,6 +28,10 @@ const router = new VueRouter({
     {
       path: '/my',
       component: My
+    },
+    {
+      path: '/city',
+      component: City
     }
   ]
 })

@@ -1,5 +1,12 @@
 <template>
     <div class="index-page">
+        <header>
+            <div>
+                <span>次日到达</span>
+                <span @click="selectCity">{{city}}</span>
+            </div>
+            <img src="">
+        </header>
         <div>
             <nav>
             <div>
@@ -46,7 +53,7 @@
     </div>
 </template>
 <style scoped lang="scss">
-@import '../scss/_index.scss';
+    @import '../scss/_index.scss';
 </style>
 
 <script>
@@ -79,6 +86,7 @@
                 current_page: 1,
                 // 是否在加载数据，就是一个锁
                 isLoading: false,
+                city: ''
             }
         },
         components: {
@@ -136,10 +144,27 @@
                     }
                 })
                 Dispatch.emit('changeCart', carts)
+            },
+            selectCity(){
+                this.$router.push({path:'/city'});
             }
+        },
+        beforeRouteEnter: (to, from, next) => {
+            // ...
+            // 判断是否有城市定位信息
+            let storage = window.localStorage.getItem('missfresh.city');
+            if (storage){
+                this.city = storage;
+            }
+            next();
         },
         mounted(){
             this.init();
+            // 判断是否有城市定位信息
+            let storage = window.localStorage.getItem('missfresh.city');
+            if (storage){
+                this.city = storage;
+            }
             // 原生代码监听滚动
             const elem = document.querySelector('.index-page');
             const elemScroll = document.querySelector('.index-page>div');
