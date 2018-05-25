@@ -39,6 +39,9 @@
 </template>
 <style lang="scss" scoped>
     @import '../scss/_shopping.scss';
+    ul{
+        overflow: hidden;
+    }
 </style>
 <script>
     import Product from './common/Product.vue';
