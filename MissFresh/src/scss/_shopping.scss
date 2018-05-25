@@ -1,0 +1,98 @@
+.price{
+    position: fixed;
+    bottom: 1.2rem;
+    height: 1rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: .4rem;
+    box-sizing: border-box;
+    input{
+        width: .44rem;
+        height: .44rem;
+    }
+    &>span{
+        font-size: .24rem;
+        color: #262626;
+    }
+    p{
+
+        font-size: .24rem;
+        color: #262626;
+        span{
+            color: rgb(255,72,145);
+        }
+    }
+    button{
+        width: 2.6rem;
+        height: 1rem;
+        color: #fff;
+        font-size: .36rem;
+        background: #ff4891;
+    }
+}
+
+li{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &>img{
+        width: 2.4rem;
+        height: 2.4rem;
+        margin: .2rem;
+    }
+    &>div{
+        flex: 1;
+        margin: .1rem 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-between;
+        p:nth-child(1){
+            font-size: .32rem;
+            color:#474425;
+        }
+        p:nth-child(2){
+            font-size: .24rem;
+            border: 1px solid rgb(245,159,193);
+            color:rgb(245,159,193);
+        }
+        &>div{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            height: .9rem;
+            p{
+                font-size: .24rem;
+                color:rgb(245,159,193);
+            }
+            &>div>img{
+                width: .9rem;
+                height: .9rem;
+            }
+            div{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 1.8rem; 
+                span{
+                    font-size: .24rem;
+                }
+            } 
+        }
+    }
+}
+i{
+    width: .44rem;
+    height: .44rem;
+    border: 1px solid #f59fc1;
+    border-radius: 50%;
+    font-size: .6rem;
+    display: inline-block;
+    font-style: normal;
+    color: #f59fc1;
+    line-height: .36rem;
+    text-align: center;
+}

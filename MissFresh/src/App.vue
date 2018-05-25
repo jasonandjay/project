@@ -55,7 +55,32 @@ export default {
   mounted(){
     Dispatch.on(this, 'changeCart', res=>{
       console.log('res...', res);
-        this.carts = res;
+      // 先去读localstorage的数据赋给购物车
+      let storage = window.localStorage.getItem('missfresh.carts');
+      if (storage){
+          storage = JSON.parse(storage);
+          this.carts = storage;
+      }
+
+      // 合并缓存里的数据和首先添加的数据
+      console.log('carts...', this.carts, 'index...', res);
+      res.forEach((item)=>{
+        let isExist = false;
+        this.carts.forEach((value)=>{
+          // 如果首页添加的产品购物车里有直接增加数量
+          // 如果首页添加的产品购物车里没有，直接添加到购物车里
+          if (item.name === value.name){
+            isExist = true;
+            value.count += item.count;
+          }
+        })
+        if (!isExist){
+          this.carts.push(item);
+        }
+      })
+
+      // 再写入缓存
+      window.localStorage.setItem('missfresh.carts', JSON.stringify(this.carts));
     })
   }
 }
