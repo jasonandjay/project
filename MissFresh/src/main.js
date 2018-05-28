@@ -36,6 +36,17 @@ const router = new VueRouter({
   ]
 })
 
+// 定义一个自定义指令v-myShow,实现跟v-show同样的功能
+Vue.directive('myShow', {
+  // 当元素更新时调用
+  update(el, binding){
+    if (binding.value){
+      el.style.display = 'block';
+    }else{
+      el.style.display = 'none';
+    }
+  }
+})
 
 new Vue({
   el: '#app',

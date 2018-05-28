@@ -1,5 +1,6 @@
 <template>
-    <div class="index-page">
+    <div class="index-page" ref="elem">
+        <Loading v-if="isShowLoading"/>
         <header>
             <div>
                 <span>次日到达</span>
@@ -7,7 +8,7 @@
             </div>
             <img src="">
         </header>
-        <div>
+        <div ref="elemScroll">
             <nav>
             <div>
                 <div>
@@ -25,7 +26,7 @@
             </swiper>
         </div>
         <div class="product">
-            <h2>今日特卖</h2>
+            <h2 v-myShow="true">今日特卖</h2>
             <ul>
                 <li v-for="(item, index) in current_product" :key="index">
                     <img :src="item.image" alt="">
@@ -48,8 +49,7 @@
                 </li>
             </ul>
         </div>
-        </div>
-        
+    </div>
     </div>
 </template>
 <style scoped lang="scss">
@@ -60,9 +60,11 @@
     import axios from 'axios';
     import Dispatch from '../dispatch.js';
     // 引入swiper的样式
-    import 'swiper/dist/css/swiper.css'
+    import 'swiper/dist/css/swiper.css';
     // 引入组件swiper 和 swiperSlide
-    import { swiper, swiperSlide } from 'vue-awesome-swiper'
+    import { swiper, swiperSlide } from 'vue-awesome-swiper';
+    // 引入loading组件
+    import Loading from './common/Loading.vue';
     export default {
         data(){
             return {
@@ -86,12 +88,14 @@
                 current_page: 1,
                 // 是否在加载数据，就是一个锁
                 isLoading: false,
+                isShowLoading: true,
                 city: ''
             }
         },
         components: {
             swiper,
-            swiperSlide
+            swiperSlide,
+            Loading
         },
         methods: {
             init(){
@@ -108,6 +112,7 @@
                             item.count = 0;
                         })
                         this.current_product = this.product_list.slice(0, 20);
+                        this.isShowLoading = false;
                         // 
                     })
             },
@@ -166,8 +171,11 @@
                 this.city = storage;
             }
             // 原生代码监听滚动
-            const elem = document.querySelector('.index-page');
-            const elemScroll = document.querySelector('.index-page>div');
+            // const elem = document.querySelector('.index-page');
+            // const elemScroll = document.querySelector('.index-page>div');
+            console.log('refs...', this.$refs);
+            const elem = this.$refs.elem;
+            const elemScroll = this.$refs.elemScroll;
             elem.onscroll = (e)=>{
                 if (this.isLoading){
                     return;
@@ -175,7 +183,7 @@
                 if (elem.scrollTop > (elemScroll.clientHeight-document.documentElement.clientHeight-30)){
                     console.log('加载下一页');
                     this.isLoading = true;
-                    // 请求数据
+                    // 请求数据 
                     this.current_page += 1;
                     this.current_product = this.current_product.concat(this.product_list.slice((this.current_page-1)*20, this.current_page*20));
                     this.isLoading = false;
