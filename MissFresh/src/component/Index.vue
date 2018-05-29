@@ -28,7 +28,7 @@
         <div class="product">
             <h2 v-myShow="true">今日特卖</h2>
             <ul>
-                <li v-for="(item, index) in current_product" :key="index">
+                <li v-for="(item, index) in current_product" :key="index" @click="itemClick(item)">
                     <img :src="item.image" alt="">
                     <div>
                         <p>{{item.name}}</p>
@@ -152,6 +152,9 @@
             },
             selectCity(){
                 this.$router.push({path:'/city'});
+            },
+            itemClick(item){
+                this.$router.push({name:'Item', params:item});
             }
         },
         beforeRouteEnter: (to, from, next) => {
