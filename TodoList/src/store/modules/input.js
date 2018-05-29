@@ -1,15 +1,14 @@
-// initial state
 const state = {
-    msg2: '我来自store的input模块'
-}
+    text: ''
+};
 
 const mutations = {
-    modifyMsg(){
-        state.msg2 = '修改后'
+    changeText(state, res){
+        state.text = res;
     }
 }
-  
-export default {
+
+export default{
     state,
     mutations
 }

@@ -1,19 +1,14 @@
-// initial state
 const state = {
-    msg: '我来自store的list模块'
-}
+    list: ['今天要吃饭','明天要吃饭','后天也要吃饭']
+};
 
 const mutations = {
-    changeMsg(){
-        setTimeout(()=>{
-            state.msg = '修改后的msg';
-        }, 1000);
+    saveData(state, res){
+        state.list.push(res)
     }
 }
 
-
-  
-export default {
+export default{
     state,
     mutations
 }

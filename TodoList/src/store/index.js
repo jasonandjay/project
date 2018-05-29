@@ -1,13 +1,16 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import input from './modules/input'
-import list from './modules/list'
+import Vuex from 'vuex';
+import Vue from 'vue';
+import input from './modules/input.js';
+import list from './modules/list.js';
 
-Vue.use(Vuex)
+// 在Vue中引用插件Vuex
+Vue.use(Vuex);
 
-
+// 生成Vuex实例store
 export default new Vuex.Store({
-  modules: {
-    list
-  }
+    // 注册模块input和list
+    modules: {
+        input,
+        list
+    }
 })
