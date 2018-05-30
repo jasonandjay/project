@@ -72,7 +72,7 @@ module.exports = {
                 let username = req.query.username,
                     password = req.query.password;
                 // 判断用户名与密码是否可以登陆
-                let isLogin = username == 'CHNEMANJIE' && password == '123456'; 
+                let isLogin = username == 'CHENMANJIE' && password == '123456'; 
                 // 返回值，code=1表示登陆成功，code=0表示登陆失败
                 res.json({
                     code: isLogin?1:0,
@@ -130,15 +130,5 @@ module.exports = {
             }
         ]
     },
-    plugins,
-    optimization: {
-        splitChunks: {
-            cacheGroups: {
-                commons: {
-                    test: /[\\/]node_modules[\\/]/,
-                    name: "vendors",
-                }
-            }
-        }
-    }
+    plugins
 };
