@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import Input from './components/Input.vue';
 import List from './components/List.vue';
 export default {
@@ -18,6 +19,11 @@ export default {
   components: {
     Input,
     List
+  },
+  mounted(){
+    axios.get('/getCity').then(res=>{
+      console.log('res...', res);
+    })
   }
 }
 </script>

@@ -4,6 +4,6 @@ import store from './store/index.js';
 
 new Vue({
   el: '#app',
-  store,
+  store,  // 引入vuex中的store
   render: h => h(App)
 })

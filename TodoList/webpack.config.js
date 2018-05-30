@@ -78,7 +78,13 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     noInfo: true,
-    overlay: true
+    overlay: true,
+    setup: app=>{
+      app.get('/getCity', (req, res)=>{
+        let city = require('./src/json/data');
+        res.json(city);
+      })
+    }
   },
   performance: {
     hints: false
