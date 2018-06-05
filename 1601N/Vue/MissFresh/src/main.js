@@ -12,19 +12,22 @@ import City from './component/common/City.vue';
 import Item from './component/common/Item.vue';
 
 Vue.use(VueRouter)
+// 处理登陆逻辑
+let isLogin = false;
+
 const router = new VueRouter({
   routes: [
     {
       path: '/',
-      component: Index
+      component: isLogin?Index:Index
     },
     {
       path: '/vip',
-      component: Vip
+      component: isLogin?Vip:Index
     },
     {
       path: '/shopping',
-      component: Shopping
+      component: isLogin?Shopping:Index
     },
     {
       path: '/my',
