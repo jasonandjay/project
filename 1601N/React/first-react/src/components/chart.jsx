@@ -31,6 +31,23 @@ export default class Chart extends React.Component{
 		}
 	}
 
+	componentDidMount(){
+		setTimeout(()=>{
+			let list = this.state.list;
+			list.push({
+				id: 3,
+				checked: false,
+				name: '西柚',
+				price: 500,
+				num: 100
+			})
+			this.setState({
+				list
+			})
+			console.log('refs...', this.refs);
+		}, 1000);
+	} 
+
 	handleSelect(e){
 		// console.log(e.target.value);
 		// 对比vue中数据修改
@@ -101,13 +118,17 @@ export default class Chart extends React.Component{
 		})
 	}
 
+	refCb(){
+		console.log('argument', arguments);
+	}
+
 	render(){
 		return <div>
 			{/**对比Vue的props传递*/}
-			<List list={this.state.list} isSelectAll={this.state.isSelectAll}
+			<List list={this.state.list} ref={this.refCb} isSelectAll={this.state.isSelectAll}
 			handleListSelect={this.handleListSelect.bind(this)}
 			handleNumChange={this.handleNumChange.bind(this)}/>
-			<div>
+			<div ref="div">
 				<input type="checkbox" checked={this.state.isSelectAll} onChange={(e)=>this.handleSelect(e)}/>全选
 				<p>价格: ${this.state.price}</p>
 			</div>
