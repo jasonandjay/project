@@ -12,13 +12,13 @@ export default class List extends React.Component{
 	}
 
 	render(){
-		return <div>{
+		return <div className="list">{
 			/**对比vue的v-for，react用map方法遍历数组*/
 			this.props.list.map((item, index)=>{
 				return <li key={index}>
 					<input type="checkbox" checked={this.props.isSelectAll || item.checked}
 					onChange={(e)=>{this.props.handleListSelect(item.id, e.target.checked)}}/>
-					<div>
+					<div className="list_box">
 						<p>{item.name}</p>
 						<div>
 							<span onClick={()=>{
@@ -29,7 +29,7 @@ export default class List extends React.Component{
 								this.props.handleNumChange(item.id, '-');
 							}}>-</span>
 						</div>
-						<p>{item.price}</p>
+						<p>￥{item.price}</p>
 					</div>
 				</li>
 			})

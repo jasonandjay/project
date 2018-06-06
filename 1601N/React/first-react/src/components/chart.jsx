@@ -102,12 +102,12 @@ export default class Chart extends React.Component{
 	}
 
 	render(){
-		return <div>
+		return <div className="box">
 			{/**对比Vue的props传递*/}
 			<List list={this.state.list} isSelectAll={this.state.isSelectAll}
 			handleListSelect={this.handleListSelect.bind(this)}
 			handleNumChange={this.handleNumChange.bind(this)}/>
-			<div>
+			<div className="box_price">
 				<input type="checkbox" checked={this.state.isSelectAll} onChange={(e)=>this.handleSelect(e)}/>全选
 				<p>价格: ${this.state.price}</p>
 			</div>
