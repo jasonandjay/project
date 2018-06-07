@@ -42,7 +42,20 @@
 			componentWillUnmount	组件销毁之前 === beforeDestory
 
 			componentWillReceiveProps	组件即将接受props
-			*/
+			
+		高性能组件:
+			shouldComponentUpdate	组件是否需要更新,根据返回值为true或false判断是否需要刷新页面
+			在浏览器->more tools->rendering里勾选Paing flashing可以高亮页面重绘的部分
+			
+			PureComponent		高性能组件，当props或state的引用没有改变时不会触发更新
+			数组的深拷贝
+				let arr2 = [...arr1];
+			对象的深拷贝
+				let obj2 = {...obj1};
+				let obj2 = object.assign({}, obj1);
+			强制刷新
+				this.forceUpdate();	
+		*/
 	</script>
 </body>
 </html>

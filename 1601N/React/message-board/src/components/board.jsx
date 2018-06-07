@@ -33,6 +33,11 @@ export default class Board extends React.Component{
             return;
         }
         let timestamp = +new Date();
+        // let list = this.state.list;
+        // list.push({timestamp, content:this.state.content, name:this.state.name});
+        // this.setState({
+        //     list
+        // })
         this.setState({
             list: [...this.state.list, {timestamp, content:this.state.content, name:this.state.name}]
         }, ()=>{

@@ -6,6 +6,9 @@ export default class List extends React.Component{
     constructor(props){
         super(props);
         console.log('props...', props);
+        this.state = {
+            timestamp: 0
+        }
     }
 
     /**
@@ -25,6 +28,22 @@ export default class List extends React.Component{
          ${hour.padStart(2, '0')}:${min.padStart(2, '0')}:${second.padStart(2, '0')}`
     }
 
+    shouldComponentUpdate(nextProps, nextState){
+        // console.log('props..', nextProps, 'state...', nextState, nextProps.list === this.props.list);
+        // if (nextProps.list !== this.props.list){
+            return true;
+        // }
+        // return false;
+    }
+
+    componentDidMount(){
+        setInterval(()=>{
+            this.setState({
+                timestamp: +new Date()
+            })
+        }, 1000);
+    }
+
     render(){
         return <div className="list">
             <ul>{
@@ -38,6 +57,7 @@ export default class List extends React.Component{
                     </li>
                 })
             }</ul>
+            <p>{this.state.timestamp}</p>
         </div>
     }
 }
