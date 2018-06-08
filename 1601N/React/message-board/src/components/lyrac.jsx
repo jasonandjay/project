@@ -109,6 +109,8 @@ export default class Lyrac extends React.Component{
             });
             // 初始化滚动时间戳
             let starTime = +new Date();
+            // 语音播放类
+            let speech = new SpeechSynthesisUtterance();
             // this.refs.audio.play();
             setInterval(()=>{
                 // 开始时间段
@@ -120,6 +122,8 @@ export default class Lyrac extends React.Component{
                     }, ()=>{
                         // 滚动歌词
                         this.swiper.slideNext();
+                        // speech.text = this.state.text[this.state.current]
+                        // window.speechSynthesis.speak(speech);
                     })
                 }
             }, 100);

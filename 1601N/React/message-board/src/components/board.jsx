@@ -1,6 +1,8 @@
 import React from 'react';
+import { findDOMNode } from 'react-dom';
 import List from './list.jsx';
 import '../scss/board.css';
+import axios from 'axios';
 
 export default class Board extends React.Component{
     // 参数传参props，可以在cosntructor里直接访问props
@@ -21,6 +23,12 @@ export default class Board extends React.Component{
             list = []
         }
         this.setState({list});
+
+        console.log(this.refs.div, this.refs.list);
+        console.log(findDOMNode(this.refs.list));
+        
+        // 引入axios
+        axios.get('https://www.easy-mock.com/mock/5af6599acf64741ceacf1c57/es6/carBrand').then(res=>console.log('res...', res));
     }
 
     submit(){
@@ -48,9 +56,11 @@ export default class Board extends React.Component{
     render(){
         return <div className="board">
             <h3>高端单机留言板</h3>
-            <List list={this.state.list}/>
-            <div className="content">
-                <textarea value={this.state.content} onChange={e=>this.setState({content:e.target.value})} cols="30" rows="10" placeholder="留言内容"></textarea>
+            <List list={this.state.list} ref="list"/>
+            <div className="content" ref="div">
+                <textarea 
+                onPaste={(e)=>{console.log('触发了paste操作', e.target.value)}}
+                value={this.state.content} onChange={e=>this.setState({content:e.target.value})} cols="30" rows="10" placeholder="留言内容"></textarea>
                 <div>
                     <input value={this.state.name} onChange={e=>this.setState({name:e.target.value})} type="text" placeholder="请输入你的姓名"/>
                     <button onClick={this.submit.bind(this)}>发布留言</button>

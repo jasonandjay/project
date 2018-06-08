@@ -1,4 +1,5 @@
 import React from 'react';
+import PropType from 'prop-types';
 import '../scss/list.css';
 
 export default class List extends React.Component{
@@ -44,20 +45,46 @@ export default class List extends React.Component{
         }, 1000);
     }
 
+    animStart(e){
+        // console.log('anim start...', e);
+    }
+    animEnd(e){
+        // console.log('anim end...', e);
+    }
+    animIntera(e){
+        // console.log('anim inter...', e);
+    }
+
     render(){
         return <div className="list">
             <ul>{
                 this.props.list.map((item, index)=>{
-                    return <li key={index}>
+                    return <li key={index}
+                    onAnimationStart={(e)=>{
+                        this.animStart(e);
+                    }}
+                    onAnimationEnd={(e)=>{
+                        this.animEnd(e);
+                    }}
+                    onAnimationIteration={(e)=>{
+                        this.animIntera(e);
+                    }}>
                         <p>
                             <span>{item.name}</span>
                             <span>{this.formatTime(item.timestamp)}</span>
                         </p>
-                        <p>{item.content}</p>
+                        <p
+                            onCopy={()=>console.log('触发了copy操作')}
+                            onCut={()=>console.log('触发了cut操作')}
+                        >{item.content}</p>
                     </li>
                 })
             }</ul>
             <p>{this.state.timestamp}</p>
         </div>
     }
+}
+
+List.propTypes = {    
+    list: PropType.array.isRequired
 }
