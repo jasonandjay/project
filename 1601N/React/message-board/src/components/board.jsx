@@ -28,7 +28,23 @@ export default class Board extends React.Component{
         console.log(findDOMNode(this.refs.list));
         
         // 引入axios
-        axios.get('https://www.easy-mock.com/mock/5af6599acf64741ceacf1c57/es6/carBrand').then(res=>console.log('res...', res));
+        // axios.get('https://www.easy-mock.com/mock/5af6599acf64741ceacf1c57/es6/carBrand').
+        //     then(res=>console.log('res...', res));
+        // 引用fetch
+        fetch('https://www.easy-mock.com/mock/5af6599acf64741ceacf1c57/es6/carBrand', {
+            // 可选请求配置项
+            methods: 'POST',
+            
+            // body: JSON.stringify(data)
+        }).then(res=>{
+            // console.log('res...', res.json());
+            res.json().then(body=>{
+                console.log('body...', body)
+            })
+        })
+        fetch('http://localhost:3000/', {
+            credentials: "include"
+        })
     }
 
     submit(){
