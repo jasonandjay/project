@@ -128,11 +128,7 @@ export default class Chart extends React.Component{
 			<List list={this.state.list} ref={this.refCb} isSelectAll={this.state.isSelectAll}
 			handleListSelect={this.handleListSelect.bind(this)}
 			handleNumChange={this.handleNumChange.bind(this)}/>
-<<<<<<< HEAD
-			<div ref="div">
-=======
 			<div className="box_price">
->>>>>>> cd933b880b66c43147f97c2490aa242dd1e167f5
 				<input type="checkbox" checked={this.state.isSelectAll} onChange={(e)=>this.handleSelect(e)}/>全选
 				<p>价格: ${this.state.price}</p>
 			</div>

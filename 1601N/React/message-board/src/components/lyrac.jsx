@@ -122,8 +122,8 @@ export default class Lyrac extends React.Component{
                     }, ()=>{
                         // 滚动歌词
                         this.swiper.slideNext();
-                        // speech.text = this.state.text[this.state.current]
-                        // window.speechSynthesis.speak(speech);
+                        speech.text = this.state.text[this.state.current]
+                        window.speechSynthesis.speak(speech);
                     })
                 }
             }, 100);
