@@ -65,6 +65,14 @@ const intro = Loadable({
 //     </div>
 // }
 
+fetch('/login', {
+
+}).then(res=>{
+    res.json().then(body=>{
+        console.log('body...', body);
+    })
+})
+
 export default ()=>{
     return <Router>
         <div> 
