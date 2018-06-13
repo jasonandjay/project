@@ -66,10 +66,11 @@
 				browserHistory,注意处理404 和 hashHistory
 			几个组件：
 				BrowserRouter	选择使用哪种模式
-				Route	配置路由
-				Link	跳转路由
-				NavLink	特殊的link，会在选中的时候会切换active状态，配置activeClassName
-				Switch	显示匹配的第一个路由
+				Route		配置路由
+				Link		跳转路由
+				NavLink		特殊的link，会在选中的时候会切换active状态，配置activeClassName
+				Switch		显示匹配的第一个路由
+				Redirect 	重定向当前路由
 			路由组件：传递的prps, match+location
 			路由传参：
 				path的两种方式：字符串和对象
@@ -78,12 +79,11 @@
 				data: 任意数据
 			路径语法：
 				<Route path="/hello/:name">         // 匹配 /hello/michael 和 /hello/ryan
-				<Route path="/hello(/:name)">       // 匹配 /hello, /hello/michael 和 /hello/ryan
+				<Route path="/hello/:name?">       // 匹配 /hello, /hello/michael 和 /hello/ryan
 				<Route path="/files/*.*">           // 匹配 /files/hello.jpg 和 /files/path/to/hello.jpg
-			关键字：exact 精准匹配
-			
-			组件路由生命周期	routeWillLeave(nextLocation)
-			路由配置的生命周期	onEnter,onLeave
+			关键字：
+				exact 精准匹配
+				replace 替换当前路径，表现就是返回的时候直接返回上上一层
 		
 
 			代码分割：	
