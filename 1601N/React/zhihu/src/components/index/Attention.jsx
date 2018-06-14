@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import '../../scss/attention.css';
 
 export default class Gallery extends React.Component{
@@ -40,14 +41,19 @@ export default class Gallery extends React.Component{
         return <div className="attention">{
             this.state.list.map((item, index)=>{
                 return <li key={index}>
-                    <div>
-                        <img src={item.actors[0].avatar_url}/>
-                        <span>{item.action_text}</span>
-                        <span>· 七分钟前</span>
-                    </div>
-                    <p>{item.target.question.title}</p>
-                    <p>{item.target.excerpt}</p>
-                    <div>798赞同·88评论</div>
+                    <Link to={{
+                        pathname: '/attDetail',
+                        data: item
+                    }}>    
+                        <div>
+                            <img src={item.actors[0].avatar_url}/>
+                            <span>{item.action_text}</span>
+                            <span>· 七分钟前</span>
+                        </div>
+                        <p>{item.target.question.title}</p>
+                        <p>{item.target.excerpt}</p>
+                        <div>798赞同·88评论</div>
+                    </Link>
                 </li>
             })
         }</div>
