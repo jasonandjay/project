@@ -12,6 +12,10 @@ html,body,#root,.container{
     justify-content: space-between;
     font-size: 20px;
 }
+.content{
+    flex: 1;
+    overflow: scroll;
+}
 header,footer{
     height: 50px;
     width: 100%;

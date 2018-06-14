@@ -1,4 +1,11 @@
 .index{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    &>div{
+        flex: 1;
+        overflow: scroll;
+    }
     span.active{
         color: #f60;
     }

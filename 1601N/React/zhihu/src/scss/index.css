@@ -1,2 +1,9 @@
-.index span.active {
-  color: #f60; }
+.index {
+  height: 100%;
+  display: flex;
+  flex-direction: column; }
+  .index > div {
+    flex: 1;
+    overflow: scroll; }
+  .index span.active {
+    color: #f60; }

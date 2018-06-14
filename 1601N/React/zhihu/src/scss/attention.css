@@ -1,0 +1,20 @@
+.attention {
+  background: #ddd; }
+  .attention li {
+    list-style: none;
+    background: #fff;
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #333; }
+  .attention img {
+    border-radius: 50%; }
+  .attention p:nth-child(2) {
+    font-size: 20px;
+    color: #000;
+    font-weight: bolder; }
+  .attention p:nth-child(3) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical; }

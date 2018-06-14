@@ -15,7 +15,7 @@ import '../scss/router.css';
 export default ()=>{
     return <Router>
         <div className="container">
-            <div>
+            <div className="content">
                 <Route exact path="/" render={()=>{
                     return <Redirect to="/index"/>
                 }}/>
