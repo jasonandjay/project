@@ -56,7 +56,7 @@ class Gallery extends React.Component{
                             <span>· 七分钟前</span>
                         </div>
                         <p>{item.target.question.title}</p>
-                        <p>{item.target.excerpt}</p>
+                        <p style={{"-webkit-box-orient": "vertical"}}>{item.target.excerpt}</p>
                         <div>798赞同·88评论</div>
                     </Link>
                 </li>
