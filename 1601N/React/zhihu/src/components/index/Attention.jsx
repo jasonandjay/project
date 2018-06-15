@@ -1,12 +1,15 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import '../../scss/attention.css';
+import WithTitle from '../hoc/WithTitle';
+import WithLoading from '../hoc/WithLoading';
 
-export default class Gallery extends React.Component{
+class Gallery extends React.Component{
     constructor(){
         super()
         this.state = {
-            list: []
+            list: [],
+            loading: true
         }
     }
 
@@ -15,13 +18,15 @@ export default class Gallery extends React.Component{
     }
 
     laodData(callback=()=>{}){
+        this.setState({loading: true});
         fetch('https://www.easy-mock.com/mock/5af6599acf64741ceacf1c57/es6/zhihu/attention', {
 
         }).then(res=>{
             res.json().then(body=>{
                 console.log(body);
                 this.setState({
-                    list: this.state.list.concat(body.data)
+                    list: this.state.list.concat(body.data),
+                    loading: false
                 }, ()=>{
                     callback();
                 })
@@ -59,3 +64,5 @@ export default class Gallery extends React.Component{
         }</div>
     }
 }
+
+export default WithLoading(Gallery);

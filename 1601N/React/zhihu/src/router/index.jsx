@@ -14,37 +14,33 @@ import AttDetail from '../components/index/AttDetail';
 import '../scss/router.css';
 
 export default ()=>{
-    console.log(window.location);
-    let showFooter = true;
-    let hash = window.location.hash;
-    let indexRoute = ['#/index', '#/idea', '#/university', '#/message', '#/my'];
-    if (indexRoute.indexOf(hash) != -1){
-        showFooter = true;
-    }else{
-        showFooter = false;
-    }
     return <Router>
-        <div className="container">{
-            showFooter?<div className="content">
-                <Route exact path="/" render={()=>{
-                    return <Redirect to="/index"/>
-                }}/>
-                <Route path="/index" component={Index}/>
-                <Route path="/idea" component={Idea}/>
-                <Route path="/university" component={University}/>
-                <Route path="/message" component={Message}/>
-                <Route path="/my" component={My}/>
-            </div>:null}{
-            showFooter?<footer>
-                <Link to="/index">首页</Link>
-                <Link to="/idea">想法</Link>
-                <Link to="/university">大学</Link>
-                <Link to="/message">消息</Link>
-                <Link to="/my">我的</Link>
-            </footer>:null}{
-            showFooter?<div>
-                <Route path="/attDetail" component={AttDetail}/>
-            </div>:null
-        }</div>
+        <div className="container">
+            <Route exact path="/" render={()=>{
+                return <Redirect to="/tab"/>
+            }}/>
+            <Route path="/tab" render={()=>{
+                return <div className="tab">
+                    <div className="content">
+                        <Route exact path="/tab/" render={()=>{
+                            return <Redirect to="/tab/index"/>
+                        }}/>
+                        <Route path="/tab/index" component={Index}/>
+                        <Route path="/tab/idea" component={Idea}/>
+                        <Route path="/tab/university" component={University}/>
+                        <Route path="/tab/message" component={Message}/>
+                        <Route path="/tab/my" component={My}/>
+                    </div>
+                    <footer>
+                        <Link to="/tab/index">首页</Link>
+                        <Link to="/tab/idea">想法</Link>
+                        <Link to="/tab/university">大学</Link>
+                        <Link to="/tab/message">消息</Link>
+                        <Link to="/tab/my">我的</Link>
+                    </footer>
+                </div>
+            }}/>
+            <Route path="/attDetail" component={AttDetail}/>
+        </div>
     </Router>
 }

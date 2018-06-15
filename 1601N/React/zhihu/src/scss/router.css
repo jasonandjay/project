@@ -9,7 +9,7 @@ a {
 html, body, #root, .container {
   height: 100%; }
 
-.container {
+.container .tab {
   display: flex;
   flex-direction: column;
   height: 100%;

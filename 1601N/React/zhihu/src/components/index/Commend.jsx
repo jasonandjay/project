@@ -1,11 +1,21 @@
 import React from 'react';
+import WithTitle from '../hoc/WithTitle';
+import WithLoading from '../hoc/WithLoading';
 
-export default class Gallery extends React.Component{
+class Gallery extends React.Component{
     constructor(){
         super()
         this.state = {
-                  
+            loading: true
         }
+    }
+
+    componentDidMount(){
+        setTimeout(()=>{
+            this.setState({
+                loading: false
+            })
+        }, 10000)
     }
 
     render(){
@@ -13,3 +23,5 @@ export default class Gallery extends React.Component{
         </div>
     }
 }
+
+export default WithTitle(WithLoading(Gallery));

@@ -89,8 +89,48 @@
 			代码分割：	
 				意义和如何用webpack实现
 			组件外部调用路由导航
+
+		高阶函数：
+			在函数的基础上，再做一层封装，抽离一些公共逻辑
+			接收一个函数，输出一个函数
 					
 		*/
+	</script>
+	<script>
+		window.localStorage.setItem('name', '刘畅');
+		function eat(){
+			let name = window.localStorage.getName('name');
+			console.log(`${name}要去吃饭`)
+		}
+		function wash(){
+			let name = window.localStorage.getName('name');
+			console.log(`${name}要去洗澡`)
+		}
+		eat();
+		wash();
+
+		// 高阶函数的写法
+		function eat(name){
+   			console.log(`${name}要去吃饭`)
+		}
+		function wash(name){
+			console.log(`${name}要去洗澡`)
+		}
+		function getName(func){
+			let name = window.localStorage.getName('name');
+			return ()=>{
+				func(name);
+			}
+		}
+		let eat = getName(eat);
+		let wash = getName(wash);
+
+
+
+
+		let wrapWash = getName(wash);
+		wrapEat();
+		wrapWash();
 	</script>
 </body>
 </html>
