@@ -1,0 +1,39 @@
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    img{
+        width: 100px;
+    }
+    div{
+        flex: 1;
+        position: relative;
+        em{
+            display: inline-block;
+            border-bottom: 10px solid;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            width: 0;
+            height: 0;
+            transition: all .3s;
+            transform-origin: center;
+        }
+        em.select{
+            transform: rotate(180deg);
+        }
+        ul{
+            padding: 0;
+            position: absolute;
+            list-style: none;
+            border: 1px solid;
+        }
+        a{
+            text-decoration: none;
+            color: #000;
+        }
+    }
+    .active{
+        color: blue; 
+    }
+}
+

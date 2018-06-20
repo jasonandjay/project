@@ -1,0 +1,30 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; }
+  .header img {
+    width: 100px; }
+  .header div {
+    flex: 1;
+    position: relative; }
+    .header div em {
+      display: inline-block;
+      border-bottom: 10px solid;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      width: 0;
+      height: 0;
+      transition: all .3s;
+      transform-origin: center; }
+    .header div em.select {
+      transform: rotate(180deg); }
+    .header div ul {
+      padding: 0;
+      position: absolute;
+      list-style: none;
+      border: 1px solid; }
+    .header div a {
+      text-decoration: none;
+      color: #000; }
+  .header .active {
+    color: blue; }
