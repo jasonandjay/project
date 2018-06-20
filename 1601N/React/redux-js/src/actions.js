@@ -1,31 +1,30 @@
-/*
- * action 创建函数
- */
+// 事件生成函数
 import * as actionTypes from './actionTypes';
 
-export function addNum(text) {
+export const addNum = (text)=>{
     return {
         type: actionTypes.ADD_NUM,
-        text    
+        text
     }
 }
 
-export function subNum(text) {
+export const subNum = (text)=>{
     return {
         type: actionTypes.SUB_NUM,
         text
     }
 }
 
-export function addList(text){
+export const addList = (text)=>{
     return {
         type: actionTypes.ADD_LIST,
         text
     }
 }
 
-export function clearList(text){
+export const clearList = (text)=>{
     return {
-        type: actionTypes.CLEAR_LIST
+        type: actionTypes.CLEAR_LIST,
+        text
     }
 }

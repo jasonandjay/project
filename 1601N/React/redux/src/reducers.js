@@ -5,7 +5,6 @@ import {
     ADD_LIST,
     CLEAR_LIST
 } from './actionTypes';
-import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
 
 let initialState = {
     num: 0,
