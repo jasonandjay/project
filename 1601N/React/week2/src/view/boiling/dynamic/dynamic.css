@@ -1,0 +1,15 @@
+.dynamic{
+    width:100%;
+}
+.dynamic div {
+    border-bottom: 1px solid #ccc;
+    padding:10px;
+}
+.dynamic div h4{
+    height:50px;
+    display: flex;
+    align-items: center;
+}
+.dynamic div h4 img{
+    margin:0 10px;
+}

@@ -1,0 +1,18 @@
+.home {
+    width: 100%;
+}
+
+.home div{
+    border-bottom:1px solid #ccc;
+    padding:5px 10px;
+}
+.home div h4 {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    
+}
+
+.home div h4 img {
+    margin: 0 10px;
+}

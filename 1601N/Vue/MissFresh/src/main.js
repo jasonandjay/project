@@ -4,12 +4,19 @@ import VueRouter from 'vue-router';
 
 
 // 路由配置
-import Index from './component/Index.vue';
-import Vip from './component/Vip.vue';
-import Shopping from './component/Shopping.vue';
-import My from './component/My.vue';
-import City from './component/common/City.vue';
-import Item from './component/common/Item.vue';
+// import Index from './component/Index.vue';
+// import Vip from './component/Vip.vue';
+// import Shopping from './component/Shopping.vue';
+// import My from './component/My.vue';
+// import City from './component/common/City.vue';
+// import Item from './component/common/Item.vue';
+
+const Index = ()=>import('./component/Index.vue');
+const Vip = ()=>import('./component/Vip.vue');
+const Shopping = ()=>import('./component/Shopping.vue');
+const My = ()=>import('./component/My.vue');
+const City = ()=>import('./component/common/City.vue');
+const Item = ()=>import('./component/common/Item.vue');
 
 Vue.use(VueRouter)
 // 处理登陆逻辑

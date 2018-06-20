@@ -1,0 +1,24 @@
+.select{
+    position: relative;
+}
+.select span{
+    color:#0070FF;
+}
+.select ol{
+    position: absolute;
+    top:35px;
+    left:-22px;
+    width:80px; 
+    text-align: center;
+    border:1px solid #ccc;
+    background: #fff;
+}
+.select ol a{
+    display: block;
+    color:#333;
+    line-height: 35px;
+    border-bottom: 1px solid #cccc;
+}
+.select ol .active{
+    color:#0070FF;
+}

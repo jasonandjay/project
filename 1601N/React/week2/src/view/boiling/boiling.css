@@ -1,0 +1,17 @@
+.boiling{
+    width: 100%;
+}
+.boiling .nav{
+    height:45px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.boiling .nav a{
+    font-size: 14px;
+    font-weight: 800;
+    color:#333;
+}
+.boiling .nav .active{
+    color: #0070FF;
+}
