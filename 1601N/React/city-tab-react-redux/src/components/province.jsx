@@ -1,5 +1,4 @@
 import React from 'react';
-// import store from '../store';
 import {connect} from 'react-redux';
 
 class Province extends React.Component{
@@ -7,23 +6,7 @@ class Province extends React.Component{
         super();
     }
 
-    // click(index){
-    //     store.dispatch({
-    //         type: 'CLICK_INDEX',
-    //         text: index
-    //     })
-
-    //     store.dispatch({
-    //         type: 'CHANGE_CITY',
-    //         text: this.province[index].list
-    //     })
-    // }
-
     render(){
-        // let province = this.province = store.getState().province.province;
-        // let curIndex  = store.getState().province.index;
-
-        console.log('province...', this.props);
         let province = this.props.province,
             curIndex = this.props.index;
         return <div>
@@ -60,5 +43,4 @@ const mapDispatchtoProps = dispatch=>{
     }
 }
 
-// export default connect(mapStatetoProps, mapDispatchtoProps, mergeProps, option)(City);
 export default connect(mapStatetoProps, mapDispatchtoProps)(Province);

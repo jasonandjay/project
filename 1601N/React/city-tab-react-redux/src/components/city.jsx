@@ -8,12 +8,7 @@ class City extends React.Component{
     }
 
     render(){
-        // console.log('city...', store.getState().city);
-        // let city = store.getState().city;
-
-        console.log('props...', this.props);
         let city = this.props.city;
-        // return null;
         return <div>{
             city.map((item, index)=>{
                 return <span key={index} onClick={()=>this.props.onClick(index)}>{item}</span>
@@ -41,4 +36,4 @@ const mergeProps = (statePorps, dispatchProps, ownProps)=>{
 }
 
 // export default connect(mapStatetoProps, mapDispatchtoProps, mergeProps, option)(City);
-export default connect(mapStatetoProps, mapDispatchtoProps, mergeProps, {pure:true})(City);
+export default connect(mapStatetoProps, mapDispatchtoProps)(City);
