@@ -1,7 +1,7 @@
 import React from 'react';
 import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
-
+import {logout} from '../../actions/actions';
 
 class My extends React.Component{
     constructor(){
@@ -12,7 +12,10 @@ class My extends React.Component{
         if (!this.props.login){
             return <Redirect to='/login'/>
         }
-        return <p>我是my</p>
+        return <div>
+            <p>我是my</p>
+            <button onClick={this.props.doLogout}>退出登录</button>
+        </div>
     }
 }
 
@@ -23,4 +26,10 @@ const mapStatetoProps = (state, ownProps)=>{
     }
 }
 
-export default connect(mapStatetoProps)(My)
+const mapDispatchtoPorps = dispatch=>{
+    return {
+        doLogout: ()=>dispatch(logout())
+    }
+}
+
+export default connect(mapStatetoProps, mapDispatchtoPorps)(My)

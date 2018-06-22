@@ -1,7 +1,7 @@
 import * as actionTypes from '../actions/actionTypes';
 
 let initialState = {
-    isLogin: false
+    isLogin: true
 }
 
 let doLogin = (state = initialState, action)=>{
