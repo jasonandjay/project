@@ -1,0 +1,18 @@
+.login {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 30%;
+  margin: 35% 0; }
+  .login input {
+    border: none;
+    outline: none;
+    background: #c0c0c0;
+    padding: 10px; }
+  .login button {
+    width: 100px;
+    height: 30px;
+    outline: none;
+    border: none;
+    background: linear-gradient(left, #df6969, #fff, gray); }
