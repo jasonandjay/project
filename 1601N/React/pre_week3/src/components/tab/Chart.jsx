@@ -18,7 +18,7 @@ class Chart extends React.Component{
 
 const mapStatetoProps = (state, ownProps)=>{
     return {
-        login: state.login.isLogin,
+        login: state.isLogin,
         ...ownProps
     }
 }
