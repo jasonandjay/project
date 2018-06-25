@@ -16,7 +16,7 @@ class Router extends Component{
                     }} key={index}></Route>
                 })    
             }
-            <Redirect to="/tab/index"/>
+            <Redirect to="/console"/>
             </Switch> 
         )
     }
