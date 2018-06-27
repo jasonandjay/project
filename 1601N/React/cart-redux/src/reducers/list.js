@@ -1,10 +1,15 @@
 import {
     CHANGE_NUM,
-    SELECT_ITEM
+    SELECT_ITEM,
+    SELECT_ALL_ITEM,
+    CHANGE_PRICE,
+    SELECT_ALL,
+    CLICK_SELECT_ALL
 } from '../actions/actionTypes';
 
 let initialState = {
-    num: 1,
+    price: 0,
+    isSelectAll: false,
     list: [{
         id: 0,
         checked: false,
@@ -37,26 +42,65 @@ const changeNum = (state, action)=>{
             })
             return newState;
         };
-        case SELECT_ITEM: selectItem(state, action);
+        case SELECT_ITEM: {
+            let newState = state.map(item=>{
+                let obj = {};
+                if (item.id == action.text.id){
+                    obj = {checked: !item.checked};
+                }
+                return Object.assign({}, item, obj);
+            })
+            return newState;
+        };
+        case SELECT_ALL_ITEM: {
+            let newState = state.map(item=>{
+                let obj = {checked: action.text};
+                return Object.assign({}, item, obj);
+            })
+            return newState;
+        };
         default: return state;
     } 
 }
 
-const selectItem = (state, action)=>{
-    let newState = [...state];
-    // console.log('newState...', state, newState, action)
-    newState.forEach(item=>{
-        console.log(item, 'action..', action)
-        if (item.id == action.text.id){
-            console.log(1);
-            item.checked = !item.checked
+const priceChange = (state, action)=>{
+    let price = 0;
+    switch(action.type){
+        case CHANGE_PRICE: {
+            state.list.forEach((item)=>{
+                if (item.checked){
+                    price += item.num*item.price;
+                }
+            })
+            return price;
+        } 
+    }
+    return state.price;
+}
+
+const selectAll = (state, action)=>{
+    switch(action.type){
+        case SELECT_ALL: {
+            let isSelectAll = true
+            state.list.forEach((item)=>{
+                if (!item.checked){
+                    isSelectAll = false;
+                }
+            })
+            return isSelectAll;
         }
-    })
-    return newState;
+        case CLICK_SELECT_ALL: {
+            return action.text;
+        }
+    }
+
+    return state.isSelectAll;
 }
 
 export default (state=initialState, action)=>{
     return {
-        list: changeNum(state.list, action)
+        list: changeNum(state.list, action),
+        price: priceChange(state, action),
+        isSelectAll: selectAll(state, action)
     }
 }

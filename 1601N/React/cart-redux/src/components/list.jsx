@@ -5,24 +5,14 @@ import '../scss/list.css';
 import {connect} from 'react-redux';
 import {
 	changeNum,
-	selectItem
+	selectItem,
+	changePrice,
+	selectAll
 } from '../actions/actions';
 
 class List extends React.Component{
 	constructor(){
 		super();
-		this.state = {
-			showInput: true
-		}
-	}
-
-	// 对比vue组件生命周期的mounted
-	componentDidMount(){
-		console.log('this.props...', this.props);
-	}
-
-	componentWillReceiveProps(props){
-		console.log('props...', props);
 	}
 
 	render(){
@@ -30,7 +20,7 @@ class List extends React.Component{
 			/**对比vue的v-for，react用map方法遍历数组*/
 			this.props.list.map((item, index)=>{
 				return <li key={index}>
-					<input type="checkbox" checked={item.checked}
+					<input type="checkbox" checked={this.props.isSelectAll || item.checked}
 					onChange={(e)=>{this.props.handleListSelect(item.id)}}/>
 					<div className="list_box">
 						<p>{item.name}</p>
@@ -51,27 +41,25 @@ class List extends React.Component{
 	}
 }
 
-// prop类型检查
-List.propTypes = {
-	list: PropTypes.array
-}
-
-// prop默认值
-List.defaultProps = {
-  	isSelectAll: true
-};
-
 const mapStatetoProps = (state)=>{
 	console.log(state);
 	return {
-		list: state.list.list
+		list: state.list.list,
+		isSelectAll: state.list.isSelectAll
 	}
 }
 
 const mapDispatchtoProps = (dispatch)=>{
 	return {
-		handleNumChange: (id, num)=>dispatch(changeNum({id, num})),
-		handleListSelect: (id)=>dispatch(selectItem({id}))
+		handleNumChange: (id, num)=>{
+			dispatch(changeNum({id, num}))
+			dispatch(changePrice())
+		},
+		handleListSelect: (id)=>{
+			dispatch(selectItem({id}))
+			dispatch(changePrice())
+			dispatch(selectAll())
+		}
 	}
 }
 
