@@ -60,7 +60,7 @@ const mapDispatchtoProps = (dispatch)=>{
 			})
 			dispatch({
 				type: 'CHANGE_PRICE'
-			})
+			})	
 			dispatch({
 				type: 'SELECT_ALL'
 			})
