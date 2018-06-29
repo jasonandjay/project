@@ -8,9 +8,6 @@
 <script>
     import {mapState} from 'vuex';
     export default {
-        data(){
-            return {}
-        },
         // 用mapState方法获取state
         computed: mapState({
             list: state=>state.list.list
