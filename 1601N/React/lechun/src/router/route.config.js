@@ -17,7 +17,7 @@ export default {
             path: '/home/main',
             component: Main,
             children: [{
-                path: '/home/main/content/:id',
+                path: '/home/main/:id',
                 component: Content
             }]
         }, {

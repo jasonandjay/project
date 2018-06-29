@@ -1,5 +1,6 @@
 .cart {
   position: fixed;
+  z-index: 99;
   top: 0;
   left: 0;
   width: 100%;
@@ -9,3 +10,17 @@
   flex-direction: column;
   justify-content: flex-end;
   align-items: center; }
+  .cart ul {
+    width: 90%;
+    margin: 0 5% 10px;
+    background: #fff;
+    border-radius: 10px; }
+  .cart li {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px; }
+  .cart p {
+    margin: 0; }

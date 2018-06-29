@@ -8,8 +8,8 @@ import {
 export default (props)=>{
     return <Fragment>
         <Switch>{
-            props.routes.map(item=>{
-                return <Route path={item.path} render={(...route)=>{
+            props.routes.map((item, index)=>{
+                return <Route key={index} path={item.path} render={(...route)=>{
                     if (item.children){
                         return <item.component {...route} childrenRoutes={item.children}/>
                     }else{
