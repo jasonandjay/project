@@ -6,7 +6,7 @@ export default class Home extends React.Component{
         super()
     }
     render(){
-        return <div className="cart">
+        return <div className="cart" onClick={this.props.hideCart}>
             <p>我是购物车</p>
         </div>
     }

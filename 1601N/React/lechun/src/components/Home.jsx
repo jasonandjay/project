@@ -13,6 +13,12 @@ export default class Home extends React.Component{
         }
     }
 
+    hideCart(){
+        this.setState({
+            showCart: false
+        })
+    }
+
     render(){
         return <div className="home">
             <Route routes={this.props.childrenRoutes}/>
@@ -23,7 +29,7 @@ export default class Home extends React.Component{
                 </div>
                 <NavLink to="/home/my">我的</NavLink>
             </footer>
-            {this.state.showCart?<Cart />:null}
+            {this.state.showCart?<Cart hideCart={this.hideCart.bind(this)}/>:null}
         </div>
     }
 }
