@@ -27,7 +27,9 @@ class Main extends React.Component{
         })
 
         return <div className="main">
-            <Header navList={navList}/>
+            <Header navList={navList}>
+                <p>我是header组件里面的P标签</p>
+            </Header>
             <Route routes={this.props.childrenRoutes}></Route>
         </div>
     }
