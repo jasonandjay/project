@@ -5,27 +5,7 @@ export default class Cart extends React.Component{
     constructor(){
         super();
         this.state = {
-            list: [{
-                name: '榴莲',
-                price: 100,
-                num: 1,
-                checked: false
-            },{
-                name: '百香果',
-                price: 50,
-                num: 1,
-                checked: false
-            },{
-                name: '车厘子',
-                price: 200,
-                num: 1,
-                checked: false
-            },{
-                name: '山竹',
-                price: 300,
-                num: 1,
-                checked: false
-            }],
+            list: [],
             isSelectAll: false,
             price: 0
         }
@@ -35,10 +15,12 @@ export default class Cart extends React.Component{
     componentDidMount(){
         fetch('/getData')
         .then(res=>{
+            console.log('res...', res);
             return res.json()
         })
         .then(body=>{
-            console.log('body...', body);
+            this.setState({list: body});
+            // console.log('body...', body);
         })
     }
 
