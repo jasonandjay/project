@@ -1,10 +1,19 @@
 <template>
     <div>
-        <List :brandList="brandList" :getMasterList="getMasterList"/>
-        <Letter :letter="letter"/>
-        <MasterList :masterCls="masterCls" :masterList="masterList"/>
+        <div class="wrap" ref="wrap">
+            <List :brandList="brandList" :getMasterList="getMasterList"/>
+        </div>
+        <Letter :letter="letter" :changeLetter="changeLetter"/>
+        <MasterList :masterCls="masterCls" :masterList="masterList"
+            :hideMaster="hideMaster"/>
     </div>
 </template>
+<style>
+.wrap{
+    height: 100%;
+    overflow-y: scroll;
+}
+</style>
 
 <script>
 import Letter from './common/Letter.vue';
@@ -48,6 +57,7 @@ export default {
                                 })
                             }
                         })
+                        letter.unshift('#');
                         this.letter = letter;
                         this.brandList = brandList;
                         // console.log(letter, brandList);
@@ -65,11 +75,25 @@ export default {
                     console.log('body：', body);
                     if (body.code == 1){
                         this.masterList = body.data;
+                        this.masterCls = 'active';
                     }else{
                         alert(body.msg);
                     }
                 })
             })
+        },
+
+        hideMaster(){
+            this.masterCls = '';
+        },
+
+        changeLetter(letter){
+            if (letter == '#'){
+                return;
+            }
+            let scrollTop = document.querySelector(`#${letter}`).offsetTop;
+            console.log(letter, scrollTop);
+            this.$refs.wrap.scrollTop = scrollTop;
         }
     },
     mounted(){
