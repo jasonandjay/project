@@ -1,0 +1,15 @@
+.letter{
+    position: fixed;
+    top: 50%;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: .24rem;
+    transform: translateY(-50%);
+    span{
+        font-weight: 500;
+        color: #666;
+        padding: .02rem .1rem;
+    }
+}
