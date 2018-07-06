@@ -7,12 +7,15 @@ export let lazyLoad = {
     },
     init(){
         this.nodes = Array.from(document.querySelectorAll('[data-src]'));
-        console.log('nodes...', this.nodes);
+        this.loadImg();
     },
     loadImg(){
-        this.nodes.forEach((item, index)=>{
+        this.nodes.forEach(item=>{
             if (this.inView(item)){
-                item.src = item.getAttribute('data-src');
+                let data_src = item.getAttribute('data-src');
+                if (item.src != data_src){
+                    item.src = data_src;
+                }
             }
         })
     }

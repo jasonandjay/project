@@ -1,8 +1,9 @@
 import Vue from 'vue'
-import Index from './components/Index';
+import router from './router/index';
 import "./scss/reset.css";
 
 new Vue({
   el: '#app',
-  render: h => h(Index)
+  router
+  // render: h => h(Index)
 })

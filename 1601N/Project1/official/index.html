@@ -11,10 +11,20 @@
 		};
 		(window.onresize = window.onload = resize) && resize();
 	</script>
+	<link rel="stylesheet" href="src/scss/reset.css">
 </head>
 
 <body>
-	<div id="app"></div>
+	<div id="app">
+		<router-view>
+			<div class="loading hide" id="loading">
+				<div>
+					<img src="/src/assets/loading.gif">
+					<p>加载中...</p>
+				</div>
+			</div>
+		</router-view>
+	</div>
 	<script src="/dist/build.js"></script>
 </body>
 </html>

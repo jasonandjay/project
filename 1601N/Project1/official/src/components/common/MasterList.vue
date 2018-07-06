@@ -6,7 +6,7 @@
         <div v-for="(item, index) in masterList" :key="index">
             <p class="name">{{item.GroupName}}</p>
             <ul>
-                <li v-for="(value, key) in item.GroupList" :key="key">
+                <li v-for="(value, key) in item.GroupList" :key="key" @click="click(value.SerialID)">
                     <img :data-src="value.Picture">
                     <div>
                         <p>{{value.AliasName}}</p>
@@ -53,6 +53,11 @@ export default {
             }else{
                 this.hideMaster();
             }
+        },
+        click(id){
+            this.$router.push({
+                path: '/detail?id='+id
+            })
         }
     }
 }

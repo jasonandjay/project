@@ -79,6 +79,7 @@ export default {
                     if (body.code == 1){
                         this.masterList = body.data;
                         this.masterCls = 'active';
+                        setTimeout(()=>lazyLoad.init(), 10);
                     }else{
                         alert(body.msg);
                     }
@@ -105,6 +106,9 @@ export default {
             lazyLoad.loadImg();
         }, 500);
         this.$refs.wrap.onscroll = ()=>{
+            scroll();
+        }
+        document.querySelector('.master').onscroll = ()=>{
             scroll();
         }
     }
