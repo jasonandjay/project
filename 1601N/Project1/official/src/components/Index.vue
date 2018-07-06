@@ -19,6 +19,8 @@
 import Letter from './common/Letter.vue';
 import List from './common/List.vue';
 import MasterList from './common/MasterList.vue';
+import {debounce, throttle, lazyLoad} from './utils/utils.js';
+
 export default {
     data(){
         return {
@@ -61,6 +63,7 @@ export default {
                         this.letter = letter;
                         this.brandList = brandList;
                         // console.log(letter, brandList);
+                        setTimeout(()=>lazyLoad.init(), 10);
                     }else{
                         alert(body.msg);
                     }
@@ -98,6 +101,12 @@ export default {
     },
     mounted(){
         this.getBrandList();
+        let scroll = throttle(()=>{
+            lazyLoad.loadImg();
+        }, 500);
+        this.$refs.wrap.onscroll = ()=>{
+            scroll();
+        }
     }
 }
 </script>

@@ -7,7 +7,7 @@
             <p class="name">{{item.GroupName}}</p>
             <ul>
                 <li v-for="(value, key) in item.GroupList" :key="key">
-                    <img :src="value.Picture">
+                    <img :data-src="value.Picture">
                     <div>
                         <p>{{value.AliasName}}</p>
                         <p>{{value.DealerPrice}}</p>

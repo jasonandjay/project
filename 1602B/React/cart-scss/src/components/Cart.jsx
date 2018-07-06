@@ -3,13 +3,14 @@ import List from './List';
 // import List from './List2';
 import "../scss/cart.css";
 
-export default class Cart extends React.Component{
+export default class Cart extends React.PureComponent{
     constructor(){
         super();
         this.state = {
             list: [],
             isSelectAll: false,
-            price: 0
+            price: 0,
+            time: ''
         }
     }
 
@@ -21,9 +22,18 @@ export default class Cart extends React.Component{
             return res.json()
         })
         .then(body=>{
-            this.setState({list: body});
+            // this.setState({list: body});
             // console.log('body...', body);
-        })
+        });
+        setInterval(()=>{
+            let list = this.state.list;
+            // list = list.concat({name: '西瓜'+(+new Date()), num: 1000, price: 1000, checked: true})
+            this.setState({
+                // time: (new Date()).toString()
+                // list: [...list]
+                list
+            });
+        }, 1000);
     }
 
     // 列表选中点击
@@ -105,6 +115,7 @@ export default class Cart extends React.Component{
                 </div>
                 <span>  价格：${this.state.price}</span>
             </div>
+            <p>当前时间： {this.state.time}</p>
         </div>
     }
 }

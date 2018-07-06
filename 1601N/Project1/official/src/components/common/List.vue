@@ -4,7 +4,7 @@
             <p>{{item.speeling}}</p>
             <ul>
                 <li v-for="(value, key) in item.list" :key="key" @click="getMasterList(value.MasterID)">
-                    <img :src="value.CoverPhoto">
+                    <img :data-src="value.CoverPhoto">
                     <span>{{value.Name}}</span>
                 </li>
             </ul>
