@@ -24,8 +24,8 @@ import {debounce, throttle, lazyLoad} from './utils/utils.js';
 export default {
     data(){
         return {
-            letter: [],
-            brandList: [],
+            // letter: [],
+            // brandList: [],
             masterList: [],
             masterCls: ''
         }
@@ -35,40 +35,17 @@ export default {
         List,
         MasterList
     },
+    computed: {
+        brandList(){
+            return this.$store.state.index.brandList
+        },
+        letter(){
+            return this.$store.state.index.letter
+        }
+    },
     methods: {
         getBrandList(){
-            fetch('https://baojia.chelun.com/v2-car-getMasterBrandList.html')
-            .then(res=>{
-                res.json().then(body=>{
-                    console.log('body：', body);
-                    // 处理数据
-                    if (body.code == 1){
-                        let letter = [];
-                        let brandList = [];
-                        let len = -1;
-                        body.data.forEach((item)=>{
-                            let speeling = item.Spelling[0];
-                            if (letter[len] == speeling){
-                                brandList[len].list.push(item);
-                            }else{
-                                len++;
-                                letter.push(speeling);
-                                brandList.push({
-                                    speeling,
-                                    list: [item]
-                                })
-                            }
-                        })
-                        letter.unshift('#');
-                        this.letter = letter;
-                        this.brandList = brandList;
-                        // console.log(letter, brandList);
-                        setTimeout(()=>lazyLoad.init(), 10);
-                    }else{
-                        alert(body.msg);
-                    }
-                })
-            })
+            this.$store.dispatch('getBrandList');
         },
 
         getMasterList(id){

@@ -2,8 +2,7 @@
     <div>
         <h1>{{time}}</h1>
         <button @click="update">更新时间</button>
-        <input type="text" placeholder="请输入你的姓名" :value="input"
-        @change="changeInput">
+        <input type="text" placeholder="请输入你的姓名" v-model="input">
     </div>
     
 </template>
@@ -14,8 +13,18 @@ export default {
         time(){
             return this.$store.state.index2.time
         },
-        input(){
-            return this.$store.state.index2.input
+        // input(){
+        //     return this.$store.state.index2.input
+        // },
+        input: {
+            get(){
+                return this.$store.state.index2.input
+            },
+            set(value){
+                this.$store.commit('changeInput', {
+                    input: value
+                })
+            }
         }
     },
     methods: {
