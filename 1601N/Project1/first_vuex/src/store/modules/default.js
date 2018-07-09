@@ -1,20 +1,16 @@
 const state = {
-    time: new Date().toString(),
-    input: ''
+    time: new Date().toString()
 }
 
 const mutations = {
     update: (state, {time})=>{
         state.time = time
-    },
-    changeInput: (state, {input})=>{
-        state.input = input
     }
 }
 
 const actions = {
     update: (context, payload)=>{
-        console.log('我是index2模块的输出')
+        console.log('我是default模块的输出')
         // setInterval(()=>{
             context.commit('update', {
                 ...payload 
@@ -25,7 +21,6 @@ const actions = {
 
 export default {
     // namespaced: true,
-
     state,
     actions,
     mutations
