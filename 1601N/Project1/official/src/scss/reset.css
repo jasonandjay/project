@@ -46,7 +46,7 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-html,body, body>div{
+html,body, body>div, #app>div{
 	height: 100%;
 }
 .loading{

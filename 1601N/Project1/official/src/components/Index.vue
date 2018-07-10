@@ -20,6 +20,8 @@ import Letter from './common/Letter.vue';
 import List from './common/List.vue';
 import MasterList from './common/MasterList.vue';
 import {debounce, throttle, lazyLoad} from './utils/utils.js';
+import {mapState, mapActions} from 'vuex';
+
 
 export default {
     data(){
@@ -36,17 +38,29 @@ export default {
         MasterList
     },
     computed: {
-        brandList(){
-            return this.$store.state.index.brandList
-        },
-        letter(){
-            return this.$store.state.index.letter
-        }
+        ...mapState({
+            brandList: (state)=>{
+                return state.index.brandList
+            },
+            letter: state=>state.index.letter
+        })
+
+        // brandList(){
+        //     return this.$store.state.index.brandList
+        // },
+        // letter(){
+        //     return this.$store.state.index.letter
+        // }
     },
     methods: {
-        getBrandList(){
-            this.$store.dispatch('getBrandList');
-        },
+        ...mapActions({
+            getBrandList: 'index/a',
+        }),
+        // 此时调用this.getBrandList() ==> this.$store.dispatch('getBrandList')
+
+        // getBrandList(){
+        //     this.$store.dispatch('getBrandList');
+        // },
 
         getMasterList(id){
             fetch('https://baojia.chelun.com/v2-car-getMakeListByMasterBrandId.html?MasterID='+id)

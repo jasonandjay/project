@@ -17,7 +17,7 @@ const mutations = {
 }
 
 const actions = {
-    getBrandList: ({commit}, payload)=>{
+    a: ({commit}, payload)=>{
         getBrandList().then(res=>{
             res.json().then(body=>{
                 console.log('body：', body);
@@ -52,6 +52,7 @@ const actions = {
 }
 
 export default {
+    namespaced: true,
     state,
     actions,
     mutations
