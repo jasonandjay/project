@@ -1,0 +1,42 @@
+.list{
+    display: flex;
+    height: 100%;
+    justify-content: space-between;
+    &>div{
+        width: 100px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100%;
+        background: #fff;
+    }
+    a{
+        line-height: 40px;
+        border-bottom: 1px solid lightgrey;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+// subType的样式
+.subType{
+    flex: 1;
+    background: lightsalmon;
+    &>div{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+// thirdType的样式
+.subType .thirdType{
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    span{
+        border: 1px solid lightseagreen;
+        padding: 2px 5px;
+        margin: 3px;
+        border-radius: 6px;
+    }
+}
