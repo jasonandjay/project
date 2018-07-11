@@ -1,5 +1,6 @@
 const state = {
     type: 'all',    //all 表示全部， finish表示已完成, unfinish表示未完成
+    text: '',
     list: [{
         text: '111',
         finish: false
@@ -28,6 +29,10 @@ const mutations = {
     },
     changeType: (state, payload)=>{
         state.type = payload;
+    },
+    changeText: (state, payload)=>{
+        console.log('payLoad...', payload);
+        state.text = payload;
     }
 }
 
