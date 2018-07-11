@@ -1,7 +1,12 @@
 <template>
     <div>
+        <p>
+            <span @click="changeType('all')">全部</span>
+            <span @click="changeType('finish')">已完成</span>
+            <span @click="changeType('unfinish')">未完成</span>
+        </p>
         <ul>
-            <li @click="finish(index)" v-for="(item, index) in list" :key="index" :style="{textDecoration:item.finish?'line-through':''}">{{item.text}}</li>
+            <li @click="finish(item)" v-for="(item, index) in list" :key="index" :style="{textDecoration:item.finish?'line-through':''}">{{item.text}}</li>
         </ul>
     </div>
 </template>
@@ -12,12 +17,21 @@ import {mapState, mapMutations} from 'vuex';
 export default {
     computed: {
         ...mapState({
-            list: state=>state.list.list
+            list: state=>{
+                if (state.list.type == 'all'){
+                    return state.list.list;
+                }else{
+                    return state.list.list.filter(item=>{
+                        return item.finish == (state.list.type=='finish')
+                    })
+                }
+            }
         })
     },
     methods: {
         ...mapMutations({
-            finish: 'finish'
+            finish: 'finish',
+            changeType: 'changeType'
         })
     }
 }

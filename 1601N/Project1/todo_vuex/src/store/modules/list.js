@@ -1,4 +1,5 @@
 const state = {
+    type: 'all',    //all 表示全部， finish表示已完成, unfinish表示未完成
     list: [{
         text: '111',
         finish: false
@@ -20,10 +21,13 @@ const mutations = {
     },
     finish: (state, payload)=>{
         state.list.forEach((item, index)=>{
-            if (index === payload){
+            if (item === payload){
                 item.finish = !item.finish;
             }
         })
+    },
+    changeType: (state, payload)=>{
+        state.type = payload;
     }
 }
 

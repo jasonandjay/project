@@ -16,7 +16,6 @@ export default class Type extends React.Component{
     }
 
     render(){
-        console.log('type...', this.props);
         return <div className="list">
             <div>{
                 this.state.list.map((item, index)=>{
