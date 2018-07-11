@@ -1,19 +1,21 @@
 import React,{Fragment} from 'react';
-import "../../scss/withLoading.css"
+import Loading from '../common/loading';
 
 export default (WrapCommponent)=>{
-    return class extends React.Component{
-        constructor(){
-            super();
+    return class extends WrapCommponent{
+        constructor(props){
+            super(props);
         }
 
         render(){
-            return <Fragment>
-                <WrapCommponent {...this.props}/>
-                <div className="ad">
-                    <a href="">点击打开手机京东</a>
-                </div>
-            </Fragment>
+            if (this.state.fetching){
+                return <Fragment>{
+                        super.render()
+                    }<Loading/>
+                </Fragment> 
+            }else{
+                return super.render();
+            }
         }
     }
 }

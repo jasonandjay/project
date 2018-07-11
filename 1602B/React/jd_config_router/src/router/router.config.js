@@ -4,7 +4,7 @@ import Type from '../components/type';
 import SubType from '../components/subType';
 import ThirdType from '../components/thirdType';
 
-import withLoading from '../components/hoc/withLoading';
+import withAd from '../components/hoc/withAd';
 
 let Index = (props)=>{
     let path = props.match.path;
@@ -16,7 +16,7 @@ let Index = (props)=>{
     }</p>
 }
 
-Index = withLoading(Index);
+Index = withAd(Index);
 
 
 export default {
@@ -27,10 +27,10 @@ export default {
         path: '/type',
         component: Type,
         children: [{
-            path: '/type/:id',
+            path: '/type/:id?',
             component: SubType,
             children: [{
-                path: '/type/:id/:sid',
+                path: '/type/:id?/:sid?',
                 component: ThirdType
             }]
         }]

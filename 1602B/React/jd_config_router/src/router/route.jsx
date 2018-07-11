@@ -12,8 +12,7 @@ export default (props)=>{
                     return <item.component {...location}/>
                 }
             }}></Route>
-        })
-    }
-        {/* <Redirect to="/index"></Redirect> */}
+        })}
+    <Redirect to="/index"></Redirect>
     </Switch>
 }

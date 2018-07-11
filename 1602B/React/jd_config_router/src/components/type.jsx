@@ -3,17 +3,27 @@ import {
     NavLink,
     // Route
 } from 'react-router-dom';
-import SubType from './subType';
 import '../scss/type.css';
 import Route from '../router/route';
+import withAd from '../components/hoc/withAd';
 import withLoading from '../components/hoc/withLoading';
+
 
 class Type extends React.Component{
     constructor(){
         super();
         this.state = {
-            list: ['热门推荐', '手机数码', '家用电器', '电脑办公']
+            list: ['热门推荐', '手机数码', '家用电器', '电脑办公'],
+            fetching: true,    //false表示请求完成，true表示正在请求
         }
+    }
+
+    componentDidMount(){
+        setTimeout(()=>{
+            this.setState({
+                fetching: false
+            })
+        }, 3000);
     }
 
     render(){
