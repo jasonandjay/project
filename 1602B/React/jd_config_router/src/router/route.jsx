@@ -14,6 +14,6 @@ export default (props)=>{
             }}></Route>
         })
     }
-        <Redirect to="/index"></Redirect>
+        {/* <Redirect to="/index"></Redirect> */}
     </Switch>
 }

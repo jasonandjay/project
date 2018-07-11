@@ -4,8 +4,9 @@ import Type from '../components/type';
 import SubType from '../components/subType';
 import ThirdType from '../components/thirdType';
 
+import withLoading from '../components/hoc/withLoading';
 
-const Index = (props)=>{
+let Index = (props)=>{
     let path = props.match.path;
     return <p>我是{
         path=='/index'?'首页':
@@ -14,6 +15,8 @@ const Index = (props)=>{
         path=="/cart"?'购物车':'我的'
     }</p>
 }
+
+Index = withLoading(Index);
 
 
 export default {

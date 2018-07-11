@@ -6,8 +6,9 @@ import {
 import SubType from './subType';
 import '../scss/type.css';
 import Route from '../router/route';
+import withLoading from '../components/hoc/withLoading';
 
-export default class Type extends React.Component{
+class Type extends React.Component{
     constructor(){
         super();
         this.state = {
@@ -27,3 +28,5 @@ export default class Type extends React.Component{
         </div>
     }
 }
+
+export default withLoading(Type);
