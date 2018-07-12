@@ -11,7 +11,11 @@ function sendRequest(url){
     }else{
         os = 'android';
     }
-    url += `?os=${os}&_=${+new Date()}`;
+    let char = '?';
+    if (/\?/.test(url)){
+        char = '&';
+    }
+    url += `${char}os=${os}&_=${+new Date()}`;
     return fetch(domain+url);
 }
 
@@ -21,3 +25,14 @@ export const getBrandList = ()=>{
 }
 
 // 获取车系数据
+
+
+// 获取车系图片
+export const getImgList = ()=>{
+    return sendRequest('/v2-car-getImageList.html?SerialID=2593');
+}
+
+// 获取车系目录图片
+export const getCategoryImageList = (id, page)=>{
+    return sendRequest(`/v2-car-getCategoryImageList.html?SerialID=2593&ImageID=${id}&Page=${page}&PageSize=30`)
+}
