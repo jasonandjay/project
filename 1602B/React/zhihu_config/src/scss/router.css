@@ -11,8 +11,7 @@ html, body {
   flex-direction: column;
   justify-content: space-between; }
   #root > div {
-    flex: 1;
-    background: lightcoral; }
+    flex: 1; }
 
 footer {
   display: flex;

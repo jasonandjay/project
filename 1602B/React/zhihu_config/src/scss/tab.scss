@@ -1,13 +1,10 @@
-.list{
+.tab{
     display: flex;
+    flex-direction: column;
     height: 100%;
     justify-content: space-between;
     &>div{
-        width: 100px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        height: 100%;
+        flex:1;
         background: #fff;
     }
     a{
@@ -16,6 +13,21 @@
         width: 100%;
         text-align: center;
     }
+}
+
+footer{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 50px;
+    background: lightskyblue;
+}
+a{
+    text-decoration: none;
+    color: #000;
+}
+.active{
+    color: lawngreen;
 }
 
 // subType的样式

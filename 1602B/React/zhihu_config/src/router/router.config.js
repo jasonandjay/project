@@ -1,47 +1,52 @@
-import React from 'react';
+// 一级路由
+import Tab from '../components/Tab';
+import Detail from '../components/Detail';
 
-import Type from '../components/type';
-import SubType from '../components/subType';
-import ThirdType from '../components/thirdType';
+// 二级路由
+import Index from '../components/tab/Index';
+import Idea from '../components/tab/Idea';
+import Message from '../components/tab/Message';
+import University from '../components/tab/University';
+import My from '../components/tab/My';
 
-import withAd from '../components/hoc/withAd';
-
-let Index = (props)=>{
-    let path = props.match.path;
-    return <p>我是{
-        path=='/index'?'首页':
-        path=='/type'?'分类':
-        path=='/discover'?'发现':
-        path=="/cart"?'购物车':'我的'
-    }</p>
-}
-
-Index = withAd(Index);
+// 三级路由
+import Follow from '../components/tab/index/Follow';
+import Hot from '../components/tab/index/Hot';
+import Recommend from '../components/tab/index/Recommend';
 
 
 export default {
     routes: [{
-        path: '/index',
-        component: Index,
+        path: '/detail',
+        component: Detail,
     }, {
-        path: '/type',
-        component: Type,
+        path: '/tab',
+        component: Tab,
         children: [{
-            path: '/type/:id?',
-            component: SubType,
+            path: '/tab/index',
+            component: Index,
             children: [{
-                path: '/type/:id?/:sid?',
-                component: ThirdType
+                path: '/tab/index/follow',
+                component: Follow
+            },{
+                path: '/tab/index/hot',
+                component: Hot
+            },{
+                path: '/tab/index/recommend',
+                component: Recommend
             }]
+        },{
+            path: '/tab/message',
+            component: Message
+        },{
+            path: '/tab/university',
+            component: University
+        },{
+            path: '/tab/idea',
+            component: Idea
+        },{
+            path: '/tab/my',
+            component: My
         }]
-    }, {
-        path: '/discover',
-        component: Index,
-    },{
-        path: '/cart',
-        component: Index,
-    },{
-        path: '/my',
-        component: Index,
     }]
 }
