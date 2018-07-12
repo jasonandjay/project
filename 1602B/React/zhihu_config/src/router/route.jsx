@@ -13,6 +13,6 @@ export default (props)=>{
                 }
             }}></Route>
         })}
-        <Redirect to="/tab/index"></Redirect>
+        <Redirect from="/" to="/tab/index"></Redirect>
     </Switch>
 }

@@ -1,0 +1,24 @@
+.follow{
+    margin-bottom: 50px;
+    margin-top: 30px;
+    li{
+        list-style: none;
+        padding: 10px 0;
+        border-bottom: 10px solid #eee;
+        div:nth-child(1){
+            img{
+                width: 30px;
+                margin-right: 20px;
+                border-radius: 50%;
+            }
+        }
+        p{
+            margin: 5px 0;
+            overflow: hidden;
+            text-overflow:ellipsis;//文本溢出显示省略号
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+        }
+    }
+}

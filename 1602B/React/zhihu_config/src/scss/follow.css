@@ -1,0 +1,18 @@
+.follow {
+  margin-bottom: 50px;
+  margin-top: 30px; }
+  .follow li {
+    list-style: none;
+    padding: 10px 0;
+    border-bottom: 10px solid #eee; }
+    .follow li div:nth-child(1) img {
+      width: 30px;
+      margin-right: 20px;
+      border-radius: 50%; }
+    .follow li p {
+      margin: 5px 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical; }
