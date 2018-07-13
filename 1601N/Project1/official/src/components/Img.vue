@@ -34,9 +34,11 @@
 
                 <!-- Optional controls -->
                 <div class="swiper-pagination"  slot="pagination"></div>
-                
+                <p v-if="isShowSwiper">{{swipe.activeIndex+'/'+(categoryList.length)}}</p>
             </swiper>
         </div>
+
+        <City/>
     </div>
 </template>
 
@@ -44,6 +46,7 @@
 import {mapState, mapMutations, mapActions} from 'vuex';
 import 'swiper/dist/css/swiper.css';
 import { swiper, swiperSlide } from 'vue-awesome-swiper';
+import City from './common/City.vue';
 export default {
     computed:{
         ...mapState({
@@ -56,7 +59,25 @@ export default {
           // some swiper options/callbacks
           // 所有的参数同 swiper 官方 api 参数
           // ...
-          return {}
+          return {
+                on:{
+                    slideNextTransitionEnd: ()=>{
+                        if (this.fetchingAll){
+                            return;
+                        }
+                        console.log('切换结束了',this.swipe.activeIndex);
+                        if (this.swipe.activeIndex > this.categoryList.length-5){
+                            // 加载下一页数据
+                            this.fetchingAll = true;
+                            this.getCategoryImageList({
+                                cb: ()=>{
+                                    this.fetchingAll = false
+                                }
+                            });
+                        }
+                    },
+                },
+          }
         },
         swipe() {
             return this.$refs.mySwiper.swiper
@@ -64,7 +85,8 @@ export default {
     },
     components: {
         swiper,
-        swiperSlide
+        swiperSlide,
+        City
     },
     methods: {
         ...mapActions({
