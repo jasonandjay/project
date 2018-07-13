@@ -1,12 +1,14 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 import '../../../scss/follow.css';
+import withLoading from '../../hoc/withLoading';
 
-export default class Follow extends React.Component{
+class Follow extends React.Component{
     constructor(){
         super();
         this.state = {
-            list: []
+            list: [],
+            fetching: true
         }
     }
 
@@ -18,7 +20,8 @@ export default class Follow extends React.Component{
         .then(body=>{
             console.log('body: ', body);
             this.setState({
-                list: body.data
+                list: body.data,
+                fetching: false
             })
         })
     }
@@ -54,3 +57,6 @@ export default class Follow extends React.Component{
         }</div>
     }
 }
+
+
+export default withLoading(Follow);

@@ -4,6 +4,7 @@ const state = {
     list: [],
     categoryList: [],
     showDetail: false,
+    isShowSwiper: false,
     id: '',    // 当前选图片目录id
     page: 1,
 }
@@ -19,6 +20,9 @@ const mutations = {
     showAll(state, payload){
         state.showDetail = true;
         state.id = payload;
+    },
+    showSwiper(state, payload){
+        state.isShowSwiper = payload;
     }
 }
 

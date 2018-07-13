@@ -20,22 +20,51 @@
         <div v-if="showDetail" class="img-detail" @scroll="scrollAll">
             <ul ref="ul">
                 <li v-for="(value, key) in categoryList" :key="key">
-                    <span :style="{'backgroundImage': `url(${value.Url.replace('{0}', value.LowSize)})`}"></span>
+                    <span @click="clickSwiper(key)" :style="{'backgroundImage': `url(${value.Url.replace('{0}', value.LowSize)})`}"></span>
                 </li>
             </ul>
+        </div>
+
+        <div v-show="isShowSwiper" class="img-swiper" @click="hideSwiper">
+            <swiper :options="swiperOption" ref="mySwiper">
+                <!-- slides -->
+                <swiper-slide v-for="(item, index) in categoryList" :key="index">
+                    <img :src="item.Url.replace('{0}', item.HighSize)">
+                </swiper-slide>
+
+                <!-- Optional controls -->
+                <div class="swiper-pagination"  slot="pagination"></div>
+                
+            </swiper>
         </div>
     </div>
 </template>
 
 <script>
 import {mapState, mapMutations, mapActions} from 'vuex';
+import 'swiper/dist/css/swiper.css';
+import { swiper, swiperSlide } from 'vue-awesome-swiper';
 export default {
-    computed: {
+    computed:{
         ...mapState({
             list: state=>state.img.list,
             categoryList: state=>state.img.categoryList,
-            showDetail: state=>state.img.showDetail
-        })
+            showDetail: state=>state.img.showDetail,
+            isShowSwiper: state=>state.img.isShowSwiper
+        }),
+        swiperOption(){
+          // some swiper options/callbacks
+          // 所有的参数同 swiper 官方 api 参数
+          // ...
+          return {}
+        },
+        swipe() {
+            return this.$refs.mySwiper.swiper
+        }
+    },
+    components: {
+        swiper,
+        swiperSlide
     },
     methods: {
         ...mapActions({
@@ -43,11 +72,23 @@ export default {
             getCategoryImageList: 'getCategoryImageList'
         }),
         ...mapMutations({
-            showAll: 'showAll'
+            showAll: 'showAll',
+            showSwiper: 'showSwiper'
         }),
         clickAll(id){
             this.showAll(id);
             this.getCategoryImageList();
+        },
+        hideSwiper(e){
+            if (e.target == e.currentTarget){
+                this.showSwiper(false);
+            }
+        },
+        clickSwiper(index){
+            this.showSwiper(true);
+            // console.log('this...', this.$refs);
+            // console.log('swiper...', this.swipe);
+            this.swipe.slideTo(index);
         },
         scrollAll(e){
             if (this.fetchingAll){
@@ -154,6 +195,19 @@ export default {
         ul{
             border-bottom: .4rem solid #f4f4f4;
             margin: 0
+        }
+    }
+    .img-swiper{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,1);
+        display: flex;
+        align-items: center;
+        img{
+            width: 100%;
         }
     }
 </style>
