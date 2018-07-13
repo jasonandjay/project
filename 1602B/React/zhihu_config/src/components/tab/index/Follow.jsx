@@ -34,7 +34,7 @@ class Follow extends React.Component{
         }
         return <div className="follow">{
             this.state.list.map((item, index)=>{
-                if (item.id === detail.id){
+                if (detail && (item.id === detail.id)){
                     item = detail;
                 }
                 return <li key={index}>
