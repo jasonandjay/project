@@ -1,0 +1,14 @@
+ul{
+    display: flex;
+    list-style: none;
+    flex-wrap: wrap;
+}
+li{
+    margin: 0 5px;
+    border: 1px solid transparent;
+}
+li.active{
+    background: lightblue;
+    border: 1px solid lightcyan;
+    border-radius: 5px;
+}
