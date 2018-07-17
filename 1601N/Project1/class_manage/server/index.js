@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var mysql      = require('mysql');
+var bodyParser = require('body-parser');
 var connection = mysql.createConnection({
   host     : '127.0.0.1',
   user     : 'root',
@@ -8,11 +9,25 @@ var connection = mysql.createConnection({
   database : '1601N'
 });
 
+var jsonParser = bodyParser.json();
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
+
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', function(req, res) {
     res.send('hello world');
 });
   
+
+// 登陆接口
+app.post('/login', urlencodedParser, (req, res)=>{
+    console.log('req...', req.body);
+    // 获取该用户名的数量
+    // connection.query(`select count(*) from user where username = ${body.username}`, function(err, rows, fields) {
+    //     if (err) throw err;
+    //     console.log('The solution is: ', rows);
+    // });   
+})
+
 
 app.get('/list', (req, res)=>{
     // connection.connect();
