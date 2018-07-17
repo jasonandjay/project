@@ -18,6 +18,7 @@
 
 <script>
 import {hex_md5} from '../utils/md5.js';
+import axios from 'axios';
 export default {
   data() {
     var validatePass = (rule, value, callback) => {
@@ -57,19 +58,30 @@ export default {
             let data = {};
             data.username = this.ruleForm2.name;
             data.password = hex_md5(this.ruleForm2.password);
-            fetch('http://127.0.0.1:9000/login', {
-                method: 'POST',
-                body: JSON.stringify(data),
-                headers: new Headers({
-                    'Content-Type': 'application/json'
-                })
-            })
+
+            console.log('data..', data);
+            axios.post('http://127.0.0.1:9000/login', data)
             .then(res=>{
-                return res.json();
+              console.log('res...', res);
+              if (res.data.code == 0){
+                this.$router.push('/content');
+              }else{
+                this.$alert(res.data.msg);
+              }
             })
-            .then(body=>{
-                console.log('body');
-            })
+            // fetch('http://127.0.0.1:9000/login', {
+            //     method: 'POST',
+            //     body: JSON.stringify(data),
+            //     // headers: new Headers({
+            //     //     'Content-Type': 'application/json'
+            //     // })
+            // })
+            // .then(res=>{
+            //     return res.json();
+            // })
+            // .then(body=>{
+            //     console.log('body');
+            // })
           } else {
             console.log('error submit!!');
             return false;

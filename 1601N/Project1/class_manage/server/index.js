@@ -12,6 +12,20 @@ var connection = mysql.createConnection({
 var jsonParser = bodyParser.json();
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
+const router = express.Router();
+
+//设置跨域访问
+app.all('*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "content-type");
+    res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+    res.header("X-Powered-By",' 3.2.1')
+    // res.header("Content-Type", "application/json;charset=utf-8");
+
+    next();
+});
+
+
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', function(req, res) {
     res.send('hello world');
@@ -19,13 +33,43 @@ app.get('/', function(req, res) {
   
 
 // 登陆接口
-app.post('/login', urlencodedParser, (req, res)=>{
+app.post('/login', jsonParser, (req, res)=>{
     console.log('req...', req.body);
     // 获取该用户名的数量
-    // connection.query(`select count(*) from user where username = ${body.username}`, function(err, rows, fields) {
-    //     if (err) throw err;
-    //     console.log('The solution is: ', rows);
-    // });   
+    connection.query(`select count(*) as num from user where username = ?`,[req.body.username], function(err, rows, fields) {
+        if (err) throw err;
+        if (rows[0].num){
+            connection.query(`select count(*) as num from user where username = ? and password = ?`,[req.body.username, req.body.password], (err, rows, fields)=>{
+                console.log(rows[0].num);  
+                if (rows[0].num == 1){
+                    res.json({
+                        code: 0,
+                        msg: '登陆成功'
+                    })
+                }else{
+                    res.json({
+                        code: -2,
+                        msg: '登陆失败'
+                    })
+                }
+            })
+        }else{
+            connection.query(`insert into user (username, password, phone, birthday) values('${req.body.username}', '${req.body.password}', '', ${+ new Date()})`, (err, rows, fields)=>{
+                console.log(rows, );
+                if (rows.insertId){
+                    res.json({
+                        code: 0,
+                        msg: '新增成功'
+                    })
+                }else{
+                    res.json({
+                        code: -1,
+                        msg: '新建用户失败'
+                    })
+                }
+            })
+        }
+    });   
 })
 
 
