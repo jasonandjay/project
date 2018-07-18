@@ -60,7 +60,7 @@ export default {
             data.password = hex_md5(this.ruleForm2.password);
 
             console.log('data..', data);
-            axios.post('http://127.0.0.1:9000/login', data)
+            axios.post('http://169.254.239.219:9000/login', data)
             .then(res=>{
               console.log('res...', res);
               if (res.data.code == 0){

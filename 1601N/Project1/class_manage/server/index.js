@@ -31,6 +31,45 @@ app.get('/', function(req, res) {
     res.send('hello world');
 });
   
+// 拉取用户列表
+app.get('/userList', (req, res)=>{
+    connection.query('select id,username,birthday,phone,address from user', (err, rows, fields)=>{
+        if (err) throw err;
+        console.log(rows);
+        res.json({
+            code: 0,
+            data: rows
+        });
+    })
+})
+
+// 拉取角色列表
+app.get('/rolerList', (req, res)=>{
+    let id = req.query.id, allRoler = [];
+    console.log(req.query);
+    connection.query('select id,rolername from roler', (err, rows, fields)=>{
+        if (err) throw err;
+        console.log(rows);
+        allRoler = rows;
+        if (id){
+            connection.query(`select rid,rolername from user_roler, roler where user_roler.rid = roler.id and user_roler.uid=${id}`, (err, rows, fields)=>{
+                if (err) throw err;
+                console.log(rows);
+                res.json({
+                    code: 0,
+                    allRoler,
+                    myRoler: rows
+                });
+            })
+        }else{
+            res.json({
+                code: 0,
+                allRoler,
+                myRoler: [] 
+            })
+        }
+    })
+})
 
 // 登陆接口
 app.post('/login', jsonParser, (req, res)=>{
@@ -54,19 +93,23 @@ app.post('/login', jsonParser, (req, res)=>{
                 }
             })
         }else{
-            connection.query(`insert into user (username, password, phone, birthday) values('${req.body.username}', '${req.body.password}', '', ${+ new Date()})`, (err, rows, fields)=>{
-                console.log(rows, );
-                if (rows.insertId){
-                    res.json({
-                        code: 0,
-                        msg: '新增成功'
-                    })
-                }else{
-                    res.json({
-                        code: -1,
-                        msg: '新建用户失败'
-                    })
-                }
+            // connection.query(`insert into user (username, password, phone, birthday) values('${req.body.username}', '${req.body.password}', '', ${+ new Date()})`, (err, rows, fields)=>{
+            //     console.log(rows, );
+            //     if (rows.insertId){
+            //         res.json({
+            //             code: 0,
+            //             msg: '新增成功'
+            //         })
+            //     }else{
+            //         res.json({
+            //             code: -1,
+            //             msg: '新建用户失败'
+            //         })
+            //     }
+            // })
+            res.json({
+                code: -2,
+                msg: '不允许创建新用户'
             })
         }
     });   

@@ -3,12 +3,13 @@ import VueRouter from 'vue-router';
 import Login from '../components/Login.vue';
 import Content from '../components/Content.vue';
 
+import Admin from '../components/content/Admin.vue';
+
 const View = null;
 const Modify = null;
 const Checkin = null;
 const Query = null;
 const Delete = null;
-const Admin = null;
 
 Vue.use(VueRouter);
 

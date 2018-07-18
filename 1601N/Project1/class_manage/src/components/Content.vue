@@ -32,7 +32,9 @@
                             <span slot="title">管理员</span>
                         </template>
                         <el-menu-item index="3-1">删除学生</el-menu-item>
-                        <el-menu-item index="3-2">分配权限</el-menu-item>
+                        <el-menu-item index="3-2">
+                            <router-link to="/content/admin" tag="span">分配权限</router-link>    
+                        </el-menu-item>
                     </el-submenu>
                 </el-menu>
             </el-aside>
