@@ -52,7 +52,7 @@ app.get('/rolerList', (req, res)=>{
         console.log(rows);
         allRoler = rows;
         if (id){
-            connection.query(`select rid,rolername from user_roler, roler where user_roler.rid = roler.id and user_roler.uid=${id}`, (err, rows, fields)=>{
+            connection.query(`select rid,rolername from user_roler, roler where user_roler.rid = roler.id and user_roler.status=1 and user_roler.uid=${id}`, (err, rows, fields)=>{
                 if (err) throw err;
                 console.log(rows);
                 res.json({
@@ -69,6 +69,59 @@ app.get('/rolerList', (req, res)=>{
             })
         }
     })
+})
+// 添加角色接口
+app.get('/addRoler', (req, res)=>{
+    let uid = req.query.uid,
+        rid = req.query.rid;
+    // 先查询用户是否有该角色，如果有则不添加
+    connection.query(`select rid from user_roler where uid=? and rid=? and status =1`,[uid,rid], function(err, rows, fields) {
+        if (err) throw err;
+        console.log('rows...', rows);
+        if (rows.length){
+            res.json({
+                code: -2,
+                msg: '已有该角色'
+            })
+        }else{
+            connection.query(`insert into user_roler (uid, rid) values(?, ?)`,[uid,rid], function(err, rows, fields) {
+                if (err) throw err;
+                console.log(rows);
+                if (rows.insertId){
+                    res.json({
+                        code: 0,
+                        msg: '添加角色成功'
+                    })
+                }else{
+                    res.json({
+                        code: -1,
+                        msg: '添加角色失败'
+                    })
+                }
+            });   
+        }
+    });   
+})
+
+// 删除角色接口
+app.get('/removeRoler', (req, res)=>{
+    let uid = req.query.uid,
+        rid = req.query.rid;
+    connection.query(`update user_roler set status=0  where uid=? and rid=?`,[uid,rid], function(err, rows, fields) {
+        if (err) throw err;
+        console.log(rows);
+        if (rows.affectedRows){
+            res.json({
+                code: 0,
+                msg: '删除角色成功'
+            })
+        }else{
+            res.json({
+                code: -1,
+                msg: '删除角色失败'
+            })
+        }
+    });   
 })
 
 // 登陆接口
@@ -93,6 +146,7 @@ app.post('/login', jsonParser, (req, res)=>{
                 }
             })
         }else{
+            // 创建新用户代码
             // connection.query(`insert into user (username, password, phone, birthday) values('${req.body.username}', '${req.body.password}', '', ${+ new Date()})`, (err, rows, fields)=>{
             //     console.log(rows, );
             //     if (rows.insertId){
@@ -112,6 +166,20 @@ app.post('/login', jsonParser, (req, res)=>{
                 msg: '不允许创建新用户'
             })
         }
+    });   
+})
+
+// 获取权限列表
+app.get('/accessList', (req, res)=>{
+    let uid = req.query.uid;
+    connection.query(`select access.accessname from user,user_roler,roler_access,access where user.id=user_roler.uid 
+    and user_roler.rid = roler_access.rid and roler_access.aid = access.id and uid=? and user_roler.status=1 group by access.id`,[uid], function(err, rows, fields) {
+        if (err) throw err;
+        console.log(rows.length, rows);
+        res.json({
+            code: 0,
+            list: rows
+        })
     });   
 })
 
