@@ -1,5 +1,5 @@
 let initialState = {
-    isLogin: false,
+    isLogin: true,
     username: '',
     password: ''
 };
