@@ -131,11 +131,12 @@ app.post('/login', jsonParser, (req, res)=>{
     connection.query(`select count(*) as num from user where username = ?`,[req.body.username], function(err, rows, fields) {
         if (err) throw err;
         if (rows[0].num){
-            connection.query(`select count(*) as num from user where username = ? and password = ?`,[req.body.username, req.body.password], (err, rows, fields)=>{
-                console.log(rows[0].num);  
+            connection.query(`select count(*) as num,id from user where username = ? and password = ?`,[req.body.username, req.body.password], (err, rows, fields)=>{
+                // console.log(rows);  
                 if (rows[0].num == 1){
                     res.json({
                         code: 0,
+                        id: rows[0].id,
                         msg: '登陆成功'
                     })
                 }else{

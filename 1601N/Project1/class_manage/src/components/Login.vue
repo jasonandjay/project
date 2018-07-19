@@ -17,8 +17,8 @@
 </template>
 
 <script>
-import {hex_md5} from '../utils/md5.js';
-import axios from 'axios';
+import { hex_md5 } from "../utils/md5.js";
+import axios from "axios";
 export default {
   data() {
     var validatePass = (rule, value, callback) => {
@@ -45,49 +45,68 @@ export default {
       },
       rules2: {
         pass: [{ validator: validatePass, trigger: "blur" }],
-        checkPass: [{ validator: validatePass2, trigger: "blur" }],
+        checkPass: [{ validator: validatePass2, trigger: "blur" }]
       }
     };
   },
-  methods:{
-      submitForm(formName){
-          console.log(this.ruleForm2);
-          console.log('', hex_md5, hex_md5('123'));
-          this.$refs[formName].validate((valid) => {
-          if (valid) {
-            let data = {};
-            data.username = this.ruleForm2.name;
-            data.password = hex_md5(this.ruleForm2.password);
+  methods: {
+    submitForm(formName) {
+      console.log(this.ruleForm2);
+      console.log("", hex_md5, hex_md5("123"));
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          let data = {};
+          data.username = this.ruleForm2.name;
+          data.password = hex_md5(this.ruleForm2.password);
 
-            console.log('data..', data);
-            axios.post('http://169.254.239.219:9000/login', data)
-            .then(res=>{
-              console.log('res...', res);
-              if (res.data.code == 0){
-                this.$router.push('/content');
-              }else{
-                this.$alert(res.data.msg);
-              }
-            })
-            // fetch('http://127.0.0.1:9000/login', {
-            //     method: 'POST',
-            //     body: JSON.stringify(data),
-            //     // headers: new Headers({
-            //     //     'Content-Type': 'application/json'
-            //     // })
-            // })
-            // .then(res=>{
-            //     return res.json();
-            // })
-            // .then(body=>{
-            //     console.log('body');
-            // })
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
-      }
+          console.log("data..", data);
+          axios.post("http://169.254.239.219:9000/login", data).then(res => {
+            console.log("res...", res);
+            if (res.data.code == 0) {
+              // 登陆成功，获取权限列表
+              axios.get("http://169.254.239.219:9000/accessList?uid=" + res.data.id)
+                .then(res => {
+                  console.log("res...", res);
+                  if (res.data.code == 0) {
+                    let accessList = res.data.list.map(item => {
+                      return item.accessname;
+                    });
+                    if (accessList.length == 0) {
+                      this.$alert("你当前没有任何权限!");
+                    } else {
+                      window.sessionStorage.setItem(
+                        "accessList",
+                        JSON.stringify(accessList)
+                      );
+                      this.$router.push("/content");
+                    }
+                  } else {
+                    this.$alert(res.data.msg);
+                  }
+                });
+            } else {
+              this.$alert(res.data.msg);
+            }
+          });
+          // fetch('http://127.0.0.1:9000/login', {
+          //     method: 'POST',
+          //     body: JSON.stringify(data),
+          //     // headers: new Headers({
+          //     //     'Content-Type': 'application/json'
+          //     // })
+          // })
+          // .then(res=>{
+          //     return res.json();
+          // })
+          // .then(body=>{
+          //     console.log('body');
+          // })
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
+    }
   }
 };
 </script>
