@@ -2,10 +2,10 @@
     <el-row align="middle">
         <el-col :span="16"  :offset="4">
             <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
-                <el-form-item label="用户名" prop="pass">
+                <el-form-item label="用户名" prop="name">
                     <el-input v-model="ruleForm2.name" auto-complete="off"></el-input>
                 </el-form-item>
-                <el-form-item label="确认密码" prop="checkPass">
+                <el-form-item label="确认密码" prop="password">
                     <el-input type="password" v-model="ruleForm2.password" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item>
@@ -22,17 +22,17 @@ import axios from "axios";
 export default {
   data() {
     var validatePass = (rule, value, callback) => {
-      if (value === "") {
+      if (!value) {
         callback(new Error("请输入用户名"));
       } else {
-        if (this.ruleForm2.checkPass !== "") {
-          this.$refs.ruleForm2.validateField("checkPass");
+        if (this.ruleForm2.password !== "") {
+          this.$refs.ruleForm2.validateField("password");
         }
         callback();
       }
     };
     var validatePass2 = (rule, value, callback) => {
-      if (value === "") {
+      if (!value) {
         callback(new Error("请输入密码"));
       } else {
         callback();
@@ -44,8 +44,8 @@ export default {
         password: ""
       },
       rules2: {
-        pass: [{ validator: validatePass, trigger: "blur" }],
-        checkPass: [{ validator: validatePass2, trigger: "blur" }]
+        name: [{ validator: validatePass, trigger: "blur" }],
+        password: [{ validator: validatePass2, trigger: "blur" }]
       }
     };
   },
