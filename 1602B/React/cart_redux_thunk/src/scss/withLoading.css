@@ -1,0 +1,20 @@
+#root .ad {
+  position: fixed;
+  bottom: 50px;
+  width: 100%;
+  left: 0;
+  height: 30px;
+  background: lightblue; }
+
+#root .loading {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent; }
+  #root .loading img {
+    width: 50px; }
