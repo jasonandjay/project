@@ -24,6 +24,7 @@
     "babel-preset-env": "^1.6.0",
     "babel-preset-stage-3": "^6.24.1",
     "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
     "cross-env": "^5.0.5",
     "css-loader": "^0.28.7",
     "element-ui": "^2.4.4",

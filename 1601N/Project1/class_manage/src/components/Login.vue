@@ -63,6 +63,9 @@ export default {
           axios.post("http://169.254.239.219:9000/login", data).then(res => {
             console.log("res...", res);
             if (res.data.code == 0) {
+              // 登陆成功，设置sessionStorage
+              window.sessionStorage.setItem('isLogin', 'true');
+              window.sessionStorage.setItem('loginTime', +new Date()+'');
               // 登陆成功，获取权限列表
               axios.get("http://169.254.239.219:9000/accessList?uid=" + res.data.id)
                 .then(res => {
@@ -96,7 +99,7 @@ export default {
           //     // })
           // })
           // .then(res=>{
-          //     return res.json();
+           //     return res.json();
           // })
           // .then(body=>{
           //     console.log('body');

@@ -71,6 +71,24 @@ export default {
       console.log(key, keyPath);
     }
   },
+  beforeRouteEnter (to, from, next) {
+      next((vm)=>{
+           // 从缓存中获取登陆态和登陆时间
+      let isLogin = window.sessionStorage.getItem('isLogin'),
+        loginTime = parseInt(window.sessionStorage.getItem('loginTime'));
+    let current = +new Date();
+      if (isLogin && current-loginTime<(10*1000)){
+          // 登陆态在有效期内，不用拦截
+      }else{
+        console.log(this);
+           let alert = vm.$alert('请先登陆', {
+              callback: ()=>{
+                  vm.$router.replace('/login');
+              }
+          });
+      }
+      });
+  },
   mounted(){
       // 从缓存中获取权限列表
       let accessList = window.sessionStorage.getItem('accessList');

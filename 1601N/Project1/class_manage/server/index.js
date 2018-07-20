@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var mysql      = require('mysql');
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser')
 var connection = mysql.createConnection({
   host     : '127.0.0.1',
   user     : 'root',
@@ -9,12 +10,13 @@ var connection = mysql.createConnection({
   database : '1601N'
 });
 
+
 var jsonParser = bodyParser.json();
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-const router = express.Router();
-
-//设置跨域访问
+// 解析cookie
+app.use(cookieParser())
+// 设置跨域访问
 app.all('*', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "content-type");
@@ -28,6 +30,8 @@ app.all('*', function(req, res, next) {
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', function(req, res) {
+    res.cookie('isLogin', 'true');
+    res.cookie('isLogin1111', 'true');
     res.send('hello world');
 });
   
@@ -134,6 +138,7 @@ app.post('/login', jsonParser, (req, res)=>{
             connection.query(`select count(*) as num,id from user where username = ? and password = ?`,[req.body.username, req.body.password], (err, rows, fields)=>{
                 // console.log(rows);  
                 if (rows[0].num == 1){
+                    res.cookie('isLogin2222', 'true');
                     res.json({
                         code: 0,
                         id: rows[0].id,
