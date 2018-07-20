@@ -184,6 +184,39 @@ app.get('/accessList', (req, res)=>{
     });   
 })
 
+// 生成成绩单数据
+app.get('/reportList', (req, res)=>{
+    connection.query(`select id from user`, function(err, rows, fields) {
+        if (err) throw err;
+        // 拿到所有用户的id rows
+        // 生成11天的成绩单
+        // res.json(rows);
+        let score = [],
+            dayStr = ``;
+        for (let i=20;i<=31;i++){
+            let dayScore = [];
+            // 给每个用户生成一个成绩
+            for (let y=0;y<rows.length;y++){
+                dayScore.push({
+                    id: rows[y].id,
+                    score: Math.floor((Math.random()*20))+80
+                })
+                dayStr += `(${rows[y].id}, ${Math.floor((Math.random()*20))+80}, "2018-07-${i}"),`
+            }
+            score.push({
+                date: `2018-07-${i}`,
+                list: dayScore
+            })
+        }
+        // res.json(score);
+        // res.end(`insert into report (uid, score, date) values ${dayStr.slice(0, dayStr.length-1)}`);
+        connection.query(`insert into report (uid, score, date) values ${dayStr.slice(0, dayStr.length-1)}`, function(err, rows, fields) {
+            res.json(rows);
+        })
+        // console.log('score...', score);
+    });   
+})
+
 
 app.get('/list', (req, res)=>{
     // connection.connect();
