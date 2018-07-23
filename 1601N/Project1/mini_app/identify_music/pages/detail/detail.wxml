@@ -1,0 +1,10 @@
+<!--pages/detail/detail.wxml-->
+<view>
+    <text>{{info.title}}</text>
+    <text>{{info.author}}</text> 
+    <image src="{{info.image}}"></image>  
+
+    <button wx:if="{{false}}">点击播放</button>
+    <button wx:elif="{{false}}">点击暂停</button>
+    <button wx:else hover-class='active'>点击</button>
+</view>
