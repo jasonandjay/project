@@ -1,5 +1,5 @@
 /**index.wxss**/
-.item{
+.item, .info{
     display: flex;
     align-items: center;
     border-bottom: 1rpx dashed #c0c0c0; 
@@ -32,4 +32,26 @@
     text-overflow:ellipsis;
     word-break:break-all;
     -webkit-line-clamp:3;
+}
+.info{
+    flex-direction: column;
+}
+.info progress{
+   width: 100%;
+}
+.info image{
+    width: 260rpx;
+    height: 260rpx;
+    margin: 20rpx 0;
+    border-radius: 50%;
+}
+.info view{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.info button{
+    width: 49%;
+    margin: 5px 0;
 }
