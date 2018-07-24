@@ -59,9 +59,28 @@ Page({
         })
     },
     onShow(){
+        // wx.navigateTo({
+        //     url: '/pages/web/web'
+        // })
+
+        // wx.authorize({
+        //     scope: 'scope.userInfo',
+        //     success() {
+        //         // 用户已经同意小程序使用录音功能，后续调用 wx.startRecord 接口不会弹窗询问
+                wx.getUserInfo({
+                    success: res=>{
+                        console.log('res..', res);
+                    }  
+                })
+            // },
+            // fail(err){
+                // console.log('err..', err);
+            // }
+        // })
+
         // 随机播放音乐
         this.list = this.randomList('src');
-        this.play(this.list[this.data.current]);
+        // this.play(this.list[this.data.current]);
         this.setData({
             nameList: this.randomList('name'),
         })

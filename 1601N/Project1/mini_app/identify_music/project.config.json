@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
+			"current": 3,
 			"list": [
 				{
 					"id": -1,
@@ -52,6 +52,12 @@
 					"name": "详情页面",
 					"pathName": "pages/detail/detail",
 					"query": "index=3"
+				},
+				{
+					"id": 3,
+					"name": "web页面",
+					"pathName": "pages/web/web",
+					"query": ""
 				}
 			]
 		}
