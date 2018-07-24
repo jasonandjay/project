@@ -4,7 +4,7 @@
         <image src="{{list[current].image}}"></image>
         <progress percent="{{precent}}" />
         <view>
-            <button type="{{myAnswer.length==(current+1)?myAnswer[myAnswer.length-1]:''}}" wx:key="{{index}}" wx:for="{{nameList}}" bindtap='clickAnswer' data-name="{{item}}">{{item}}</button>
+            <button type="{{index==currentAnswer.index?currentAnswer.type:''}}" wx:key="{{index}}" wx:for="{{nameList}}" bindtap='clickAnswer' data-name="{{item}}" data-index="{{index}}">{{item}}</button>
         </view>
     </view>
     <view wx:for="{{list}}" class='item' wx:key="{{index}}" bindtap='click' data-index="{{index}}">

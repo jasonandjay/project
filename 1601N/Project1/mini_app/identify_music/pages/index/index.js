@@ -12,6 +12,7 @@ Page({
         precent: 0, //当前音乐播放进度
         answer: [], //存放正确答案
         myAnswer: [], //存放我的答案
+        currentAnswer: {},  //存放当前歌曲的选择答案
         nameList: [], //歌名列表
         
         playList: [{
@@ -99,7 +100,7 @@ Page({
                     this.audio.seek(start);
                     let precentInter = setInterval(() => {
                         this.setData({
-                            precent: this.data.precent + 0.1
+                            precent: this.data.precent + 0.2
                         });
                         if (this.data.precent >= 100) {
                             clearInterval(precentInter);
@@ -111,9 +112,19 @@ Page({
         this.audio.onTimeUpdate(() => {
             let time = this.audio.currentTime;
             if (duration && time > start) {
-                if (time > start + 10) {
+                if (time > start + 5) {
                     this.audio.stop();
                     if (this.data.current == 9){
+                        // 判断猜歌结果
+                        let right = 0;
+                        for (let i=0,len=this.data.answer.length;i<len;i++){
+                            if (this.data.answer[i] == this.data.myAnswer[i]){
+                                right++;
+                            }
+                        }
+                        wx.showToast({
+                            title: (right/10)*100+'%'
+                        })
                         return;
                     }
                     if (this.data.myAnswer.length == this.data.current){
@@ -124,6 +135,7 @@ Page({
                     this.setData({
                         current: this.data.current+1,
                         nameList: this.randomList('name'),
+                        currentAnswer: {},
                         precent: 0
                     }, ()=>{
                         this.play(this.list[this.data.current]);
@@ -136,11 +148,16 @@ Page({
         })
     },
     clickAnswer(e){
-        let name = e.currentTarget.dataset.name;
+        let name = e.currentTarget.dataset.name,
+            index = e.currentTarget.dataset.index;
         // console.log('e..', name);
         if (this.data.myAnswer.length == this.data.current){
             this.setData({
-                myAnswer: this.data.myAnswer.concat(name)
+                myAnswer: this.data.myAnswer.concat(name),
+                currentAnswer: {
+                    index,
+                    type: name==this.data.answer[this.data.current]?'primary':'warn'
+                }
             })
         }
         console.log('answer:', this.data.myAnswer);
