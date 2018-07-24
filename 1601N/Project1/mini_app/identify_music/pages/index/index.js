@@ -80,14 +80,14 @@ Page({
 
         // 随机播放音乐
         this.list = this.randomList('src');
-        // this.play(this.list[this.data.current]);
+        this.play(this.list[this.data.current]);
         this.setData({
             nameList: this.randomList('name'),
         })
 
-        wx.showLoading({
-            title: '加载中...'
-        })
+        // wx.showLoading({
+        //     title: '加载中...'
+        // })
         getMusicList()
         .then(res=>{
             console.log('res...',res);
@@ -119,7 +119,7 @@ Page({
                     this.audio.seek(start);
                     let precentInter = setInterval(() => {
                         this.setData({
-                            precent: this.data.precent + 0.2
+                            precent: this.data.precent + 0.1
                         });
                         if (this.data.precent >= 100) {
                             clearInterval(precentInter);
@@ -131,7 +131,7 @@ Page({
         this.audio.onTimeUpdate(() => {
             let time = this.audio.currentTime;
             if (duration && time > start) {
-                if (time > start + 5) {
+                if (time > start + 10) {
                     this.audio.stop();
                     if (this.data.current == 9){
                         // 判断猜歌结果

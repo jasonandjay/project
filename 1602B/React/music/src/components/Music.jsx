@@ -1,5 +1,6 @@
 import React from 'react';
 import '../scss/music.css';
+import Lrc from './Lrc';
 
 export default class Music extends React.Component{
     constructor(){
@@ -10,6 +11,7 @@ export default class Music extends React.Component{
             playState: true,
             progress: 0  //进度
         }
+        this.rect = {}  // 存放进度条的位置信息
     }
 
     componentDidMount(){
@@ -22,6 +24,7 @@ export default class Music extends React.Component{
             this.setState({
                 songList: body.songs
             })
+            this.rect = this.refs.line.getBoundingClientRect();
         })
     }
 
@@ -62,7 +65,7 @@ export default class Music extends React.Component{
     // 播放期间实时更新进度
     timeUpdate(){
         let progress = this.refs.audio.currentTime/this.refs.audio.duration*100;
-        console.log('time..', this.refs.audio.currentTime, this.refs.audio.duration, progress+'%');
+        // console.log('time..', this.refs.audio.currentTime, this.refs.audio.duration, progress+'%');
         this.setState({
             progress
         })
@@ -73,6 +76,34 @@ export default class Music extends React.Component{
         let min = Math.floor(time/60)+'',
             sec = Math.floor(time%60)+'';
         return min.padStart(2, 0)+':'+sec.padStart(2, 0);
+    }
+
+    // 触摸进度条
+    touchStart(){
+        console.log('开始触摸滚动条');
+        this.refs.audio.pause();
+    }
+
+    // 移动进度条
+    touchMove(e){
+        // console.log('touchmove...', e.touches[0], this.rect);
+        let offset = (e.touches[0].clientX - this.rect.left);
+        console.log('offset...', offset, offset/this.rect.width);
+        let progress = Math.floor((offset/this.rect.width)*100);
+        if (progress>100){
+            progress = 100;
+        }else if(progress<0){
+            progress = 0;
+        }
+        this.setState({
+            progress
+        });
+        this.refs.audio.currentTime = this.refs.audio.duration*offset/this.rect.width;
+    }
+
+    // 离开进度条
+    touchEnd(){
+        this.refs.audio.play();
     }
 
     render(){
@@ -89,17 +120,25 @@ export default class Music extends React.Component{
                 <img src={song.image} className={this.state.playState?'active':''}/>  
                 <div className="progress">
                     <span>{this.refs.audio && this.formTime(this.refs.audio.currentTime)}</span>
-                    <div>
-                        <span style={{width: this.state.progress+'%'}}></span>
+                    <div
+                        ref="line"
+                        onTouchStart={()=>this.touchStart()}
+                        onTouchMove={(e)=>this.touchMove(e)}
+                        onTouchEnd={()=>this.touchEnd()}
+                    >   
+                        <div>
+                            <span style={{width: this.state.progress+'%'}}></span>
+                        </div>
                     </div>
                     <span>{this.refs.audio && this.formTime(this.refs.audio.duration)}</span>
                 </div> 
-                <div>
+                <div className="action">
                     <button onClick={()=>this.prev()}>上一首</button>
                     <button onClick={()=>this.play()}>{this.state.playState?'暂停':'播放'}</button>
                     <button onClick={()=>this.next()}>下一首</button>
                 </div>
             </div>
+            <Lrc time={this.refs.audio && this.refs.audio.currentTime*1000}/>
             <ul>{
                 this.state.songList.map((item, index)=>{
                     return <li key={index} className={this.state.current==index?'active':''}>

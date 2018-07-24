@@ -8,61 +8,49 @@ export default class Lrc extends React.Component{
             timeList: [],
             lrcList: [],
             current: 0,
-            lrc: `
-            ti:i love you]
-[ar:celine dion ]
-[by:]
-[00:17.50]I must be crazy now
-[00:22.50]Maybe I dream too much
-[00:26.50]But when I think of you
-[00:29.50]I long to feel your touch
-[00:34.50]To whisper in your ear
-[00:38.50]Words that are old as time
-[00:42.50]Words only you would hear
-[00:45.50]If only you were mine
-[00:49.50]I wish I could go back to the very first day I saw you
-[00:57.50]Should've made my move when you looked in my eyes
-[01:05.50]'Cause by now I know that you'd feel the way that I do
-[01:13.50]And I'd whisper these words as you'd lie here by my side
-[01:20.50]I love you, please say
-[01:30.50]You love me too, these three words
-[01:39.50]They could change our lives forever
-[01:46.50]And I promise you that we will always be together
-[01:52.50]Till the end of time
-[02:10.50]So today, I finally find the courage deep inside
-[02:14.50]Just to walk right up to your door
-[02:19.50]But my body can't move when I finally get to it
-[02:22.50]Just like a thousand times before
-[02:26.50]Then without a word he handed me this letter
-[02:34.50]Read I hope this finds the way into your heart, it said
-[02:43.50]I love you, please say
-[02:51.50]You love me too, these three words
-[03:01.50]They could change our lives forever
-[03:07.50]And I promise you that we will always be together
-[03:13.50]Till the end of time
-[03:21.50]Well maybe I, I need a little love yeah
-[03:30.50]And maybe I, I need a little care
-[03:35.50]And maybe I, maybe you, maybe you, maybe you
-[03:38.50]Oh you need somebody just to hold you
-[03:45.50]If you do, just reach out and I'll be there
-[03:55.50]I love you, please say
-[04:01.50]You love me too
-[04:02.50]Please say you love me too
-[04:05.50]Till the end of time
-[04:08.50]These three words
-[04:10.50]They could change our lives forever
-[04:16.50]And I promise you that we will always be together
-[04:23.50]Oh, I love you
-[04:30.50]Please say you love me too
-[04:39.50]Please please
-[04:41.50]Say you love me too
-[04:44.50]Till the end of time
-[04:49.50]My baby
-[04:53.50]Together, together, forever
-[04:58.50]Till the end of time
-[05:00.50]I love you
-[05:08.50]I will be your light
-[05:11.50]Shining bright`
+            lrc: `[ar:王北车]
+            [al:陷阱]
+            [by:]
+            [offset:0]
+            [00:00.37]陷阱 - 王北车
+            [00:01.37]词：石锦秋
+            [00:02.15]曲：石锦秋
+            [00:02.96]编曲：胜屿/隔路人乐队
+            [00:04.87]混音：吕晓菲
+            [00:05.95]吉他：齐成刚
+            [00:07.02]和声：胜屿
+            [00:31.31]一封信两年都没动笔
+            [00:38.02]三个字过了几个四季
+            [00:44.73]你是有多想逃避 来不及问问你
+            [00:51.13]我已经错过相爱的日期
+            [00:58.35]那天你消失在人海里
+            [01:04.89]你的背影沉默得让人恐惧
+            [01:11.79]你说的那些问题 我回答得很坚定
+            [01:18.60]偏偏那个时候我最想你
+            [01:23.35]我不曾爱过你 我自己骗自己
+            [01:30.46]已经给你写了信 又被我丢进海里
+            [01:36.97]我不曾爱过你 我自己骗自己
+            [01:44.01]明明觉得自己很冷静
+            [01:47.77]却还掉入我自己的陷阱
+            [02:05.90]那天你消失在人海里
+            [02:12.58]你的背影沉默得让人恐惧
+            [02:19.32]你说的那些问题 我回答得很坚定
+            [02:26.26]偏偏那个时候我最想你
+            [02:31.00]我不曾爱过你 我自己骗自己
+            [02:38.06]已经给你写了信 又被我丢进海里
+            [02:44.52]我不曾爱过你 我自己骗自己
+            [02:51.57]明明觉得自己很冷静
+            [02:55.32]却还掉入我自己的陷阱
+            [03:03.39]一个人在夜里想的太多
+            [03:09.98]离开我你的生活不再寂寞
+            [03:18.36]我不曾爱过你 我自己骗自己
+            [03:25.36]已经给你写了信 又被我丢进海里
+            [03:31.79]我不曾爱过你
+            [03:38.52]我不曾爱过你 我自己骗自己
+            [03:45.68]已经给你写了信 又被我丢进海里
+            [03:52.11]我不曾爱过你 我自己骗自己
+            [03:59.16]明明觉得自己很冷静
+            [04:02.89]却还掉入我自己的陷阱`
         }
         this.swiper = null;
     }
@@ -99,8 +87,9 @@ export default class Lrc extends React.Component{
     }
 
     // 当接收到新的props时会触发的生命周期
-    componentWillReceiveProps(){
-        if (this.props.time > this.state.timeList[this.state.current+1]){
+    componentWillReceiveProps(nextProps){
+        console.log('time...', this.props.time, this.state.timeList)
+        if (nextProps.time > this.state.timeList[this.state.current+1]){
             this.setState({
                 current: this.state.current+1,
             }, ()=>{
