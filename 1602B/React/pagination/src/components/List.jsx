@@ -17,6 +17,10 @@ class List extends React.Component{
 
     pageChange(page){
         console.log('当前是第多少页...', page);
+        let {pageSize} = this.props;
+        this.setState({
+            list: this.state.allList.slice((page-1)*pageSize, page*pageSize)
+        })
     }
 
     render(){

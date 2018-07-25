@@ -5,9 +5,11 @@ export default (WrapComponent)=>{
     class Component extends WrapComponent{
         constructor(props){
             super(props);
-            this.state = {
-                current: 1
-            }
+            // this.state = {
+                // current: 1
+            // }
+            this.state = {...this.state, current: 1};
+            console.log('state...', this.state);
         }
 
         clickPage(page, type){
