@@ -1,0 +1,13 @@
+@import '~antd/dist/antd.css';
+
+*{
+    padding: 0;
+    margin: 0;
+}
+#root{
+    height: 100%;
+}
+i:hover{
+    color: lightgreen;
+    transform: scale(1.5);
+}
