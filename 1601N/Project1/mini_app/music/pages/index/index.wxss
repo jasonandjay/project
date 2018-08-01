@@ -1,0 +1,57 @@
+/**index.wxss**/
+.item, .info{
+    display: flex;
+    align-items: center;
+    border-bottom: 1rpx dashed #c0c0c0; 
+    width: 100%;
+    padding: 20rpx;
+    box-sizing: border-box;
+}
+.item image{
+    width: 180rpx;
+    height: 180rpx;
+    border-radius: 50%;
+}
+.item view{
+    display: flex;
+    flex-direction: column;
+    height: 180rpx;
+    justify-content: space-between;
+    flex: 1;
+    margin-left: 20rpx;
+}
+.item text{
+    font-size: 32rpx;
+    color: gray;
+    font-weight: 500;
+}
+.item text:nth-child(1){
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    word-break:break-all;
+    -webkit-line-clamp:3;
+}
+.info{
+    flex-direction: column;
+}
+.info progress{
+   width: 100%;
+}
+.info image{
+    width: 260rpx;
+    height: 260rpx;
+    margin: 20rpx 0;
+    border-radius: 50%;
+}
+.info view{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.info button{
+    width: 49%;
+    margin: 5px 0;
+}

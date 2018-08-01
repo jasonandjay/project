@@ -33,6 +33,16 @@ app.get('/', function(req, res) {
     res.send('hello world');
 });
   
+// 发表微博的接口
+app.post('/post', jsonParser, (req, res)=>{
+    console.log(`insert into content (uid, content, created) values(${req.body.uid}, '${req.body.content}', ${+new Date()})`)
+     // 插入语句
+     connection.query(`insert into content (uid, content, created) values(${req.body.uid}, '${req.body.content}', ${+new Date()})`,
+     (err, rows, fields)=>{
+         console.log('rows...', rows, err);
+     })
+ 
+})  
 
 // 登陆接口
 app.post('/login', jsonParser, (req, res)=>{

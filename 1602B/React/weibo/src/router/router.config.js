@@ -1,7 +1,7 @@
 // 一级路由
 import Tab from '../components/Tab';
 import Detail from '../components/Detail';
-import Add from '../components/tab/Add';
+import Add from '../components/Add';
 import Login from '../components/Login';
 
 // 二级路由

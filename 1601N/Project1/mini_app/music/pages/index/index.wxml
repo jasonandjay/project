@@ -1,0 +1,20 @@
+<!--index.wxml-->
+<view class="container">
+    <button open-type="getUserInfo">授权</button>
+    <view class='info'>
+        <image src="{{list[current].image}}"></image>
+        <progress percent="{{precent}}" />
+        <view>
+            <button type="{{index==currentAnswer.index?currentAnswer.type:''}}" wx:key="{{index}}" wx:for="{{nameList}}" bindtap='clickAnswer' data-name="{{item}}" data-index="{{index}}">{{item}}</button>
+        </view>
+    </view>
+    <view wx:for="{{list}}" class='item' wx:key="{{index}}" bindtap='click' data-index="{{index}}">
+        <block>
+            <image src="{{item.image}}"></image>
+            <view>
+                <text>{{item.title}}</text>
+                <text>{{item.author}}</text>
+            </view>
+        </block>
+    </view>
+</view>

@@ -25,7 +25,12 @@ export default class Login extends React.Component{
         })
         .then(res=>{
             console.log('body...', res)
-            alert(res.data.msg)
+            if (res.data.code == 0){
+                window.sessionStorage.setItem('login', `true${res.data.id}`);
+                window.history.back();
+            }else{
+                alert(res.data.msg)
+            }
         })
     }
 
