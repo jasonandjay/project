@@ -7,7 +7,7 @@
     <text>{{cities.length}} </text>个城市</view>
   <view class='content'>超越了
     <text> {{percentage}}% </text>的用户</view>
-  <ec-canvas id="mychart-dom-area" canvas-id="mychart-area" ec="{{ ec }}"></ec-canvas>
+  <ec-canvas id="mychart-dom-area" canvas-id="mychart" ec="{{ ec }}"></ec-canvas>
   <view class='city_list'>
     <view style='width:60%;'>
       <text wx:for='{{cities}}' wx:key="{{index}}">{{item}}</text>
