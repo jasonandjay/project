@@ -1,0 +1,19 @@
+<!--index.wxml-->
+<view class="container">
+    <view class='cityList'>
+        <block wx:for="{{cityData}}" wx:key="{{index}}" >
+            <view class="title {{index==indId?'active':''}}" bindtap='click' data-item="{{item}}" data-ind="{{index}}">
+                {{item.name}}<text class='num' wx:if='{{item.child.num}}'>{{item.child.num}}</text>
+            </view>
+        </block>
+        
+    </view>
+    <view class='subList'>
+            <block wx:for="{{subData}}" wx:key="{{index}}" >
+                <view  bindtap='subClick' data-item="{{item}}" data-ind="{{index}}" class="{{item.clickType?'active':''}}" wx:if='{{index!="num"}}'>
+                    {{item.name}}
+                </view>
+            </block>
+            <button bindtap='btnCli'>提交</button>
+    </view>
+</view>

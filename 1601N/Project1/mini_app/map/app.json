@@ -1,0 +1,12 @@
+{
+    "pages": [
+        "pages/index/index",
+        "pages/map/index"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#0bb5b5",
+        "navigationBarTitleText": "那些年的城市",
+        "navigationBarTextStyle": "#fff"
+    }
+}
