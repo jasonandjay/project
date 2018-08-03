@@ -194,10 +194,10 @@ Page({
                         canvasId: 'canvas',
                         success: function (res) {
                             console.log(res.tempFilePath)
-                            wx.previewImage({
-                                current: res.tempFilePath, // 当前显示图片的http链接
-                                urls: [res.tempFilePath] // 需要预览的图片http链接列表
-                            })
+                            // wx.previewImage({
+                            //     current: res.tempFilePath, // 当前显示图片的http链接
+                            //     urls: [res.tempFilePath] // 需要预览的图片http链接列表
+                            // })
                             wx.getSetting({
                                 success: (res) => {
                                     console.log('res...', res);
