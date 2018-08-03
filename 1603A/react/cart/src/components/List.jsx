@@ -1,4 +1,5 @@
 import React from 'react';
+import '../scss/list.css';
 
 export default class List extends React.Component{
     constructor(props){
@@ -6,9 +7,9 @@ export default class List extends React.Component{
     }
 
     render(){
-        return <div>{
+        return <div className="list">{
             this.props.list.map((item, index)=>{
-                return <li key={index}>
+                return <li key={index} className={item.checked?'active':''}>
                     <input type="checkbox" checked={item.checked} onChange={
                         e=>this.props.itemSelect(index)
                     }/>
@@ -18,7 +19,7 @@ export default class List extends React.Component{
                         <span>{item.num}</span>    
                         <span onClick={()=>this.props.changeNum(index, '-')}>-</span>
                     </div>
-                    <span>{item.price}</span>
+                    <span>￥{item.price}</span>
                 </li>
             })
         }</div>;

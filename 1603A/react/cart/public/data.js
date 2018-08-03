@@ -1,5 +1,7 @@
 var Mock = require('mockjs');
 var Random = Mock.Random;
+
+
 Mock.Random.extend({
     title: (data) => Mock.Random.pick(['什么是绝对地址和相对地址？', '角度来讲奥地利卡机', '法斯蒂夫送发票四平','帕拉丁帕拉丁怕']),
     money: (data) => Mock.Random.pick(['￥20', '￥30','$10','$90','$1000']),

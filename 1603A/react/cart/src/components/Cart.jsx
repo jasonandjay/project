@@ -1,6 +1,7 @@
 import React from 'react';
 import List from './List';
 import axios from 'axios';
+import '../scss/cart.css';
 
 export default class Cart extends React.Component{
     constructor(props){
@@ -94,17 +95,20 @@ export default class Cart extends React.Component{
     }
 
     render(){
-        return <div>
+        return <div className="cart">
             <List list={this.state.list}
                 itemSelect={this.itemSelect.bind(this)}
                 changeNum={this.changeNum.bind(this)}/>
-            <div>
-                <input type="checkbox" checked={this.state.isSelectAll} onChange={
-                    e=>this.selectAll(e.target.checked)
-                }/>全选
+            <footer style={{fontSize:20, display:'flex', alignItems:'center', justifyContent:'space-between'}}>
+                <div>
+                    <input id="input" type="checkbox" checked={this.state.isSelectAll} onChange={
+                        e=>this.selectAll(e.target.checked)
+                    }/>
+                    <label htmlFor="input">全选</label>
+                </div>
                 <p>数量：{this.totalNum()}</p>
                 <p>总价：{this.totalPrice()}</p>
-            </div>
+            </footer>
         </div>;
     }
 }
