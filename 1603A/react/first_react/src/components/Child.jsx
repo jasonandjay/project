@@ -15,10 +15,11 @@ export default class Child extends React.Component{
     render(){
         console.log('render props...', this.props);
         // return <p>我是Child组件</p>;
-        return this.props.list.map((item, index)=>{
-            return <li key={index}>{item}</li>
-        })
-
+        // return this.props.list.map((item, index)=>{
+            // return <li key={index}>{item}</li>
+        // })
+        
+        return <img src="/img/IMG_0228.PNG" alt=""/>
         // 重要的props children
         // return this.props.children;
     }

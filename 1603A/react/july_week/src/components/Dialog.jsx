@@ -18,7 +18,7 @@ export default class Dialog extends Component {
             }
         })
     }
-
+    
     hide(value){
         // value && console.log(value);
         if (value == 'true'){
