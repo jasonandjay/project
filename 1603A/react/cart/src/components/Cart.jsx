@@ -18,7 +18,7 @@ export default class Cart extends React.Component{
         axios.get('https://www.easy-mock.com/mock/5af6599acf64741ceacf1c57/es6/goods')
         .then(res=>{
             this.setState({
-                list: res.data
+                // list: res.data
             })
         })
     }
@@ -96,7 +96,7 @@ export default class Cart extends React.Component{
 
     render(){
         return <div className="cart">
-            <List list={this.state.list}
+            <List 
                 itemSelect={this.itemSelect.bind(this)}
                 changeNum={this.changeNum.bind(this)}/>
             <footer style={{fontSize:20, display:'flex', alignItems:'center', justifyContent:'space-between'}}>
