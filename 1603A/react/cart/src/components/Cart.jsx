@@ -96,7 +96,7 @@ export default class Cart extends React.Component{
 
     render(){
         return <div className="cart">
-            <List 
+            <List list={this.state.list}
                 itemSelect={this.itemSelect.bind(this)}
                 changeNum={this.changeNum.bind(this)}/>
             <footer style={{fontSize:20, display:'flex', alignItems:'center', justifyContent:'space-between'}}>
