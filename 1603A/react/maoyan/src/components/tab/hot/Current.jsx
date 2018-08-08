@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 
-export default class Movie extends Component {
+export default class Current extends Component {
     render() {
         return (
             <div>
-                
+                正在热映
             </div>
         )
     }
