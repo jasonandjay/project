@@ -19,6 +19,5 @@ export default (props)=>{
             })
         }
         <Redirect exact from="/" to="/tab/hot/current"></Redirect>
-        <Redirect exact from="/111111" to="/tab/hot/current"></Redirect>
     </Switch>
 }

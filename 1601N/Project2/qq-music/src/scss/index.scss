@@ -1,0 +1,72 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.index{
+    header{
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: #31c37c;
+        div{
+            height: .88rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            margin: 0 .5rem;
+            font-size: .46rem;
+            color: #eee;
+        }
+        .active{
+            font-size: .52rem;
+            color: #fff;
+        }
+        p{
+            height: .58rem;
+            box-sizing: border-box;
+            border: 1px solid #2caf70;
+            background: #2caf70;
+            margin: .15rem .5rem;
+            border-radius: .1rem;
+            line-height: .58rem;
+            text-align: center;
+            font-size: .36rem;
+            color: #ddd;
+        }
+    }
+    .swiper-container{
+        margin-top: 1.76rem;
+        margin-bottom: 1rem;
+    }
+    footer{
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        height: 1rem;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-top: 1px solid #eee;
+        p{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: space-between;
+            font-size: .3rem;
+            span:nth-child(1){
+                font-size: .4rem;
+            }
+        }
+        .control{
+            background: url('/assets/icon_list_menu.png') no-repeat;
+            background-position: -40px 0;
+            width: 36px;
+            height: 36px;
+            display: inline-block; 
+        }
+        .control.active{
+            background-position: -40px -200px;
+        }
+    }
+}
