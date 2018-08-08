@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Swiper from 'swiper/dist/js/swiper.min.js';
 import 'swiper/dist/css/swiper.min.css';
 import '../scss/index.css';
+import Recommend from './index/Recommend';
 
 export default class Index extends Component {
     constructor(props){
@@ -14,9 +15,9 @@ export default class Index extends Component {
 
     componentDidMount(){
         let that = this;
-        this.swiper = new Swiper('.swiper-container', {
+        this.swiper = new Swiper('.wrap.swiper-container', {
             // loop: true,
-            autoplay: true,
+            // autoplay: true,
             on: {
                 slideChangeTransitionEnd: function(){
                     that.setState({
@@ -25,6 +26,7 @@ export default class Index extends Component {
                 },
               },
         })
+        // 拉取排行榜数据
     }
 
     render() {
@@ -33,17 +35,24 @@ export default class Index extends Component {
             <div className="index">
                 <header>
                     <div>
-                        <span className={current==0?'active':''}>我的</span>
-                        <span className={current==1?'active':''}>音乐</span>
-                        <span className={current==2?'active':''}>发现</span> 
+                        <span className={current==0?'active':''}>推荐</span>
+                        <span className={current==1?'active':''}>排行榜</span>
+                        <span className={current==2?'active':''}>搜索</span> 
                     </div>
                     <p>搜索</p>
                 </header>
-                <div className="swiper-container">
+                <div className="swiper-container wrap">
                     <div className="swiper-wrapper">
-                        <div className="swiper-slide">我的</div>
-                        <div className="swiper-slide">音乐</div>
-                        <div className="swiper-slide">发现</div>
+                        <div className="swiper-slide">
+                            {/* 推荐页面 */}
+                            <Recommend />
+                        </div>
+                        <div className="swiper-slide">
+                            {/* 排行榜 */}
+                        </div>
+                        <div className="swiper-slide">
+                            {/* 搜索 */}
+                        </div>
                     </div>
                 </div> 
                 <footer>

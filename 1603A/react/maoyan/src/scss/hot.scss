@@ -1,0 +1,43 @@
+.hot{
+    header{
+        position: fixed;
+        top: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        height: .88rem;
+        width: 100%;
+        .active{
+            color: pink;
+            border-bottom: 1px solid pink;
+        }
+    }
+    section{
+        margin-top: .88rem;
+    }
+}
+
+.current{
+    .swiper-container{
+        img{
+            width: 100%;
+            margin-top: -.9rem;
+        }
+        span{
+            background-size: cover;
+            height: 100%;
+            width: 100%;
+            display: inline-block;
+            background-position: 50%;
+        }
+    }
+    .swiper-slide{
+        height: 3rem;
+        overflow: hidden;
+    }
+    section{
+        img{
+            width: 1.5rem;
+        }
+    }
+}

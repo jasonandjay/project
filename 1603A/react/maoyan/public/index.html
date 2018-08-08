@@ -7,14 +7,9 @@
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
   <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
   <title>Cart</title>
-  <style>
-    .active{
-      background: lightcoral;
-    }
-  </style>
   <script>
     var func = ()=>{
-      console.log('...');
+      console.log('...', window.innerWidth);
       document.documentElement.style.fontSize = (window.innerWidth)/750*100+'px';
     }
     (window.onload = func) && (window.onresize = func) && func()
