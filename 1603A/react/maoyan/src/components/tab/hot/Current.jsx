@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import Swiper from 'swiper/dist/js/swiper.min.js';
 import 'swiper/dist/css/swiper.min.css';
 import {NavLink} from 'react-router-dom';
+import Loading from '../../../common/Loading';
 
 export default class Current extends Component {
     constructor(props){
         super(props);
         this.state = {
             ads: [],
-            list: []
+            list: [],
+            showLoading: true
         }
     }
 
@@ -19,7 +21,8 @@ export default class Current extends Component {
         .then(body=>{
             console.log('body..', body);
             this.setState({
-                list: body.data.returnValue
+                list: body.data.returnValue,
+                showLoading: false
             })
         })
 
@@ -68,6 +71,7 @@ export default class Current extends Component {
                         </NavLink>
                     })
                 }</section>
+            {this.state.showLoading?<Loading></Loading>:null}
         </div>  
     }
 }
