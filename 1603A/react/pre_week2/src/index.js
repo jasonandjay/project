@@ -1,5 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Index from './components/Index';
 
-ReactDOM.render(<Index />, document.getElementById('root'));
+import {BrowserRouter as Router} from 'react-router-dom';
+import RouterView from './router/RouterView';
+import config from './router/router.config';
+
+ReactDOM.render(<Router>
+    <RouterView routes={config.routes}></RouterView>
+</Router>, document.getElementById('root'));
