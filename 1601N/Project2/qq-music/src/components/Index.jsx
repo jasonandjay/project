@@ -3,8 +3,10 @@ import Swiper from 'swiper/dist/js/swiper.min.js';
 import 'swiper/dist/css/swiper.min.css';
 import '../scss/index.css';
 import Recommend from './index/Recommend';
+import withAd from './hoc/withAd.jsx';
 
-export default class Index extends Component {
+
+class Index extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -68,3 +70,8 @@ export default class Index extends Component {
         )
     }
 }
+
+export default withAd(Index, {
+    position: 'top',
+    background: '#31c27c'
+});
