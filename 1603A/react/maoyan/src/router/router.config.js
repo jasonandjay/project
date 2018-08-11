@@ -43,6 +43,13 @@ const My = Loadable({
 })
 
 
+const Login = Loadable({
+    loader: () => import('../components/Login'),
+    loading: Loading,
+})
+
+
+
 
 export default{
     routes:[{
@@ -68,5 +75,8 @@ export default{
     },{
         path: '/detail',
         component: Detail
+    },{
+        path: '/login',
+        component: Login
     }]
 }

@@ -62,7 +62,7 @@ export default class Current extends Component {
                     this.state.list.map((item, index)=>{
                         return <NavLink to={{
                             pathname: '/detail',
-                            item
+                            state: item
                         }} key={index}>
                             <img src={`https://gw.alicdn.com/${item.poster}`} />
                             <div>

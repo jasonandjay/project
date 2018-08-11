@@ -10,6 +10,7 @@ export default class Detail extends Component {
 
     componentDidMount(){
         let item = this.props.location.item;
+        console.log(this.props);
         if (item){
             window.localStorage.setItem('detail', JSON.stringify(this.props.location.item))
         }else{
