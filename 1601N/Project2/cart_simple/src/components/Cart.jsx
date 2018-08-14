@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux';
 import List from './List';
+import Index from './Index';
 
 class Cart extends Component {
     componentDidMount(){
@@ -32,6 +33,7 @@ class Cart extends Component {
         return (
             <div>
                 我是购物车
+                <Index></Index>
                 <List></List>
                 <p>
                     <span>数量：{this.totalNum()}</span>
@@ -74,8 +76,14 @@ const mapDispatchToProps = (dispatch, ownProps)=>{
             // })
 
             // 用了redux-thunk之后异步dispatch的写法
+            // redux-thunk支持用函数的写法来写action,同时会帮我们注入两个参数
+            // dispatch用来发生action，getState用来获取state
             dispatch((dispatch, getState)=>{
                 console.log('getState...', getState());
+                dispatch({
+                    type: 'FETCH_LIST_START',
+                    // payload: body
+                })
                 fetch('/index.json')
                 .then(res=>res.json())
                 .then(body=>{
