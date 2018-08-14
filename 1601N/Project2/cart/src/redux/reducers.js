@@ -22,6 +22,7 @@ const fetchList = (state, action)=>{
 export default (state = initialState, action)=>{
     // 返回state
     return {
-        list: fetchList(state.list, action)
+        list: fetchList(state.list, action),
+        a: 100
     }
 }

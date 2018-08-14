@@ -6,8 +6,15 @@ let initialState = {
 
 // redeucer监听函数
 const handleList = (state, action)=>{
+    let list = [...state];
     switch(action.type){
-        default: return state
+        case 'FETCH_LIST': 
+            return action.payload;
+        case 'ITEM_SELECT':
+            list[action.payload].checked = !list[action.payload].checked;
+            return list;
+        default: 
+            return state
     }
 }
 

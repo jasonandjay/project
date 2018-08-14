@@ -8,6 +8,12 @@ export const fetchList = (payload)=>{
     }
 }
 
+export const fetchList = (payload)=>{
+    return (dispatch, getState)=>{
+        
+    }
+}
+
 // 点击商品action生成函数
 export const itemClick = (payload)=>{
     return {

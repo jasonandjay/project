@@ -1,13 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import '../scss/list.css';
+import {connect} from 'react-redux';
 
-export default class List extends React.Component{
+class List extends React.Component{
     constructor(props){
         super(props);
     }
 
     render(){
+        console.log('list props...', this.props);
         return <div className="list">{
             this.props.list.map((item, index)=>{
                 return <li key={index} className={item.checked?'active':''}>
@@ -24,59 +25,42 @@ export default class List extends React.Component{
                 </li>
             })
         }</div>;
+        // console.log('list props...', this.props);
+        // return null;
     }
 }
 
-// 类型检查
-List.propTypes = {
-    list: PropTypes.number
+// 用connect包裹组件
+
+/** 把redux中state映射成props传递到组件中去
+ * @param state redux存储的数据
+ * @param ownProps 组件调用时传过来的props
+ * @return 返回一个对象
+ */
+const mapStatetoProps = (state, ownProps) => {
+    return {
+        list: state.list
+    }
 }
 
-// 默认值
-List.defaultProps = {
-    list: [
-        {
-          "name": "榴莲",
-          "price": 100,
-          "num": 1,
-          "checked": false
+/**
+ * 把dispatch操作封装在当前函数里，传递到组件中
+ * @param dispatch 
+ * @param ownProps 
+ * @return 返回一个对象
+ */
+const mapDispatchtoProps = (dispatch, ownProps) => {
+   return {
+        itemSelect: (index)=>{
+            dispatch({
+                type: 'ITEM_SELECT',
+                payload: index
+            })
         },
-        {
-          "name": "百香果",
-          "price": 50,
-          "num": 1,
-          "checked": false
-        },
-        {
-          "name": "车厘子",
-          "price": 200,
-          "num": 1,
-          "checked": false
-        },
-        {
-          "name": "山竹",
-          "price": 300,
-          "num": 1,
-          "checked": false
+        changeNum: ()=>{
+
         }
-      ]
+   }
 }
 
-// export default (props)=>{
-//     return <div className="list">{
-//         props.list.map((item, index)=>{
-//             return <li key={index} className={item.checked?'active':''}>
-//                 <input type="checkbox" checked={item.checked} onChange={
-//                     e=>props.itemSelect(index)
-//                 }/>
-//                 <span>{item.name}</span>
-//                 <div>
-//                     <span onClick={()=>props.changeNum(index, '+')}>+</span>
-//                     <span>{item.num}</span>    
-//                     <span onClick={()=>props.changeNum(index, '-')}>-</span>
-//                 </div>
-//                 <span>￥{item.price}</span>
-//             </li>
-//         })
-//     }</div>;
-// }
+export default connect(mapStatetoProps, mapDispatchtoProps)(List)
