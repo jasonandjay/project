@@ -49,8 +49,9 @@ class Cart extends Component {
  * @return 返回需要的state
  */
 const mapStateToPorps = (state, ownProps)=>{
+    console.log('state...', state);
     return {
-        list: state.list
+        list: state.list.list
     }
 }
 
@@ -62,15 +63,28 @@ const mapStateToPorps = (state, ownProps)=>{
 const mapDispatchToProps = (dispatch, ownProps)=>{
     return {
         fetchList: ()=>{
-            fetch('/index.json')
-            .then(res=>res.json())
-            .then(body=>{
-                dispatch({
-                    type: 'FETCH_LIST',
-                    payload: body
+            // 同步dispatch的写法
+            // fetch('/index.json')
+            // .then(res=>res.json())
+            // .then(body=>{
+            //     dispatch({
+            //         type: 'FETCH_LIST',
+            //         payload: body
+            //     })
+            // })
+
+            // 用了redux-thunk之后异步dispatch的写法
+            dispatch((dispatch, getState)=>{
+                console.log('getState...', getState());
+                fetch('/index.json')
+                .then(res=>res.json())
+                .then(body=>{
+                    dispatch({
+                        type: 'FETCH_LIST',
+                        payload: body
+                    })
                 })
             })
-
         }
     }
 }

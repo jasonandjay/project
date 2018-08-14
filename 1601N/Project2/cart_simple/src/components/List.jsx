@@ -33,7 +33,7 @@ class List extends Component {
 const mapStatetoProps = (state, ownProps)=>{
     console.log('state...', state);
     return {
-        list: state.list
+        list: state.list.list
     }
 }
 

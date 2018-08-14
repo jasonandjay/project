@@ -1,34 +1,13 @@
-// state初始值
-let initialState = {
-    list: [],           // 购物车商品列表
-    isSelectAll: false  // 购物车是否选中全部
-}
+import {combineReducers} from 'redux';
+import cart from './reducer/cart';
+import list from './reducer/list';
 
-// reduce处理函数
-const fetchList = (state, action)=>{
-    let list = [...state];
-    switch(action.type){
-        case 'FETCH_LIST': return action.payload;
-        case 'ITEM_CLICK': 
-            list[action.payload].isChecked = !list[action.payload].isChecked;
-            return list;
-        case 'ADD_NUM':
-            list[action.payload].num++;
-            return list;
-        case 'SUB_NUM':
-            if (list[action.payload].num != 0){
-                list[action.payload].num--;
-            }
-            return list;
-        default: return state;
-    }
-}
-    
 
-// 导出reducer
-export default (state = initialState, action)=>{
-    // 返回state
-    return {
-        list: fetchList(state.list, action)
-    }
-}
+// 导出合并后的reducer
+// 合并之后访问会多一层，先访问外层模块名，再访问模块内部属性
+// isSelectAll: state.cart.isSelectAll
+// list：state.list.list
+export default combineReducers({
+    cart,
+    list
+})
