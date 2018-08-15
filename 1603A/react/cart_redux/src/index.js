@@ -1,10 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Cart from './components/Cart';
 
 import {Provider} from 'react-redux';
 import store from './store/store';
 
+import {BrowserRouter} from 'react-router-dom';
+import config from './router/router.config';
+import RouterView from './router/RouterView';
+
 ReactDOM.render(<Provider store={store}>
-    <Cart data={{a:1}}/>
+    <BrowserRouter>
+        <RouterView routes={config.routes}></RouterView>
+    </BrowserRouter>
 </Provider>, document.getElementById('root'));

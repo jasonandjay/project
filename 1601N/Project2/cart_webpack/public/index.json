@@ -1,0 +1,21 @@
+[{
+    "name": "牛奶",
+    "price": 100,
+    "num": 0,
+    "isChecked": false
+},{
+    "name": "面包",
+    "price": 200,
+    "num": 0,
+    "isChecked": false
+},{
+    "name": "榴莲",
+    "price": 300,
+    "num": 0,
+    "isChecked": false
+},{
+    "name": "西瓜",
+    "price": 1000,
+    "num": 0,
+    "isChecked": false
+}]
