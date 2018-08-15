@@ -8,6 +8,9 @@ const handleList = (state, action)=>{
     switch(action.type){
         case 'INITIAL_LIST':
             return action.payload;
+        case 'UPDATE_LIST':
+            state.push(action.payload);
+            return state;
         default: 
             return state;
     }

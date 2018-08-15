@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 
 class Header extends Component {
     render() {
+        console.log('header props...', this.props);
         let {list, countryIndex} = this.props;
         return  <p>{
             list.map((item, index)=>{
@@ -15,6 +16,7 @@ class Header extends Component {
 }
 
 const mapStateToProps = (state)=>{
+    // console.log('state...', state)
     return {
         list: state.list,
         countryIndex: state.countryIndex
