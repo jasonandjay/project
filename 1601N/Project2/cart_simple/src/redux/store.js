@@ -4,4 +4,14 @@ import reducers from './reducers';
 import Logger from 'redux-logger';
 import Thunk from 'redux-thunk';
 
-export default createStore(reducers, applyMiddleware(Logger, Thunk));
+// 引入saga中间件
+import createSaga from 'redux-saga';
+// 引入saga处理文件
+import sagas from '../sagas/index';
+// 创建一个saga实例
+let Saga = createSaga();
+
+
+export default createStore(reducers, applyMiddleware(Logger, Thunk, Saga));
+// 运行saga
+Saga.run(sagas);

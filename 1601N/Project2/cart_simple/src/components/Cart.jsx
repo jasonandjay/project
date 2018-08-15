@@ -33,7 +33,7 @@ class Cart extends Component {
         return (
             <div>
                 我是购物车
-                <Index></Index>
+                {/* <Index></Index> */}
                 <List></List>
                 <p>
                     <span>数量：{this.totalNum()}</span>
@@ -78,20 +78,26 @@ const mapDispatchToProps = (dispatch, ownProps)=>{
             // 用了redux-thunk之后异步dispatch的写法
             // redux-thunk支持用函数的写法来写action,同时会帮我们注入两个参数
             // dispatch用来发生action，getState用来获取state
-            dispatch((dispatch, getState)=>{
-                console.log('getState...', getState());
-                dispatch({
-                    type: 'FETCH_LIST_START',
-                    // payload: body
-                })
-                fetch('/index.json')
-                .then(res=>res.json())
-                .then(body=>{
-                    dispatch({
-                        type: 'FETCH_LIST',
-                        payload: body
-                    })
-                })
+
+            // dispatch((dispatch, getState)=>{
+            //     console.log('getState...', getState());
+            //     dispatch({
+            //         type: 'FETCH_LIST_START',
+            //         // payload: body
+            //     })
+            //     fetch('/index.json')
+            //     .then(res=>res.json())
+            //     .then(body=>{
+            //         dispatch({
+            //             type: 'FETCH_LIST',
+            //             payload: body
+            //         })
+            //     })
+            // })
+
+            // 直接触发FETCH_LIST action, 在saga中拦截
+            dispatch({
+                type: 'FETCH_SAGA',
             })
         }
     }

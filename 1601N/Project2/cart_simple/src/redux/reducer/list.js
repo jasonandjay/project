@@ -5,9 +5,12 @@ let initialState = {
 
 // reduce处理函数
 const fetchList = (state, action)=>{
+    console.log('action...', action, action.payload);
     let list = [...state];
     switch(action.type){
-        case 'FETCH_LIST': return action.payload;
+        case 'FETCH_LIST': {
+            console.log('payload...', action.payload);
+            return action.payload;}
         case 'ITEM_CLICK': 
             list[action.payload].isChecked = !list[action.payload].isChecked;
             return list;
