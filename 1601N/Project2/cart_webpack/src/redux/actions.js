@@ -1,23 +1,23 @@
-import * as actionTypes from './actionTypes';
+// import * as actionTypes from './actionTypes';
 
-// 获取数据action生成函数
-export const fetchList = (payload)=>{
-    return {
-        type: actionTypes.FETCH_LIST,
-        payload
-    }
-}
+// // 获取数据action生成函数
+// export const fetchList = (payload)=>{
+//     return {
+//         type: actionTypes.FETCH_LIST,
+//         payload
+//     }
+// }
 
-export const fetchList = (payload)=>{
-    return (dispatch, getState)=>{
+// export const fetchList = (payload)=>{
+//     return (dispatch, getState)=>{
         
-    }
-}
+//     }
+// }
 
-// 点击商品action生成函数
-export const itemClick = (payload)=>{
-    return {
-        type: actionTypes.ITEM_CLICK,
-        payload
-    }
-}
+// // 点击商品action生成函数
+// export const itemClick = (payload)=>{
+//     return {
+//         type: actionTypes.ITEM_CLICK,
+//         payload
+//     }
+// }

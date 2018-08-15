@@ -1,17 +1,15 @@
 var path = require('path')
 var webpack = require('webpack')
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
-const MiniCssExtractPlugin  = require('mini-css-extract-plugin');
+const MiniCssExtractPlugin  = require('mini-css-extract-plugin')
 
 const plugins = [
-    new VueLoaderPlugin(),
     // 从页面中抽离css
     new MiniCssExtractPlugin({
-        filename: '[name].[hash:6].css'
+        filename: 'index.css'
     })
-];
-
+]
 module.exports = {
+  mode: process.env.NODE_ENV,
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, './dist'),
@@ -20,56 +18,78 @@ module.exports = {
   },
   module: {
     rules: [
-        {
-            test: /\.vue$/,
-            loader: 'vue-loader'
-        },
-        {
-            test: /\.(js|jsx)$/,  //正则判断文件类型
-            exclude: /node_modules/,    //排除这个文件夹不处理
-            use: [{
-                loader: 'babel-loader',  //使用加载器 
-                options: {
-                    presets: ['react', 'env']
-                }
-            }]     
-        },
-        {
-            test: /\.css$/,
-            use: [MiniCssExtractPlugin.loader,'css-loader']
-        },
-        {
-            test: /\.scss$/,
-            use: [MiniCssExtractPlugin.loader,'css-loader','sass-loader']
-        },
-        {
-            test: /\.(gif|png|jpe?g|svg)$/i,
-            use: [{
-                loader: 'url-loader',
-                options: {
-                    name: '[name].[hash:6].[ext]',
-                    limit: 1024
-                }
-            }]
-        },
-        {
-            test: /\.(eot|ttf|svg|woff)$/,
-            use: ['url-loader']
+      {
+        test: /\.css$/,
+        use: [
+          'vue-style-loader',
+          'css-loader'
+        ],
+      },
+      {
+        test: /\.scss$/,
+        use: [
+            process.env.NODE_ENV=='production'?MiniCssExtractPlugin.loader:'vue-style-loader',
+          'css-loader',
+          'sass-loader'
+        ],
+      },
+      {
+        test: /\.sass$/,
+        use: [
+            MiniCssExtractPlugin.loader,
+          'css-loader',
+          'sass-loader?indentedSyntax'
+        ],
+      },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        options: {
+          loaders: {
+            // Since sass-loader (weirdly) has SCSS as its default parse mode, we map
+            // the "scss" and "sass" values for the lang attribute to the right configs here.
+            // other preprocessors should work out of the box, no loader config like this necessary.
+            'scss': [
+              'vue-style-loader',
+              'css-loader',
+              'sass-loader'
+            ],
+            'sass': [
+              'vue-style-loader',
+              'css-loader',
+              'sass-loader?indentedSyntax'
+            ]
+          }
+          // other vue-loader options go here
         }
+      },
+      {
+        test: /\.js|jsx$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+        options: {
+            presets: ['react', 'stage-0']
+        }
+      },
+      {
+        test: /\.(png|jpg|gif|svg)$/,
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]?[hash]'
+        }
+      }
     ]
   },
   resolve: {
     alias: {
       'vue$': 'vue/dist/vue.esm.js'
     },
-    extensions: ['*', '.js', '.vue', '.json']
+    extensions: ['*', '.js', '.jsx', '.vue', '.json']
   },
   devServer: {
     historyApiFallback: true,
-    noInfo: true,
+    // noInfo: true,
     overlay: true,
-    open: true,
-    hot: true,
     before: (app)=>{
       app.get('/index/data', (req, res)=>{
         let json = require('./src/json/index.json');
@@ -77,8 +97,6 @@ module.exports = {
       })
     }
   },
-  performance: {
-    hints: false
-  },
-  devtool: '#eval-source-map'
+  devtool: '#eval-source-map',
+  plugins
 }
