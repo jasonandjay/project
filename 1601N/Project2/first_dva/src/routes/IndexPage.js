@@ -1,13 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import styles from './IndexPage.css';
-import {query} from '../services/example';
-
-query()
-.then(data=>{
-  console.log('data...', data);
-})
-
+import PropTypes from 'prop-types';
 
 function IndexPage() {
   return (
@@ -23,6 +17,10 @@ function IndexPage() {
 }
 
 IndexPage.propTypes = {
+   list: PropTypes.array
 };
+IndexPage.defaultProps = {
+  list: []
+}
 
 export default connect()(IndexPage);
