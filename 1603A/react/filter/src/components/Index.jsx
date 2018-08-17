@@ -3,6 +3,55 @@ import {connect} from 'react-redux';
 import '../scss/index.css';
 
 class Index extends Component {
+    constructor(){
+        super();
+        this.state = {
+            snows: []
+        }
+    }
+
+    componentDidMount(){
+        // 随机下雪花
+        setInterval(()=>{
+            let x = Math.random()*(window.innerWidth-50);
+            let duration = Math.random()*3000+4000;
+            let scale = Math.random()*2+1;
+            let id = +new Date();
+            let snows = this.state.snows;
+            snows.push({
+                id: id,
+                start: false,
+                duration,
+                x,
+                scale
+            })
+            this.setState({
+                snows
+            }, ()=>{
+                setTimeout(()=>{
+                    let snows = this.state.snows;
+                    snows.forEach((item)=>{
+                        if (item.id == id){
+                            item.start = true;
+                            this.setState({
+                                snows
+                            })
+                        }
+                    })
+                }, 10);
+            })
+        }, 300);
+    }
+
+    removeSnow(id){
+        let index = this.state.snows.findIndex(item=>item.id==id);
+        let snows = this.state.snows;
+        snows.splice(index, 1);
+        this.setState({
+            snows
+        })
+    }
+
     render() {
         console.log(this.props);
         // 获取选中的数据
@@ -41,6 +90,21 @@ class Index extends Component {
                         this.props.changeMulti(this.props.isMulti);
                     }}>{this.props.isMulti?'多选':'单选'}</span>
                 </section>  
+                <div className="snow">{
+                    this.state.snows.map((item, index)=>{
+                        let style = {
+                            left: item.x,
+                            transition: `transform ${item.duration}ms linear`
+                        }
+                        if (item.start){
+                            style.transform = `translate3d(0, ${window.innerHeight+100}px, 0)`
+                        }
+                        return <p key={index} style={style}
+                        onTransitionEnd={()=>{
+                            // this.removeSnow(item.id);
+                        }}>❄</p>
+                    })
+                }</div>
             </div>
         )
     }

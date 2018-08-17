@@ -20,3 +20,19 @@ section div span{
 section div span.active{
     background: lightcoral;
 }
+.snow{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.snow p{
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    font-size: .3rem;
+    color: palevioletred;
+    transform: translate3d(0,0,0);
+}
