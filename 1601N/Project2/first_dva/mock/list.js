@@ -2,7 +2,7 @@ import Mock from 'mockjs';
 // const Mock = require('mockjs');
 
 let data = Mock.mock({
-    "user|1-10":[{
+    "user|5-10":[{
         'cname': '@cname',
         'id|+1': 1,
         'name|+1': ['香蕉','苹果','橘子','榴莲','山竹'],
