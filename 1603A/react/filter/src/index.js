@@ -4,12 +4,8 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import store from './store/store';
 
-import {BrowserRouter} from 'react-router-dom';
-import config from './router/router.config';
-import RouterView from './router/RouterView';
+import Index from './components/Index';
 
 ReactDOM.render(<Provider store={store}>
-    <BrowserRouter>
-        <RouterView routes={config.routes}></RouterView>
-    </BrowserRouter>
+    <Index></Index>
 </Provider>, document.getElementById('root'));

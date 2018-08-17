@@ -1,8 +1,6 @@
 import {combineReducers} from 'redux';
-import cart from './cart';
-import my from './my';
+import index from './index';
 
 export default combineReducers({
-    cart,
-    my
+    index
 })
