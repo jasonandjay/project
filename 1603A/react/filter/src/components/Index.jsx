@@ -28,19 +28,19 @@ class Index extends Component {
             this.setState({
                 snows
             }, ()=>{
-                setTimeout(()=>{
-                    let snows = this.state.snows;
-                    snows.forEach((item)=>{
-                        if (item.id == id){
-                            item.start = true;
-                            this.setState({
-                                snows
-                            })
-                        }
-                    })
-                }, 10);
+                // setTimeout(()=>{
+                //     let snows = this.state.snows;
+                //     snows.forEach((item)=>{
+                //         if (item.id == id){
+                //             item.start = true;
+                //             this.setState({
+                //                 snows
+                //             })
+                //         }
+                //     })
+                // }, 10);
             })
-        }, 300);
+        }, 500);
     }
 
     removeSnow(id){
@@ -94,14 +94,18 @@ class Index extends Component {
                     this.state.snows.map((item, index)=>{
                         let style = {
                             left: item.x,
-                            transition: `transform ${item.duration}ms linear`
+                            // transition: `transform ${item.duration}ms linear`
+                            animation: `flow ${item.duration}ms linear forwards `
                         }
-                        if (item.start){
-                            style.transform = `translate3d(0, ${window.innerHeight+100}px, 0)`
-                        }
-                        return <p key={index} style={style}
+                        // if (item.start){
+                            // style.transform = `translate3d(0, ${window.innerHeight+100}px, 0)`
+                        // }
+                        return <p key={item.id} style={style}
                         onTransitionEnd={()=>{
                             // this.removeSnow(item.id);
+                        }}
+                        onAnimationEnd={()=>{
+                            //  this.removeSnow(item.id);
                         }}>❄</p>
                     })
                 }</div>
