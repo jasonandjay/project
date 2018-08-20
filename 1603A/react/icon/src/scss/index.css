@@ -1,0 +1,44 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+.index{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+li{
+    list-style: none;
+    text-align: center;
+    margin: .1rem .2rem;
+    position: relative;
+}
+.index i{
+    font-size: .8rem;
+}
+.index span{
+    font-size: .2rem;
+    display: block;
+}
+.index li:hover div{
+    display: flex;
+}
+.index li div{
+    position: absolute;
+    display: none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* display: flex; */
+    flex-direction: column;
+    align-items: center;
+    background: rgba(0,0,0,.8);
+}
+.index li div i{
+    font-size: .4rem;
+    color: #fff;
+}
+.index li div i:first-child:hover{
+    color: red;
+}
