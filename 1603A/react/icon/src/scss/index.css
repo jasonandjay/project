@@ -12,6 +12,11 @@ li{
     text-align: center;
     margin: .1rem .2rem;
     position: relative;
+    border: 1px dashed transparent;
+}
+li.active{
+    border: 1px dashed #c0c0c0;
+    border-radius: .1rem;
 }
 .index i{
     font-size: .8rem;
@@ -41,4 +46,47 @@ li{
 }
 .index li div i:first-child:hover{
     color: red;
+}
+.cart{
+    position: fixed;
+    right: 0;
+    bottom: 1rem;
+    width: .6rem;
+    height: .6rem;
+    background: #ccc;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cart i{
+    font-size: .5rem;
+}
+.cart span{
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #fff;
+    background: red;
+    border-radius: 50%;
+    font-family: Tahoma!important;
+    min-width: 30px;
+    line-height: 30px;
+    display: inline-block;
+    text-align: center;
+    transform-origin: center;
+    border: 1px solid red
+}
+.cart span.active{
+    /* animation: num .3s linear; */
+    border: 10px solid transparent;
+    transition: all .3s linear;
+}
+@keyframes num{
+    0%{
+        border: 1px solid red
+    }
+    100%{
+        border: 10px solid transparent;
+    }
 }
