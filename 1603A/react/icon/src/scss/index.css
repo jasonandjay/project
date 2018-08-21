@@ -69,24 +69,14 @@ li.active{
     color: #fff;
     background: red;
     border-radius: 50%;
-    font-family: Tahoma!important;
     min-width: 30px;
     line-height: 30px;
     display: inline-block;
     text-align: center;
     transform-origin: center;
-    border: 1px solid red
+    transition: all .3s linear;
+    border: 1px solid #fff;
 }
 .cart span.active{
-    /* animation: num .3s linear; */
-    border: 10px solid transparent;
-    transition: all .3s linear;
-}
-@keyframes num{
-    0%{
-        border: 1px solid red
-    }
-    100%{
-        border: 10px solid transparent;
-    }
+    border: 10px solid rgba(255,0,0,.1);
 }
