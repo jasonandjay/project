@@ -7,10 +7,9 @@ class Replaied extends Component {
         console.log('replay..', this.props);
         return <div>{
             this.props.list.map((item, index)=>{
-                return <li onClick={()=>{
-                    this.props.history.push('/detail/'+item.id, {
-                        item: item
-                    })
+                return <li key={index} onClick={()=>{
+                    // this.props.history.push({pathname:'/detail/'+item.id, state:item})
+                    this.props.history.push('/detail/'+item.id, item)
                 }}>
                     <div>
                         <p>{
