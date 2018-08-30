@@ -6,19 +6,14 @@ const MiniCssExtractPlugin  = require('mini-css-extract-plugin');
 // 引入vue-loader
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
-// 删除构建目录
-let cleanWebpack = process.env.NODE_ENV?new CleanWebpackPlugin(['build/assets/']):()=>{};
 //配置插件
 const plugins = [
-    // 开启热更新
-    new webpack.HotModuleReplacementPlugin(),
     // 引入vue插件
     new VueLoaderPlugin(),
     // 从页面中抽离css
     new MiniCssExtractPlugin({
         filename: '[name].[hash:6].css'
     }),
-    cleanWebpack,
     //处理html，并自动引用output的文件
     new HtmlWebpackPlugin({
         //目标文件
