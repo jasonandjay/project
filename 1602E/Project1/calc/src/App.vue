@@ -1,60 +1,38 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
-  </div>
+    <Index :count="num"/>
 </template>
 
 <script>
-export default {
-  name: 'app',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
+    import Index from './components/Index.vue';
+    export default{
+        data: ()=>{
+            return {
+                num: 100
+            }
+        },
+        // 注册一下组件
+        components: {
+            Index
+        }
     }
-  }
-}
+    /* 对比react生命周期和vue的生命周期
+        触发时期            Vue             React
+        组件创建之前        beforeCreate    无
+        组件创建完成        created         constructor
+        组件挂载之前        beforeMount     componentWillMount
+        组件挂载完成        mounted         componentDidMount       ***
+        组件更新之前        beforeUpdate    componentWillUpdate
+        组件更新完成        updated         componentDidUpdate
+
+        将要获取props       无              componentWillReceiveProps
+        组件是否要更新      无              shouldComponentUpdate
+        组件渲染            无              render  
+
+        组件销毁之前        beforeDstory    componentWillUnmount    ***
+        组件销毁之后        destoryed       
+
+
+        组件怎么销毁        v-if为false     用条件表达式不渲染
+                           vm.$destory()   unMountComponentAtNode()
+    */
 </script>
-
-<style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
-</style>
