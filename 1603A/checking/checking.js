@@ -96,9 +96,20 @@ const checkingFile = (files, correctAnswer)=>{
                 if (answer[i] == correctAnswer[i]){
                     score += 3;
                 }
-            }else{
+            }else if(i>=20 & i< 30){
                 if (answer[i] == correctAnswer[i]){
                     score += 2;
+                }
+            }else{
+                if (correctAnswer[i] == 'A'){
+                    console.log('A对√'.indexOf(answer[i]));
+                    if ('A对√'.indexOf(answer[i]) != -1){
+                        score += 2;
+                    }
+                }else{
+                    if('B错×'.indexOf(answer[i]) != -1){
+                        score += 2;
+                    }
                 }
             }
         }
