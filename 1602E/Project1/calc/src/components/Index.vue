@@ -5,6 +5,9 @@
         <button @click="sub">-</button>    
 
         <input type="text" v-model="name">
+        <slot>
+            <p>0000000</p>
+        </slot>
     </div>
 </template>
 

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>promise加载图片</title>
+</head>
+<body>
+    <div id="sync"></div>
+    <div id="async"></div>
+    <script>
+        // 图片数据
+        const arr = [
+            "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1535692583955&di=ff06bbd6887f941319d29d5a234cbbde&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2Fb%2F57b51ddb3c460.jpg",
+            // "http://p0.meituan.net/movie/53e39ceee7bfbada4dc89bd93bbd334b198786.jpg@160w_220h_1e_1c",
+            "http://p1.meituan.net/movie/7a2c3acb1bda2baad8df309b046d0872344909.jpg@160w_220h_1e_1c",
+            "http://p1.meituan.net/movie/81c618559f2d01913c8f0116d7644e2b4695454.jpg@160w_220h_1e_1c",
+            "http://p1.meituan.net/movie/fdc0ff03d3f19b019cec244b16e4abc4547877.jpg@160w_220h_1e_1c",
+            "http://p0.meituan.net/movie/3416332fa04264c53db76db669a50a436930117.jpg@160w_220h_1e_1c",
+            "http://p0.meituan.net/movie/2cdac5ed45aa0ff70672e0de75f8a48b1544758.png@160w_220h_1e_1c",
+        ]
+
+        // 封装promise加载图片
+        function loadImg(url){
+            return new Promise((resolve, reject)=>{
+                let img = new Image();
+                img.src = url;
+                img.onload = ()=>{
+                    resolve(img);
+                }
+                img.onerror = ()=>{
+                    reject(new Error('图片加载失败'));
+                }
+            })
+        }
+
+        // 按顺序加载图片
+        async function loadSync(){
+            for (let i=0,len=arr.length; i<len; i++){
+                let img = await loadImg(arr[i]);
+                document.querySelector('#sync').appendChild(img);
+                // console.log(i);
+            }
+        }
+
+        // 并行加载图片
+        async function loadAsync(){
+            arr.forEach(async (item, index)=>{
+                try{
+                     let img = await loadImg(item);
+                } catch(err){
+
+                }
+                document.querySelector('#async').appendChild(img);
+                console.log(index);
+            })
+        }
+
+        // 调用顺序加载图片
+        loadSync();
+        // loadAsync();
+
+
+        // 用await获取一个fetch请求
+        async function f(){
+            let data = await fetch('https://www.easy-mock.com/mock/5af661177138d57c901e916b/request1/popular').then(res=>res.json())
+            console.log('data...', data);
+        }
+        f();
+    </script>
+</body>
+</html>

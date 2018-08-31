@@ -1,5 +1,9 @@
 <template>
-    <Index :count="num"/>
+    <keep-alive>
+         <Index :count="num">
+             <p>123456</p>
+         </Index>
+    </keep-alive>
 </template>
 
 <script>
