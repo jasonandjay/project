@@ -1,0 +1,251 @@
+@charset "UTF-8";
+* {
+  margin: 0px;
+  padding: 0px;
+  text-decoration: none;
+  box-sizing: border-box;
+  font-size: .14rem;
+  font-weight: 400;
+  font-style: normal;
+  font-family: "微软雅黑";
+  text-size-adjust: 100%;
+}
+
+ul, li {
+  list-style: none;
+}
+
+html {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  font-size: 625%;
+}
+
+img, div, body, html, ul, li, a {
+  -webkit-touch-callout: none;
+}
+
+input, button {
+  outline: 0;
+  display: box;
+  line-clamp: 2;
+  word-break: break-all;
+  overflow: hidden;
+}
+
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+  color: #999;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+}
+
+.wode {
+  width: 100%;
+  height: 100%;
+}
+
+.wode-login {
+  width: 94%;
+  height: 1.4rem;
+  margin: 0 3%;
+  background: #fff;
+  box-shadow: 0 0 18px #ccc;
+}
+
+.wode-login .login-top {
+  width: 100%;
+  height: 0.7rem;
+  text-align: center;
+}
+
+.wode-login .login-top span {
+  color: #000;
+}
+
+.wode-login .login-top span:nth-child(1) {
+  display: inline-block;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: .14rem 0;
+  vertical-align: middle;
+}
+
+.wode-login .login-top span:nth-child(1) > img {
+  width: 100%;
+}
+
+.wode-login .login-top span:nth-child(2) {
+  margin: 0 8%;
+  font-size: .18rem;
+}
+
+.wode-login .login-bottom {
+  width: 100%;
+  height: 0.7rem;
+  display: flex;
+  align-items: center;
+}
+
+.wode-login .login-bottom li {
+  width: 50%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wode-login .login-bottom li span {
+  font-size: .16rem;
+  color: #000;
+}
+
+.wode-login .login-bottom li span i.icon {
+  color: red;
+}
+
+.wode-login .login-bottom li b {
+  color: #989898;
+  padding: .02rem 0;
+  font-weight: 500;
+}
+
+.login-list {
+  width: 100%;
+  height: 2rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: .1rem 0;
+}
+
+.login-list li {
+  width: 30%;
+  height: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.login-list li i.icon {
+  font-size: .38rem;
+  color: #22C47E;
+}
+
+.login-list li b {
+  font-size: .16rem;
+  font-weight: 500;
+  color: #000;
+}
+
+.login-bot {
+  width: 100%;
+  height: auto;
+  padding: 0 3%;
+}
+
+.login-bot h3 {
+  width: 100%;
+  height: 0.5rem;
+  line-height: .5rem;
+  text-align: center;
+}
+
+.login-bot h3 span {
+  font-size: .16rem;
+  padding: 0 .2rem;
+  vertical-align: middle;
+  color: #000;
+}
+
+.login-bot .login-text {
+  width: 100%;
+  height: auto;
+}
+
+.login-bot .login-text h2 {
+  width: 100%;
+  height: .5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.login-bot .login-text h2 span {
+  font-size: .14rem;
+  color: #000;
+}
+
+.login-bot .login-text h2 b {
+  display: flex;
+  justify-content: space-between;
+  flex-basis: .8rem;
+}
+
+.login-bot .login-text h2 b i.icon {
+  font-size: .24rem;
+  color: #000;
+}
+
+.login-bot .login-text li {
+  width: 100%;
+  height: 1rem;
+  padding: .05rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.login-bot .login-text li dl {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  overflow: hidden;
+}
+
+.login-bot .login-text li dl dt {
+  width: 1rem;
+  height: 1rem;
+}
+
+.login-bot .login-text li dl dt img {
+  width: 100%;
+}
+
+.login-bot .login-text li dl dd {
+  padding-left: .1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  font-size: .18rem;
+}
+
+.login-bot .login-text li dl dd span {
+  font-size: .16rem;
+  color: #000;
+}
+
+.login-bot .login-text li dl dd b {
+  font-weight: 500;
+  color: #808080;
+}
+
+.login-bot .login-text li i.icon {
+  font-size: .22rem;
+}
+
+.wode-iscroll {
+  width: 100%;
+  position: relative;
+}
