@@ -12,6 +12,7 @@ let mutations = {
         let brand = {};
         payload.forEach((item)=>{
             let spell = item.Spelling[0];
+            // 判断这个字母是否在前面出现过
             if (letters.indexOf(spell) != -1){
                 // 只要把数据放到brand里
                 brand[spell].push(item);
