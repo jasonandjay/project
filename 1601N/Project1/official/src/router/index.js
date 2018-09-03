@@ -17,6 +17,9 @@ const routes = [{
     },{
         path: '/img',
         component: Img
+    },{
+        path: '*',
+        redirect: '/detail'
     }
 ];
 
