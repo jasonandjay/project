@@ -6,7 +6,8 @@ let state = {
     letter: '',     // 当前选中的品牌字母
     isShow: false,  // 是否显示字母弹框
     brandId: '',     // 品牌id
-    makeList: ''    // 车系列表
+    makeList: '',    // 车系列表
+    isShowList: false   //是否显示车系
 }
 
 let mutations = {
@@ -31,9 +32,11 @@ let mutations = {
         state.letters = letters;
         state.brand = brand;
     },
+    // 显示车系数据
     changeMakeList: (state, payload)=>{
         state.brandId = payload.id;
         state.makeList = payload.list;
+        state.isShowList = true;
     },
     // 控制字母的显示和隐藏
     showLetter: (state, payload)=>{
@@ -42,6 +45,10 @@ let mutations = {
     // 该变letter
     changeLetter: (state, payload)=>{
         state.letter = payload;
+    },
+    // 隐藏车系数据
+    hideMakeList: (state)=>{
+        state.isShowList = false;
     }
 }
 
