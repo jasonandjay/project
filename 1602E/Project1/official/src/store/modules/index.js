@@ -1,8 +1,12 @@
-import {getBrandList} from '../../api/index';
+import {getBrandList, getMakeList} from '../../api/index';
 
 let state = {
-    letters: [],
-    brand: {}
+    letters: [],    // 匹配字母列表
+    brand: {},      // 品牌列表
+    letter: '',     // 当前选中的品牌字母
+    isShow: false,  // 是否显示字母弹框
+    brandId: '',     // 品牌id
+    makeList: ''    // 车系列表
 }
 
 let mutations = {
@@ -26,6 +30,18 @@ let mutations = {
 
         state.letters = letters;
         state.brand = brand;
+    },
+    changeMakeList: (state, payload)=>{
+        state.brandId = payload.id;
+        state.makeList = payload.list;
+    },
+    // 控制字母的显示和隐藏
+    showLetter: (state, payload)=>{
+        state.isShow = payload;
+    },
+    // 该变letter
+    changeLetter: (state, payload)=>{
+        state.letter = payload;
     }
 }
 
@@ -40,8 +56,20 @@ let actions = {
                 alert(body.msg);
             }
         })
+    },
+    getMakeList: ({commit, state}, payload)=>{
+        if (payload != state.brandId){
+            console.log('id...', payload);
+            getMakeList(payload).then(body=>{
+                console.log('makeList...', body);
+                commit('changeMakeList', {
+                    id: payload,
+                    list: body.data
+                })
+            })
+        }
     }
-} 
+}
 
 
 export default {
