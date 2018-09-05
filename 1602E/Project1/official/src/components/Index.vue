@@ -6,7 +6,7 @@
                     <ul>
                         <p :id="index">{{index}}</p>
                         <li v-for="(value, key) in item" :key="key" @click="getMakeList(value.MasterID)">
-                            <img :data-src="value.CoverPhoto">
+                            <img :data-src="value.CoverPhoto" src="../assets/black.jpg">
                             <span>{{value.Name}}</span>
                         </li>
                     </ul>
@@ -30,6 +30,8 @@
         mapMutations
     } from 'vuex';
     import MakeList from './common/makeList';
+    import lazyLoad from '../util/lazyLoad.js';
+    import '../util/util.js';
     export default {
         computed: {
             ...mapState({
@@ -120,9 +122,9 @@
                     }
                     _throttle();
 
-                    //  let ele1 = document.getElementById('list');
+                     let ele1 = document.getElementById('list');
                     // ele1.addEventListener('scroll', _throttle, false);
-                    document.body.addEventListener('scroll', _throttle, false);
+                    // document.body.addEventListener('scroll', _throttle, false);
                 })();
             },
         },
@@ -134,9 +136,10 @@
             this.height = 0.4 * window.innerWidth / 750 * 100;
             // 获取字母列表距离顶部的高度
             this.marginTop = (window.innerHeight - (this.letters.length) * this.height) / 2;
-            if (Object.entries(this.brand).length){
-                this.updateLazy();
-            }
+            // if (Object.entries(this.brand).length){
+                // this.updateLazy();
+            // }
+            lazyLoad('.wrap');
         },
     }
 </script>
@@ -183,6 +186,7 @@
         }
         img {
             height: .8rem;
+            width: .8rem;
         }
         span {
             font-size: .32rem;

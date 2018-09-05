@@ -7,7 +7,7 @@
         <ul v-for="(item, index) in makeList" :key="index">
             <p>{{item.GroupName}}</p>
             <li v-for="(value, key) in item.GroupList" :key="key">
-                <img :src="value.Picture">
+                <img :data-src="value.Picture" src="../../assets/black.jpg">
                 <div>
                     <p>{{value.AliasName}}</p>
                     <p>{{value.DealerPrice}}</p>
@@ -18,6 +18,7 @@
 </template>
 <script>
     import {mapState, mapMutations} from 'vuex';
+    import lazyLoad from '../../util/lazyLoad.js';
     export default{
         computed: {
             ...mapState({
@@ -46,7 +47,10 @@
                     this.hideMakeList();
                 }
             }
-        }
+        },
+        updated() {
+            lazyLoad('.mask');
+        },
     }
 </script>
 <style scoped lang="scss">
