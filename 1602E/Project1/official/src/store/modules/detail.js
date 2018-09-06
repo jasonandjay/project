@@ -50,6 +50,7 @@ let mutations = {
     changeYear(state, payload){
         state.currentYear = payload;
     },
+    // 拿到数据，处理数据，按照一定规则排序
     updateInfo(state, payload){
         // 车型数据排序
         payload.list.sort((a, b)=>{
@@ -59,21 +60,21 @@ let mutations = {
             }else{
                 // 按照排量排序 升序
                 if (b.exhaust_str > a.exhaust_str){
-                    return 1;
-                }else if(b.exhaust_str < a.exhaust_str){
                     return -1;
+                }else if(b.exhaust_str < a.exhaust_str){
+                    return 1;
                 }else{
                     // 按照功率排序 升序
                     if (b.max_power_str > a.max_power_str){
-                        return 1;
-                    }else if(b.max_power_str < a.max_power_str){
                         return -1;
+                    }else if(b.max_power_str < a.max_power_str){
+                        return 1;
                     }else{
                         // 按照指导价格排序 升序
                         if (b.market_attribute.dealer_price_min > a.market_attribute.dealer_price_min){
-                            return 1;
+                            return -1;
                         }else{
-                            return -1
+                            return 1
                         }
                     }
                 }
