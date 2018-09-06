@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Scroll</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        html,body{
+            height: 100%;
+            overflow: scroll;
+            -webkit-overflow-scrolling: touch;
+        }
+        li{
+            width: 90%;
+            border-radius: 10px;
+            height: 80px;
+            margin: 20px;
+            list-style: none;
+            transform: scale(0.3) translateY(60px);
+        }
+        li.active{
+            animation: scale 1s ease forwards;
+        }
+        li:nth-child(5n+1){
+            background: lightslategray
+        }
+        li:nth-child(5n+2){
+            background: lightcoral
+        }
+        li:nth-child(5n+3){
+            background: lightgreen
+        }
+        li:nth-child(5n+4){
+            background: lightseagreen
+        }
+        li:nth-child(5n+5){
+            background: limegreen
+        }
+        @keyframes scale{
+            0%{
+                transform: scale(0.3) translateY(60px);
+            }
+            100%{
+                transform: scale(1)  translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <script>
+        let scorllAction = ()=>{
+            let nodes = [...document.querySelectorAll('li')];
+            let inView = (ele)=>{
+                let rect = ele.getBoundingClientRect();
+                if (rect.top > 0 && rect.top < window.innerHeight && rect.left > 0 && rect.right > 0){
+                    return true;
+                }
+                return false;
+            }
+            let isDeal = (ele)=>{
+                return ele.classname == 'active';
+            }
+            nodes.forEach(item=>{
+                if (inView(item) && !isDeal(item)){
+                    item.classList = 'active'
+                }
+            })
+        }
+       
+        document.body.addEventListener('scroll', ()=>{
+            scorllAction();
+        })
+        scorllAction();
+    </script>
+</body>
+</html>
