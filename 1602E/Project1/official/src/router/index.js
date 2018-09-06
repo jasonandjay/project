@@ -22,6 +22,7 @@ export default new VueRouter({
         component: Index
     },{
         path: '/detail',
+        name: 'Detail',
         component: Detail
     },{
         path: '/color',

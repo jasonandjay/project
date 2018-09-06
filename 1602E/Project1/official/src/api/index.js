@@ -12,7 +12,7 @@ const sendRequest = (url, method = 'GET', body = {})=>{
     }
     return fetch(url, params).then(res=>res.json());
 }
-const host = /localhost:8080/ig.test(window.location.host)?'http://baojia-test.chelun.com':
+const host = /localhost:8080/ig.test(window.location.host)?'http://baojia.chelun.com':
             'https://baojia.chelun.com';
 
 // 获取品牌列表
@@ -23,4 +23,9 @@ export let getBrandList = ()=>{
 // 获取车系列表
 export let getMakeList = (id)=>{
     return sendRequest(`${host}/v2-car-getMakeListByMasterBrandId.html?MasterID=${id}`)
+}
+
+// 获取车系详情
+export let getDetailList = (id)=>{
+    return sendRequest(`${host}/v2-car-getInfoAndListById.html?SerialID=${id}`)
 }

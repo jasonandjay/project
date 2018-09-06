@@ -49,6 +49,10 @@ let mutations = {
     // 隐藏车系数据
     hideMakeList: (state)=>{
         state.isShowList = false;
+    },
+    // 显示车系数据
+    showMakeList: (state)=>{
+        state.isShowList = true;
     }
 }
 
@@ -65,6 +69,8 @@ let actions = {
         })
     },
     getMakeList: ({commit, state}, payload)=>{
+        // 单点统计的代码
+        _hmt.push(['_trackEvent', '点击了品牌', 'tap', payload]);
         if (payload != state.brandId){
             console.log('id...', payload);
             getMakeList(payload).then(body=>{
@@ -74,6 +80,8 @@ let actions = {
                     list: body.data
                 })
             })
+        }else if (!state.isShowList){
+            commit('showMakeList');
         }
     }
 }

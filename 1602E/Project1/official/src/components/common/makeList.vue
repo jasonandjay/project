@@ -6,7 +6,7 @@
         @touchend="touchend">
         <ul v-for="(item, index) in makeList" :key="index">
             <p>{{item.GroupName}}</p>
-            <li v-for="(value, key) in item.GroupList" :key="key">
+            <li v-for="(value, key) in item.GroupList" :key="key" @click="goDetail(value.SerialID)">
                 <img :data-src="value.Picture" src="../../assets/black.jpg">
                 <div>
                     <p>{{value.AliasName}}</p>
@@ -31,7 +31,8 @@
                 hideMakeList: 'index/hideMakeList'
             }),
             touchstart(e){
-               this.touch  = e.touches[0];
+                this.offsetX = 0;
+                this.touch  = e.touches[0];
             },
             touchmove(e){
                 let touch = e.touches[0];
@@ -43,9 +44,14 @@
             },
             touchend(e){
                 this.$refs.section.style = ``;
+                console.log('offsetX...', this.offsetX);
                 if (this.offsetX > 100){
                     this.hideMakeList();
                 }
+            },
+            goDetail(id){
+                this.$router.push({path: '/detail', query: {id}})
+                // this.$router.push({name: 'Detail', params: {id}})
             }
         },
         updated() {
