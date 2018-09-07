@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>分治算法</title>
+</head>
+<body>
+    <script>
+        // 矩阵搜索题
+        /**
+         *   3.写一个有效的算法完成矩阵搜索，这个矩阵有如下特点：
+            1) 矩阵中的每行数字都是经过排序的，从左到右依次变大。
+            2) 每行的第一个数字都比上一行的最后一个数字大
+            例如：
+            [
+                [2,   4,  8,  9],
+                [10, 13, 15, 21],
+                [23, 31, 33, 51]
+            ]
+            实现一个函数，搜索这个数组
+            输入：4，返回：true
+            输入：3，返回：false
+            你等下发邮件，我好管理。
+        */
+
+        const arr =  [
+            [2,   4,  8,  9],
+            [10, 13, 15, 21],
+            [23, 31, 33, 51]
+        ];
+       
+        
+
+        // 一维数组二分法查找
+        function searchArray(arr, num){
+            console.log('arr...', arr, num);
+            let len = arr.length;
+            if (arr[0] > num || arr[len-1] < num){
+                return false;
+            }else {
+                let mid = Math.floor(arr.length/2);
+                if (arr[mid] > num){
+                    return searchArray(arr.slice(0, mid), num);
+                }else if(arr[mid] < num){
+                    return searchArray(arr.slice(mid+1, len), num);
+                }else{
+                    return true;
+                }
+            }
+        }
+
+        // 二维数组二分查找
+        function search(arr, num){
+            console.log('arr..', arr);
+            let len = arr.length,
+                arrLen = arr[0].length;
+            let middle = Math.floor(arr.length/2);
+            if (arr[0][0] > num || arr[len-1][arrLen-1] < num){
+                return false;
+            }else{
+                if (arr[middle][0] > num ){
+                    // 当最小值大于num，在前面查找
+                    return search(arr.slice(0, middle), num);
+                }else if(arr[middle][arrLen-1] < num){
+                    // 当最大值小于num，在后面查找
+                    return search(arr.slice(middle+1, len), num);
+                }else{
+                    // 在这中间，调用一维数组查找方法
+                    return searchArray(arr[middle], num);
+                }
+            }
+        }
+        let result = search(arr, 52);
+        console.log('查询结果...', result);
+
+
+        // 快速排序
+        let arr1 = [1,23,7,5,3,2,8,2,19,99,10,12,17,78,87];
+        function quickStart(arr){
+            let mid = Math.floor(arr.length/2);
+            let left = [],
+                right = [];
+            // 递归终止条件
+            if (arr.length <= 1){
+                return arr;
+            }
+            arr.forEach(item=>{
+                if (item > arr[mid]){
+                    right.push(item);
+                }else if(item < arr[mid]){
+                    left.push(item);
+                }
+            })
+            return quickStart(left).concat([arr[mid]], quickStart(right));
+        }
+        // 冒泡排序
+        function bubble(arr){
+            for (let i=0, len=arr.length; i<len; i++){
+                for (let j=i+1, len=arr.length; j<len; j++){
+                    let tmp = 0;
+                    if (arr[i] > arr[j]){
+                        tmp = arr[i];
+                        arr[i] = arr[j];
+                        arr[j] = tmp;
+                    }
+                }
+            }
+            return arr;
+        }
+        console.log('排序前：', arr1);
+        // console.log('排序后：', quickStart(arr1));
+        console.log('排序后：', bubble(arr1));
+    </script>
+</body>
+</html>
