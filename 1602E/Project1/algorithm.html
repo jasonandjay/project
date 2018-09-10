@@ -112,6 +112,55 @@
         console.log('排序前：', arr1);
         // console.log('排序后：', quickStart(arr1));
         console.log('排序后：', bubble(arr1));
+
+        if (!isNaN(password)){
+            alert('密码只能是数字!');
+        }else{
+            alert('密码设置成功');
+        }
+        isNaN(password)?alert('密码设置成功'):alert('密码只能是数字')
+        var date = new Date().getDay();
+        switch(date){
+            case 0:
+                document.wirte('今天是星期日');
+            case 1:
+                document.wirte('今天是星期一');
+            case 2:
+                document.wirte('今天是星期二');
+            case 3:
+                document.wirte('今天是星期三');
+            case 4:
+                document.wirte('今天是星期四');
+            case 5:
+                document.wirte('今天是星期五');
+            case 6:
+                document.wirte('今天是星期六');
+        }
+
+        // 成绩判断脚本
+        var score = 99;
+        if (isNaN(score)){
+            alert('成绩必须是数字')
+        }else if(score>100 || score<0){
+            alert('成绩输入有误');
+        }else if(score<60){
+            alert('成绩不及格');
+        }else if(score == 100){
+            alert('成绩满分')
+        }else{
+            var s = Math.floor(score/10);
+            switch(s){
+                case 9:
+                    alert('成绩优');break;
+                case 8:
+                    alert('成绩良');break;
+                case 7:
+                    alert('成绩中');break;
+                case 6:
+                    alert('成绩及格');break;
+            }
+        }
+
     </script>
 </body>
 </html>

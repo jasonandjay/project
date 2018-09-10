@@ -9,11 +9,12 @@ const Img  = ()=>import('../components/Img');
 const Color  = ()=>import('../components/Color');
 const Type  = ()=>import('../components/Type');
 const Quotation  = ()=>import('../components/Quotation');
+const Login = ()=>import('../components/Login');
 // 需要安装插件 cnpm i -D babel-plugin-syntax-dynamic-import
 
 Vue.use(VueRouter);
 
-export default new VueRouter({
+const router = new VueRouter({
     // 两种模式
     mode: 'hash',
     routes: [{
@@ -37,7 +38,24 @@ export default new VueRouter({
         path: '/quotation',
         component: Quotation
     },{
+        path: '/login',
+        component: Login
+    },{
         path: '*',
         redirect: '/index'
     }]
 })
+
+// 全局导航守卫
+router.beforeEach((to, from ,next)=>{
+    let login = window.localStorage.getItem('login');
+    if (!login && to.path != '/login'){
+        next('/login');
+    }
+    next();
+})
+
+router.afterEach((to, from)=>{
+    console.log('路由跳转...');
+})
+export default router;

@@ -42,11 +42,25 @@
         },
         mounted(){
             this.getDetailList(this.$route.query.id);
+             console.log(2);
             // console.log(this.$route)
         },
         updated(){
             console.log('years...', this.years, this.currentYear);
-        }
+        },
+        beforeRouteEnter (to, from, next) {
+            // ...
+            next();
+            console.log(1);
+        },
+        beforeRouteLeave (to, from, next) {
+            // ...
+            console.log(3);
+            next();
+        },
+        beforeDestroy() {
+            console.log(4);
+        },
     }
 </script>
 
