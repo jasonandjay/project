@@ -14,6 +14,9 @@ let mutations = {
     updateCities(state, payload){
         state.cities = payload.data;
         state.isShowCity = true;
+    },
+    hideCity(state, payload){
+        state.isShowCity = false;
     }
 }
 

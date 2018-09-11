@@ -62,7 +62,10 @@ const readAnswer = ()=>{
     // console.log(answer);
 
     // 返回答案
-    return answer;
+    // return answer;
+    return ['D','A','B','A','A','C','B','C','D','A','A','D','A','D','C','A','B','D','B','A',
+    'AD','AB','ACD','AD','BD','AB','AD','BC','ABD','ABC',
+    'A','A','B','A','B','B','B','A','A','A']
 }
 
 // 批阅试卷

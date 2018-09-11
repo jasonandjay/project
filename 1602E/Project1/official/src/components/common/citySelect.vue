@@ -6,16 +6,16 @@
             </ul>
         </section>
 
-        <section :class="isShowCity?'active city':'city'">
+        <section :class="isShowCity?'active city':'city'" @click="cityClick">
             <div>
-
+                <li v-for="(item, index) in cities" :key="index" :data-id="item.CityID">{{item.CityName}}</li>
             </div>
         </section>
     </div>
 </template>
 
 <script>
-import {mapState, mapActions} from 'vuex';
+import {mapState, mapActions, mapMutations} from 'vuex';
 export default{
     computed: {
         ...mapState({
@@ -26,8 +26,26 @@ export default{
     },
     methods: {
         ...mapActions({
-            getCityList: 'city/getCityList'
-        })
+            getCityList: 'city/getCityList',
+
+        }),
+        ...mapMutations({
+            updateCity: 'quotation/updateCity',
+            hideCity: 'city/hideCity'
+        }),
+        cityClick(e){
+            this.hideCity();
+            if (e.currentTarget == e.target){
+                // 点到section了，关闭遮罩
+                console.log('点击关闭');
+            }else if(e.target.tagName == 'LI'){
+                console.log('点击到了城市');
+                this.updateCity({
+                    id: e.target.dataset.id,
+                    name: e.target.innerText
+                })
+            }
+        }
     },
     mounted() {
         this.getCityList();
@@ -83,7 +101,8 @@ export default{
         width: 100%;
         height: 100%;
         overflow: scroll;
-        background: rgba(0,0,0,.6);
+        // 在dom上盖一层设置为visibility，可以实现点击穿透的效果
+        visibility: hidden;
     }
     .city>div{
         position: fixed;
@@ -95,8 +114,11 @@ export default{
         transform: translate3d(100%, 0, 0);
         background: #fff;
     }
+    .city.active{
+        background: rgba(0,0,0,.6);
+        visibility: visible;
+    }
     .city.active>div{
-
         transform: translate3d(30%, 0, 0);
     }
 </style>
