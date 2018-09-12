@@ -160,6 +160,55 @@
                     alert('成绩及格');break;
             }
         }
+        do{
+            console.log('hello world!');
+        }while(false)
+
+        var i = 0;
+        do{
+            i++;
+            console.log(i);
+        }while(i<10);
+
+        do{
+            // 循环代码块
+        }while(
+            //控制表达式
+        )
+
+        while(true){
+            console.log('hello world');
+        }
+
+        var sum = 0, i = 1;
+        while(i<=50){
+            if (i%2 == 0){
+                sum += i;
+            }
+        }
+        console.log('sum： ', sum);
+
+        while(
+            //控制表达式
+        ){
+            // 循环代码块
+        }
+
+        for (var i=1; i<=9; i++){
+            var row = '';
+            for (var j=1; j<=i; j++){
+                row += j+'*'+i+'='+i*j+' ';
+            }
+            console.log(row)
+        }
+
+        for (var i=1;i<=6;i++){
+            for (var j=1;j<=6-i;j++){
+                console.log('*');
+            }
+        }
+
+
 
     </script>
 </body>

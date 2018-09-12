@@ -110,9 +110,9 @@ export default{
         left: 0;
         width: 100%;
         height: 100%;
-        transition: all .3s ease;
         transform: translate3d(100%, 0, 0);
         background: #fff;
+        overflow: scroll;
     }
     .city.active{
         background: rgba(0,0,0,.6);
@@ -120,6 +120,7 @@ export default{
     }
     .city.active>div{
         transform: translate3d(30%, 0, 0);
+        transition: all .3s ease;
     }
 </style>
 
