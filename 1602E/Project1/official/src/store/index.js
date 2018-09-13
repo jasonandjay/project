@@ -7,12 +7,14 @@ import index from './modules/index';
 import detail from './modules/detail';
 import quotation from './modules/quotation';
 import city from './modules/city';
+import img from './modules/img';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
     modules: {
         index,
+        img,
         detail,
         quotation,
         city

@@ -6,23 +6,25 @@ const SMSClient = require('@alicloud/sms-sdk')
 
 // 使用中间件bodyParse，解析参数
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
+// app.use(bodyParser.urlencoded({ extended: false }))
 // 设置跨域访问
-// app.all('*', function(req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header("Access-Control-Allow-Headers", "content-type");
-//     res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
-//     // res.header("Content-Type", "application/json;charset=utf-8");
+app.all('*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "content-type");
+    res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+    // res.header("Content-Type", "application/json;charset=utf-8");
 
-//     next();
-// });
+    next();
+});
 
 // parse application/json
 // app.use(bodyParser.json())
+app.use(bodyParser.text())
 
 // 开发一个发送短信验证码的功能
 app.post('/getCapture', (req, res)=>{
     console.log('req.body...', req.body);
+    req.body = JSON.parse(req.body);
     let phone = req.body.phone;
     if (!/^1[3,4,5,7,8,9]\d{9}$/.test(phone)){
         res.json({

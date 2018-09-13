@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p>详情页</p>
+        <p @click="goImg">详情页</p>
         <li class="year">
             <span @click="changeYear(item)" v-for="(item, index) in years" :key="index" :class="currentYear==item?'active':''">{{item}}</span>
         </li>
@@ -38,7 +38,10 @@
             }),
             ...mapMutations({
                 changeYear: 'detail/changeYear'
-            })
+            }),
+            goImg(){
+                this.$router.push('/img');
+            }
         },
         mounted(){
             this.getDetailList(this.$route.query.id);
