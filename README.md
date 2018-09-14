@@ -41,3 +41,6 @@
 ## 服务器配置
 ### nginx虚拟域名配置
     vim /etc/nginx/sites-available/default
+
+
+1234
