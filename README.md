@@ -23,3 +23,21 @@
 > * 删除文件及文件夹：rm -rf(禁止使用)
 > * 编辑文件：vim
 > * 查看历史命令：history
+
+## vue项目部署到服务器上，服务器使用nginx
+### 简单版 模板为：webpack-simple
+> * 注释掉.gitignore里的dist，既在dist前面加个#号
+> * 修改index.html里/dist/build.js为相对路径，在/dist前面加个.
+> * 修改webpack.config.js里的publickPath为相对路径，在/dist前面加个.
+
+### 复杂版 模板为：webpack
+> * 注释掉.gitignore里的dist，既在dist前面加个#号
+> * 修改config/index.js里的build/assetsPublicPath为相对路径，在/dist前面加个.
+
+## 启动一些线上服务
+### 短信验证码服务
+
+
+## 服务器配置
+### nginx虚拟域名配置
+    vim /etc/nginx/sites-available/default

@@ -21,6 +21,12 @@ app.all('*', function(req, res, next) {
 // app.use(bodyParser.json())
 app.use(bodyParser.text())
 
+// 网站测试
+app.get('/', (req, res)=>{
+    res.end('hello world!');
+})
+
+
 // 开发一个发送短信验证码的功能
 app.post('/getCapture', (req, res)=>{
     console.log('req.body...', req.body);
