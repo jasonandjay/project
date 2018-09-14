@@ -142,5 +142,5 @@ export let submit = (info)=>{
  * @return promise  返回一个promise
  */
 export let getCapture = (phone)=>{
-    return sendRequest(`http://169.254.78.172:8080/getCapture`, 'POST', {phone});
+    return sendRequest(`http://123.206.55.50:8080/getCapture`, 'POST', {phone});
 }
