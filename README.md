@@ -41,3 +41,10 @@
 ## 服务器配置
 ### nginx虚拟域名配置
     vim /etc/nginx/sites-available/default
+### 配置push钩子，自动化部署代码
+    钩子：/home/ubuntu/server/webhooks/1602E/chenmanjie/webhooks.js
+    部署代码：/home/ubuntu/deploy/1602E/chenmanjie/deploy.sh
+    配置教程：https://www.jianshu.com/p/e4cacd775e5b
+    更改bash不能运行：
+        报错/bin/bash^M: bad interpreter: No such file or directory
+        更改文件格式：https://www.cnblogs.com/zyb-pp/p/6429448.html
