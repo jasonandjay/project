@@ -43,7 +43,7 @@ http.createServer(function (req, res) {
 
     // 配置收件人
     let mailOptions = {
-        from: '"jason老师👻" <jasonandjay@qq.com>', // sender address
+        from: '"jason老师👻" <342690199@qq.com>', // sender address
         to: '304126063@qq.com, 342690199@qq.com', // list of receivers
         subject: 'Hello ✔', // Subject line
         text: 'Hello world?', // plain text body
