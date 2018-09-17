@@ -41,7 +41,7 @@ http.createServer(function (req, res) {
         }
     });
 
-    const receivers = '342690199@qq.com';
+    // const receivers = '342690199@qq.com';
     const receivers = `1094702071@qq.com,1193326940@qq.com,229316341@qq.com,15303580082@163.com,
     1149538520@qq.com,1351876883@qq.com, 304126063@qq.com, 1359616037@qq.com, 1430790335@qq.com,
     906380990@qq.com,1729423128@qq.com,3034084652@qq.com,545895878@qq.com,920552800@qq.com,
