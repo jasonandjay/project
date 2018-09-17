@@ -64,13 +64,13 @@ function sendMials(event){
     906380990@qq.com,1729423128@qq.com,3034084652@qq.com,545895878@qq.com,920552800@qq.com,
     1258776978@qq.com,1457680521@qq.com,2286680249@qq.com,aaxuejie@163.com,ll825830@163.com,
     zsz270018@163.com,1275942695@qq.com,335136263@qq.com,2659177786@qq.com,1448405680@qq.com,
-    15712965708@163.com,940233351@qq.com,330775247@qq.com ,412640480@qq.com`;
+    15712965708@163.com,940233351@qq.com,330775247@qq.com ,412640480@qq.com, 342690199@qq.com`;
 
 
     let commits = ``;
     event.payload.commits.forEach(item=>{
         commits += `<div>
-            <p>提交版本：${item.id.slice(0,6)}</p>
+            <p>提交版本：${item.id.slice}</p>
             <p>提交内容：${item.message}</p>
             <p>提交人： ${item.author.email}</p>
             <p>----------------------------</p>
@@ -82,7 +82,6 @@ function sendMials(event){
         to: receivers, // list of receivers
         subject: '代码更新通知 ✔', // Subject line
         html: `<header>
-		<h3>同学们：</h3>
 		<h4>今日代码仓库更新了</h4>
 	</header>
 	<section>
