@@ -48,3 +48,4 @@
     更改bash不能运行：
         报错/bin/bash^M: bad interpreter: No such file or directory
         更改文件格式：https://www.cnblogs.com/zyb-pp/p/6429448.html
+### 配置邮件服务器，在push钩子里触发，自动通知收件人
