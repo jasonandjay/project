@@ -45,10 +45,25 @@ http.createServer(function (req, res) {
     let mailOptions = {
         from: '"jason老师👻" <342690199@qq.com>', // sender address
         to: '304126063@qq.com, 342690199@qq.com', // list of receivers
-        subject: 'Hello ✔', // Subject line
-        text: 'Hello world?', // plain text body
-        html: '<b>Hello world?</b>' // html body
+        subject: '代码更新通知 ✔', // Subject line
+        html: `<header>
+		<h3>同学们：</h3>
+		<h4>今日代码仓库更新了</h4>
+	</header>
+	<section>
+		<h4>代码更新记录列表（倒序）</h4>
+		<h5>更新时间：</h5>
+		<p>----------------------------</p>
+		<div>
+			<p>提交版本：</p>
+			<p>提交内容：</p>
+			<p>提交人： </p>
+			<p>----------------------------</p>
+		</div>
+		<a href="https://github.com/jasonandjay/project">点击查看</a>
+	</section>` // html body
     };
+    // 拼接提交记录
     console.log('部署完成，发送邮件通知用户...');
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
