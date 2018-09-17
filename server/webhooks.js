@@ -27,10 +27,27 @@ http.createServer(function (req, res) {
         res.statusCode = 404
         res.end('no such location')
     })
+}).listen(10000)
 
-    // 发送邮件给邮件列表联系人，通知有代码发布了
+handler.on('error', function (err) {
+    console.error('Error:', err.message)
+})
+
+handler.on('push', function (event) {
+    console.log('Received a push event for %s to %s',
+        event.payload.repository.name,
+        event.payload.ref);
+    run_cmd('sh', ['/home/ubuntu/deploy/1602E/chenmanjie/deploy.sh', event.payload.repository.name], function (text) {
+        console.log(text)
+        // 发送邮件给邮件列表联系人，通知有代码发布了
+        sendMials(event);
+    });
+})
+
+// 封装发送邮件方法
+function sendMials(event){
      // create reusable transporter object using the default SMTP transport
-    let transporter = nodemailer.createTransport({
+     let transporter = nodemailer.createTransport({
         // host: 'qq',
         service: 'qq',
         port: 465,
@@ -85,17 +102,4 @@ http.createServer(function (req, res) {
         console.log('Message sent: %s', info.messageId);
         // Message sent: <04ec7731-cc68-1ef6-303c-61b0f796b78f@qq.com>
       });
-}).listen(10000)
-
-handler.on('error', function (err) {
-    console.error('Error:', err.message)
-})
-
-handler.on('push', function (event) {
-    console.log('Received a push event for %s to %s',
-        event.payload.repository.name,
-        event.payload.ref);
-    run_cmd('sh', ['/home/ubuntu/deploy/1602E/chenmanjie/deploy.sh', event.payload.repository.name], function (text) {
-        console.log(text)
-    });
-})
+}
