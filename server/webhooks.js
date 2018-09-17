@@ -31,7 +31,8 @@ http.createServer(function (req, res) {
     // 发送邮件给邮件列表联系人，通知有代码发布了
      // create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
-        host: 'qq',
+        // host: 'qq',
+        service: 'qq',
         port: 465,
         secure: true, // true for 465, false for other ports
         auth: {
