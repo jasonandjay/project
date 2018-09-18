@@ -3,7 +3,7 @@
 # dependencies
 node_modules/
 
-vue-element-admin/
+# vue-element-admin/
 
 # testing
 /coverage
