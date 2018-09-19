@@ -109,6 +109,46 @@ export default new Router({
   routes: constantRouterMap
 })
 
+export const asyncRouterMap_backup = [
+  {
+    path: '/manage',
+    component: Layout,
+    redirect: '/manage/index',
+    meta: {
+      title: 'manage',
+      icon: 'peoples',
+      // roles: ['admin', 'editor'] // you can set roles in root nav
+    },
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/manage/index'),
+        name: 'Index',
+        meta: { title: 'checkin', icon: 'peoples', noCache: true }
+      },
+      {
+        path: 'role',
+        component: () => import('@/views/manage/role'),
+        name: 'Role',
+        meta: { title: 'role', icon: 'peoples', noCache: true }
+      },
+      {
+        path: 'permission',
+        component: () => import('@/views/manage/permission'),
+        name: 'Manage',
+        meta: { title: 'permission', icon: 'peoples', noCache: true }
+      },
+      {
+        path: 'record',
+        component: () => import('@/views/manage/record'),
+        name: 'Record',
+        meta: { title: 'record', icon: 'peoples', noCache: true }
+      }
+    ]
+  },
+  { path: '*', redirect: '/404', hidden: true }
+]
+
 export const asyncRouterMap = [
   {
     path: '/permission',
@@ -343,6 +383,41 @@ export const asyncRouterMap = [
       }
     ]
   },
-
+  {
+    path: '/manage',
+    component: Layout,
+    redirect: '/manage/index',
+    meta: {
+      title: 'manage',
+      icon: 'peoples',
+      // roles: ['admin', 'editor'] // you can set roles in root nav
+    },
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/manage/index'),
+        name: 'Index',
+        meta: { title: 'checkin', icon: 'peoples', noCache: true }
+      },
+      {
+        path: 'role',
+        component: () => import('@/views/manage/role'),
+        name: 'Role',
+        meta: { title: 'role', icon: 'peoples', noCache: true }
+      },
+      {
+        path: 'permission',
+        component: () => import('@/views/manage/permission'),
+        name: 'Manage',
+        meta: { title: 'permission', icon: 'peoples', noCache: true }
+      },
+      {
+        path: 'record',
+        component: () => import('@/views/manage/record'),
+        name: 'Record',
+        meta: { title: 'record', icon: 'peoples', noCache: true }
+      }
+    ]
+  },
   { path: '*', redirect: '/404', hidden: true }
 ]

@@ -46,6 +46,12 @@ router.beforeEach((to, from, next) => {
         }
         // 可删 ↑
       }
+      // if (store.getters.access.length === 0){
+      //   // 拉取权限
+
+      // }else{
+      //   next();
+      // }
     }
   } else {
     /* has no token*/

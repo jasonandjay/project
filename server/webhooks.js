@@ -70,7 +70,7 @@ function sendMials(event){
     let commits = ``;
     event.payload.commits.forEach(item=>{
         commits += `<div>
-            <p>提交版本：${item.id.slice}</p>
+            <p>提交版本：${item.id}</p>
             <p>提交内容：${item.message}</p>
             <p>提交人： ${item.author.email}</p>
             <p>----------------------------</p>

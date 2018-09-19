@@ -23,6 +23,11 @@ app.all('*', function (req, res, next) {
 });
 
 
+// 获取权限接口
+app.get('/permission', (req, res)=>{
+  let id = req.query.id;
+  console.log('id...', id);
+});
 // 登陆接口
 app.post('/login', (req, res) => {
   console.log(req.body);
@@ -33,50 +38,54 @@ app.post('/login', (req, res) => {
     })
   } else {
     // 判断用户是否已经注册
-    // connection.query(`select count(*) as length from user where username='${req.body.username}'`, function (error, results, fields) {
-    //   if (error) throw error;
-    //   if (results[0].length) {
-    //     // 做登陆操作
-    //     connection.query(`select count(*) as length from user where username='${req.body.username}' and password='${req.body.password}'`, function (error, rows, fields) {
-    //       if (error) throw error;
-    //       if (rows[0].length) {
-    //         res.json({
-    //           code: 0,
-    //           msg: '登陆成功'
-    //         })
-    //       } else {
-    //         res.json({
-    //           code: -2,
-    //           msg: '登陆失败'
-    //         })
-    //       }
-    //     });
-    //   } else {
-    //     // 做注册操作
-    //     connection.query(`insert into user (username, password, create_time) values ('${req.body.username}','${req.body.password}', ${+new Date()})`, function (error, results, fields) {
-    //       if (error) throw error;
-    //       res.json({
-    //         code: 0,
-    //         msg: '新建用户成功'
-    //       })
-    //     });
-    //   }
-	// });
-	connection.query(`delete from user where username='${req.body.username}' and password='${req.body.password}'`, function (error, results, fields) {
-		if (error) throw error;
-		console.log('delete result...', results);
-		if (results.affectedRows){
-			res.json({
-			  code: 0,
-			  msg: '删除成功'
-			})
-		}else{
-			res.json({
-		  	  code: 0,
-			  msg: '删除失败'
-			})
-		}
-	  });
+    connection.query(`select count(*) as length from user where username='${req.body.username}'`, function (error, results, fields) {
+      if (error) throw error;
+      if (results[0].length) {
+        // 做登陆操作
+        connection.query(`select id from user where username='${req.body.username}' and password='${req.body.password}'`, function (error, rows, fields) {
+          if (error) throw error;
+          console.log('rows...', rows);
+          if (rows[0].id) {
+            res.json({
+              code: 0,
+              data: {
+                id: rows[0].id
+              },
+              msg: '登陆成功'
+            })
+          } else {
+            res.json({
+              code: -2,
+              msg: '登陆失败'
+            })
+          }
+        });
+      } else {
+        // 做注册操作
+        connection.query(`insert into user (username, password, create_time) values ('${req.body.username}','${req.body.password}', ${+new Date()})`, function (error, results, fields) {
+          if (error) throw error;
+          res.json({
+            code: 0,
+            msg: '新建用户成功'
+          })
+        });
+      }
+	});
+	// connection.query(`delete from user where username='${req.body.username}' and password='${req.body.password}'`, function (error, results, fields) {
+	// 	if (error) throw error;
+	// 	console.log('delete result...', results);
+	// 	if (results.affectedRows){
+	// 		res.json({
+	// 		  code: 0,
+	// 		  msg: '删除成功'
+	// 		})
+	// 	}else{
+	// 		res.json({
+	// 	  	  code: 0,
+	// 		  msg: '删除失败'
+	// 		})
+	// 	}
+	//   });
   }
   // connection.query('select * from user', function (error, results, fields) {
   // if (error) throw error;
