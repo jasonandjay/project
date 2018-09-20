@@ -1,16 +1,18 @@
 var express = require('express');
+var fs = require('fs');
+var util = require('util');
 var app = express();
 var mysql = require('mysql');
 var bodyParser = require('body-parser');
-var md5 = require('md5');
+var multipart = require('connect-multiparty');
 var connection = mysql.createConnection({
-  host: 'localhost',
+  host: '123.206.55.50',
   user: 'root',
-  password: '',
+  password: '1601n',
   database: '1602e'
 });
 
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 // 设置跨域访问
 app.all('*', function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -24,7 +26,7 @@ app.all('*', function (req, res, next) {
 
 
 // 获取权限接口
-app.get('/permission', (req, res)=>{
+app.get('/permission', (req, res) => {
   let id = req.query.id;
   console.log('id...', id);
 });
@@ -70,22 +72,22 @@ app.post('/login', (req, res) => {
           })
         });
       }
-	});
-	// connection.query(`delete from user where username='${req.body.username}' and password='${req.body.password}'`, function (error, results, fields) {
-	// 	if (error) throw error;
-	// 	console.log('delete result...', results);
-	// 	if (results.affectedRows){
-	// 		res.json({
-	// 		  code: 0,
-	// 		  msg: '删除成功'
-	// 		})
-	// 	}else{
-	// 		res.json({
-	// 	  	  code: 0,
-	// 		  msg: '删除失败'
-	// 		})
-	// 	}
-	//   });
+    });
+    // connection.query(`delete from user where username='${req.body.username}' and password='${req.body.password}'`, function (error, results, fields) {
+    // 	if (error) throw error;
+    // 	console.log('delete result...', results);
+    // 	if (results.affectedRows){
+    // 		res.json({
+    // 		  code: 0,
+    // 		  msg: '删除成功'
+    // 		})
+    // 	}else{
+    // 		res.json({
+    // 	  	  code: 0,
+    // 		  msg: '删除失败'
+    // 		})
+    // 	}
+    //   });
   }
   // connection.query('select * from user', function (error, results, fields) {
   // if (error) throw error;
@@ -98,6 +100,69 @@ app.post('/login', (req, res) => {
 
 });
 
+// 获取用户列表
+app.get('/userList', (req, res) => {
+      // 判断用户是否已经注册
+      connection.query(`select * from user`, function (error, results, fields) {
+        if (error) {
+          res.json({
+            code: -1,
+            msg: error
+          })
+        }else{
+          res.json({
+            code: 0,
+            data: results,
+            msg: '登陆失败'
+          })
+        }
+    })
+})
+
+// post请求传递json
+app.post('/jsonRequest', bodyParser.json(), (req, res)=>{
+  console.log('jsonRequest...', req.body);
+  res.json(req.body);
+});
+
+// post请求传递urlEncoded
+app.post('/urlRequest', bodyParser.urlencoded({ extended: false }), (req, res)=>{
+  console.log('urlRequest...', req.body);
+  res.json(req.body);
+});
+
+// 图片上传功能
+app.post('/upload',multipart({ autoFiles: true, uploadDir:'server/upload/' }), (req, res)=>{
+  // 获取表单
+  console.log('req...', req.body);
+  // 获取文件
+  console.log('req...', req.files);
+  var path = [];
+  for (let i in req.files){
+    let types = ['jpg', 'png', 'jpeg', 'JPG', 'PNG', 'JPEG', 'doc', 'bmp', 'gif', 'txt'];
+    types.forEach(item=>{
+      if (req.files[i][item] && req.files[i][item].path){
+        let name = req.files[i][item].path.split('\\');
+        console.log('name...', name[name.length-1]);
+        path.push(`http://169.254.78.172:9527/server/upload/${name[name.length-1]}`);
+
+        // 重命名文件逻辑
+        // fs.rename(req.files[i][item].path, './upload'+name[name.length-1], (err)=>{
+        //   if (err) throw err;
+        //   path.push(req.files[i][item].path);
+        // })
+      }
+    })
+  }
+  console.log('path...', path);
+  res.json({
+    code: 0,
+    data: {
+      path
+    },
+    msg: '图片上传成功',
+  })
+})
 console.log('开始监听10001端口');
 app.listen(10001);
 
@@ -110,7 +175,7 @@ app.listen(10001);
  *  插入语句：
  *    insert into user (username, password, create_time) values ("chenmanjie","123456", ${+new Date()}),("chenmanjie2","123456", ${+new Date()})
  *	修改语句
- *	  update user set create_time=${10000000},username='${req.body.username}007' where username='${req.body.username} and password='${req.body.password}'
- *	删除语句
- *	  delete from user where username='${req.body.username}' and password='${req.body.password}'
- */
+  *	  update user set create_time=${10000000},username='${req.body.username}007' where username='${req.body.username} and password='${req.body.password}'
+  *	删除语句
+  *	  delete from user where username='${req.body.username}' and password='${req.body.password}'
+  */
