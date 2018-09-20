@@ -12,6 +12,12 @@
     <button id="url">发送post请求，携带urlEncode数据</button>
     <button id="raw">发送post请求，携带raw数据</button>
 
+    <h3>Axios发送请求</h3>
+    <button id="axios_json">发送post请求，携带json数据</button>
+    <button id="axios_url">发送post请求，携带urlEncode数据</button>
+    <button id="axios_raw">发送post请求，携带raw数据</button>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
     	/** 图片上传 */
         let ele = document.querySelector('input');
@@ -23,11 +29,18 @@
             for (let i=0; i<files.length; i++){
                 form.append(files[i].name, files[i])
             }
-            fetch('http://169.254.78.172:10001/upload', {
-                method: 'POST',
-                body: form
-            }).then(res=>res.json())
-            .then(body=>{
+            // fetch('http://169.254.78.172:10001/upload', {
+            //     method: 'POST',
+            //     body: form
+            // }).then(res=>res.json())
+            // .then(body=>{
+            //     console.log('body...', body);
+            // })
+            axios({
+            	method: 'post',
+            	url: 'http://169.254.78.172:10001/upload',
+            	data: form
+            }).then(body=>{
                 console.log('body...', body);
             })
         }
@@ -50,26 +63,45 @@
         url.onclick = ()=>{
         	fetch('http://169.254.78.172:10001/urlRequest', {
 	        	method: 'POST',
-	        	// headers: {
+	        	headers: {
 	            	// "Content-Type": "application/json; charset=utf-8",
-	            	// "Content-Type": "application/x-www-form-urlencoded",
-	        	// },
-	        	body: JSON.stringify({name:'majian'}) 
+	            	"Content-Type": "application/x-www-form-urlencoded",
+	        	},
+	        	body: 'name=majian&password=123456789'
 	        }).then(res=>res.json()).then(body=>console.log('body...', body));
         }
 
          /** 发送raw */
-        let url = document.querySelector('#url');
-        url.onclick = ()=>{
-        	fetch('http://169.254.78.172:10001/urlRequest', {
+        let raw = document.querySelector('#raw');
+        raw.onclick = ()=>{
+        	fetch('http://169.254.78.172:10001/rawRequest', {
 	        	method: 'POST',
 	        	// headers: {
 	            	// "Content-Type": "application/json; charset=utf-8",
 	            	"Content-Type": "text/plain",
 	        	// },
-	        	body: JSON.stringify({name:'majian'}) 
+	        	body:'hello, world' 
 	        }).then(res=>res.json()).then(body=>console.log('body...', body));
         }
+
+        // axios发送请求json
+        axios.post('http://169.254.78.172:10001/jsonRequest',{
+        	name:'majian',
+        	password: 123456
+        }).then(res=>console.log('res...', res, typeof res, res instanceof Object, Object.prototype.toString.call(res), res.constructor === Object));
+
+        // axios发送urlEncoded
+         axios({
+         	url: 'http://169.254.78.172:10001/urlRequest',
+         	method: 'post',
+         	data: 'name=majian&password=123456',
+         	headers: {"Content-Type": "application/x-www-form-urlencoded"}
+        }).then(res=>console.log('res...', res, 
+        	typeof res,
+        	res instanceof Object,
+        	Object.prototype.toString.call(res),
+        	res.constructor === Object
+		));
     </script>
 </body>
 </html>

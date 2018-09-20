@@ -113,7 +113,7 @@ app.get('/userList', (req, res) => {
           res.json({
             code: 0,
             data: results,
-            msg: '登陆失败'
+            msg: '获取数据成功'
           })
         }
     })
@@ -128,6 +128,12 @@ app.post('/jsonRequest', bodyParser.json(), (req, res)=>{
 // post请求传递urlEncoded
 app.post('/urlRequest', bodyParser.urlencoded({ extended: false }), (req, res)=>{
   console.log('urlRequest...', req.body);
+  res.json(req.body);
+});
+
+// post请求传递text
+app.post('/rawRequest', bodyParser.text(), (req, res)=>{
+  console.log('rawRequest...', req.body);
   res.json(req.body);
 });
 
