@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>原型检测的四种方式</title>
+</head>
+<body>
+    <script>    
+    /** 
+     * typeof
+     * 只能检测基本数据类型，复杂数据类型检测结果为：Object
+     */
+    /**
+     * instance of
+     * 只能检测基本数据类型， 复杂数据类型 instance of Object 都为true
+     * 原理：
+     * function A(){} 
+     * let a = new A();
+     * a.__proto__ === A.prototype 
+     */ 
+    /**
+     * Object.prototype.toString.call()
+     * 通用方法，可以检测任何类型
+     */
+    /**
+     * contructor
+    *  原理：
+     * function A(){} 
+     * let a = new A();
+     * a.constructor == A
+     * 缺点：
+     * 原型链上的constructor方法可能会不存在
+     */  
+    </script>
+</body>
+</html>

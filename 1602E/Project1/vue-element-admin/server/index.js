@@ -135,6 +135,8 @@ app.post('/urlRequest', bodyParser.urlencoded({ extended: false }), (req, res)=>
 app.post('/rawRequest', bodyParser.text(), (req, res)=>{
   console.log('rawRequest...', req.body);
   res.json(req.body);
+
+
 });
 
 // 图片上传功能
