@@ -46,14 +46,9 @@ module.exports = {
     extensions: ['*', '.js', '.vue', '.json']
   },
   devServer: {
-    // 404重定向
-    // historyApiFallback: true,
-    // 不需要输出构建信息
+    historyApiFallback: true,
     noInfo: true,
-    // 将错误显示在html之上
-    overlay: true,
-    port: 80,
-    disableHostCheck: true
+    overlay: true
   },
   performance: {
     hints: false
@@ -71,16 +66,12 @@ if (process.env.NODE_ENV === 'production') {
       }
     }),
     new webpack.optimize.UglifyJsPlugin({
-      // 隐射压缩后的js文件和原文件
       sourceMap: true,
-      // 压缩代码
       compress: {
-        // 忽略警告
         warnings: false
       }
     }),
     new webpack.LoaderOptionsPlugin({
-      // 压缩
       minimize: true
     })
   ])
