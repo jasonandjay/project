@@ -170,6 +170,39 @@
         console.log(3);
     })()
 
+
+    var imgs = ['http://picture.ik123.com/uploads/allimg/170116/12-1F116154T9.jpg',
+            'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1538058980644&di=19ddc44aab2efbecd44e382e0dc3363e&imgtype=0&src=http%3A%2F%2Fe.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2F1ad5ad6eddc451dae5944aafb7fd5266d0163217.jpg',
+            'http://img.zcool.cn/community/0125fd5770dfa50000018c1b486f15.jpg@1280w_1l_2o_100sh.jpg',
+            'http://pic1.win4000.com/wallpaper/6/57c7ee4c22b32.jpg'
+    ];
+    /** 用async实现图片的依次加载 **/
+    var loadSync = async (imgs)=>{
+        for (let i=0,len=imgs.length; i<len; i++){
+            let img = await loadImg(imgs[i]);
+            document.body.appendChild(img);
+        }
+    } 
+
+    /** 用async实现图片的一起加载 **/
+    var loadAsync = async (imgs)=>{
+        imgs.forEach(async item=>{
+            let img = await loadImg(item);
+            document.body.appendChild(img);
+        })
+    }
+    // loadSync(imgs);
+    loadAsync(imgs);
+
+    // forEach的时序
+    (()=>{
+        [1,2,3,4,5].forEach(item=>{
+            console.log(item);
+        });
+        console.log(0);
+    })
+
+    
     </script>
 </body>
 </html>
