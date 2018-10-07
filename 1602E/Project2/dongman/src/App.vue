@@ -28,8 +28,21 @@ export default {
     }
   },
   mounted(){
-    fetch('/dongman/index').then(res=>res.json())
-    .then(body=>{
+    // charles拦截
+    // fetch('/dongman/index').then(res=>res.json())
+    // .then(body=>{
+    //   console.log('body...', body);
+    // })
+
+    // proxy代理
+    fetch('/api/wapwbcomic/home/page_recommend_list?mca=mini_recommend_male')
+    .then(res=>res.json()).then(body=>{
+      console.log('body...', body);
+    })
+
+    // 虚拟域名
+    fetch('http://apiv2.manhua.weibo.com/wapwbcomic/home/?mca=mini_page_recommend_listrecommend_male')
+    .then(res=>res.json()).then(body=>{
       console.log('body...', body);
     })
   }

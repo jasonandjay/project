@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Generator函数</title>
+</head>
+<body>
+    <script>
+        let func = function *(){
+            let i = yield 1;
+            console.log('i...', i);     // 10000
+            let j = yield 2;
+            console.log('j...', j);     // 20000
+            return 3;
+        }    
+        // 调用函数生成一个迭代器
+        // 传值：调用下一次next函数传入的值会作为上一次yiled表达式的返回值
+        let f = func();
+        console.log('', f.next(100))
+        console.log('', f.next(10000))
+        console.log('', f.next(20000))
+    </script>
+</body>
+</html>

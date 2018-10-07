@@ -48,7 +48,18 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     noInfo: true,
-    overlay: true
+    overlay: true,
+    port: 80,
+    disableHostCheck: true,
+    proxy: {
+      '/api':{
+        target: 'https://apiv2.manhua.weibo.com',
+        changeOrigin: true,
+        pathRewrite: {
+          '/api': '/'
+        }
+      }
+    },
   },
   performance: {
     hints: false

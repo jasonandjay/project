@@ -11,6 +11,66 @@
 
 </body>
 <script>
+    // 从头开始实现一个promise
+    function MyPromise(fn){
+        // promise的状态 pendding, fulfilled, rejected
+        this.status = 'pendding';
+
+        // 用来接收then方法传进来的函数
+        this.resolveFunc = function(){};
+        this.rejectFunc = function(){};
+
+        fn(this.resolve.bind(this), this.reject.bind(this));
+    }   
+
+    // promise内部的resolve方法
+    MyPromise.prototype.resolve = function(value){
+        if (this.status !== 'pendding'){
+            return;
+        }
+        this.status = 'fulfilled';
+        var that = this;
+        setTimeout(function(){
+            that.resolveFunc(value);
+        }, 0);
+    }
+    //promise内部的reject方法
+    MyPromise.prototype.reject = function(value){
+        if (this.status !== 'pendding'){
+            return;
+        }
+        this.status = 'rejected';
+        var that = this;
+        setTimeout(function(){
+            that.rejectFunc(value);
+        }, 0);
+    }
+
+
+    MyPromise.prototype.then = function(resolve, reject){
+        this.resolveFunc = resolve;
+        this.rejectFunc = reject;
+    }
+
+    let loadImg = (url) => {
+        return new MyPromise((resolve, reject) => {
+            let img = new Image();
+            img.onload = resolve(img)
+            img.onerror = reject(new Error('图片加载失败'))
+            img.src = url
+        });
+    }
+    loadImg('http://pic.58pic.com/58pic/17/56/38/52w58PICtER_1024.jpg').then(res => {
+        console.log('执行了resolve');
+        document.body.appendChild(res)
+    }, err => {
+        console.warn(err)
+    }) 
+</script>
+
+
+<!--  实现链式调用 -->
+<script>
     function MyPromise(fn) {
         this.value;
         this.status = 'pending';
@@ -85,5 +145,4 @@
         console.warn(err)
     }) 
 </script>
-
 </html>
