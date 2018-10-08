@@ -2,13 +2,17 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>official</title>
+    <script>
+        function f(){
+            document.documentElement.style.fontSize = (window.innerWidth)/750*100+'px';
+        }
+        (window.onload = f) && (window.onresize = f) && f();
+    </script>
   </head>
   <body>
     <div id="app"></div>
     <script src="/dist/build.js"></script>
-    <script>
-        alert('弹框')
-    </script>
   </body>
 </html>
