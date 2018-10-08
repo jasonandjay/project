@@ -1,12 +1,20 @@
 // 封装websocket操作
 // Create WebSocket connection.
-const socket = new WebSocket('ws://localhost:8080');
+const socket = new WebSocket('ws://localhost:8080?username=chenmanjie');
 
 
 export let creaetSocket = ()=>{
     // Connection opened
     socket.addEventListener('open', function (event) {
-        socket.send('Hello Server!');
+        // socket.send('Hello Server!');
+        socket.send(JSON.stringify({
+            token: 12345
+        }))
+    });
+
+    // Connection closed
+    socket.addEventListener('close', function (event) {
+        socket.send('disconnected!');
     });
 
     // Listen for messages
