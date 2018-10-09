@@ -1,6 +1,6 @@
 // 封装websocket操作
 // Create WebSocket connection.
-const socket = new WebSocket('ws://localhost:8080?username=chenmanjie');
+const socket = new WebSocket('ws://localhost:8080');
 
 
 export let creaetSocket = ()=>{
