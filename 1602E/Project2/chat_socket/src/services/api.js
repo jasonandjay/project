@@ -47,3 +47,13 @@ export function doLogin(obj, callback){
     payload: obj
   }))
 }
+
+// 发送聊天数据
+export function sendMessage(obj, callback){
+  let id = requests.push(callback);
+  socket.send(JSON.stringify({
+    id,
+    type:'message',
+    payload: obj
+  }))
+}

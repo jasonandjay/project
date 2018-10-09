@@ -12,6 +12,8 @@ const app = dva();
 // 3. Model
 // 登陆态模块
 app.model(require('./models/index').default);
+// 注册聊天模块
+app.model(require('./models/chat').default);
 
 // 4. Router
 app.router(require('./router').default);

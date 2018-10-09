@@ -4,16 +4,45 @@
 }
 p,input{
   color: #000;
+  padding: 3px 15px;
+}
+input,button{
+  width: 100%;
 }
 .list{
-  height: 200px;
+  height: 400px;
   border: 1px solid rgb(24, 144, 255);
   border-radius: 5px;
   overflow: scroll;
 }
 .container{
-  width: 50%;
+  width: 90%;
 }
 .right{
   text-align: right;
+}
+.right:before{
+  content: '';
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background: url('../assets//right.jpg');
+  background-size: contain;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+.left::before{
+  content: '';
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background: url('../assets//left.jpg');
+  background-size: contain;
+  border-radius: 50%;
+  margin-left: 15px;
+}
+.img{
+  width: 30%;
+  margin-left: 15px;
+  border-radius: 10px;
 }
