@@ -3,7 +3,9 @@ import {getBrandList, getMakeList} from '@/api/index';
 const state = {
     letters: [],
     brandList: {},
-    makeList: []
+    makeList: [],
+    showMakeList: false,
+    curMasterId: ''
 }
 
 const mutations = {
@@ -27,7 +29,14 @@ const mutations = {
         state.brandList = brandList;
     },
     updateMakeList(state, payload){
+        // 保存品牌id
+        state.masterId = payload.masterId;
         state.makeList = payload;
+        // 显示车系列表
+        state.showMakeList = true;
+    },
+    hideMakeList(state){
+        state.showMakeList = false;
     }
 }
 
@@ -38,11 +47,14 @@ const actions = {
             commit('updateBrandList', res.data);
         })
     },
-    getMakeList({commit}, payload){
-        getMakeList(payload).then(res=>{
-            // console.log('makeList...', res);
-            commit('updateMakeList', res.data);
-        })
+    getMakeList({commit, state}, payload){
+        if (payload != state.masterId){
+            getMakeList(payload).then(res=>{
+                // console.log('makeList...', res);
+                res.data.masterId = payload;
+                commit('updateMakeList', res.data);
+            })
+        }
     }
 }
 

@@ -1,4 +1,5 @@
 import request from '../utils/request';
+import cookie from 'js-cookie';
 
 export function query() {
   return request('/api/users');
@@ -19,7 +20,7 @@ export function createSocket(){
     isConnect = true;
     // 把缓存的请求发出去
     for (let i=0;i<cacheRequests.length;i++){
-      socket.send(JSON.stringify(cacheRequests[i]));
+      sendSocket(JSON.stringify(cacheRequests[i]));
     }
     cacheRequests = [];
   });
@@ -46,6 +47,9 @@ export function createSocket(){
 
 // 统一调用发送socket接口
 function sendSocket(obj, callback){
+  // 带上token
+  obj.token = cookie.get('token') || '';
+
   // 断线情况
   if (!isConnect){
     cacheRequests.push(obj);

@@ -33,3 +33,36 @@ export let getBrandList = ()=>{
 export let getMakeList = (id)=>{
     return sendRequest(`/v2-car-getMakeListByMasterBrandId.html?MasterID=${id}`);
 }
+/**
+ * 获取车系详情
+ * @param {*} id 车系id
+ * @returns promise
+ */
+export let getCarInfo = (id)=>{
+    return sendRequest(`/v2-car-getInfoAndListById.html?SerialID=${id}`);
+}
+
+/**
+ * 获取图片列表的接口
+ * @param {*} serialId  车系id
+ * @param {*} imgId   图片分类id
+ * @param {number} [page=1] 分页页码数
+ * @param {number} [pageSize=30] 分页每页数量
+ * @param {*} carId  车型id
+ * @param {*} colorId 颜色id
+ * @returns promise
+ */
+export let getCategoryImgList = (param)=>{
+    let search = ``;
+    for(let i in param){
+        search += `&${i}=${param[i]}`;
+    }
+    // 补充page与pageSize
+    if (!param['Page']){
+        search += `&Page=1`;
+    }
+    if (!param['PageSize']){
+        search += `&PageSize=30`;
+    }
+    return sendRequest(`/v2-car-getCategoryImageList.html?${search.slice(1, search.length)}`);
+}

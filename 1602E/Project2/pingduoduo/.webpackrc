@@ -1,0 +1,32 @@
+{
+  "extraBabelPlugins": [
+    ["import", {
+      "libraryName": "antd",
+      "libraryDirectory": "es",
+      "style": true
+    }]
+  ],
+  "proxy": {
+    "/wxapp": {
+      "target": "https://wxapp.yangkeduo.com",
+      "changeOrigin": true,
+      "pathRewrite": {
+        "/wxapp": "/"
+      }
+    },
+    "/img": {
+      "target": "http://t00img.yangkeduo.com/",
+      "changeOrigin": true,
+      "pathRewrite": {
+        "/img": "/"
+      }
+    },
+    "/api": {
+      "target": "https://apiv2.pinduoduo.net",
+      "changeOrigin": true,
+      "pathRewrite": {
+        "/api": "/"
+      }
+    }
+  }
+}

@@ -2,7 +2,7 @@ import React from 'react';
 import {findDomNode } from 'react-dom';
 import {connect} from 'dva';
 import { Row, Col, Button } from 'antd';
-import styles from './Chat.css';
+import styles from './Chat.scss';
 import {sendMessage} from '../services/api';
 class Chat extends React.Component{
   // 类的构造函数，用来做一些初始化操作
@@ -83,10 +83,10 @@ class Chat extends React.Component{
 
   render(){
     console.log('props.list...', this.props.list);
-    return <div className={styles.container}>
+    return <div className="chat_page">
       <Row>
         <Col span={24}>
-          <section className={styles.list} ref="scollEle">
+          <section className={styles.list+' list'} ref="scollEle">
             <div ref="scrollHeight">{
               this.props.list.map((item, index)=>{
                 let isImg = item.text.indexOf('.jpg') != -1;

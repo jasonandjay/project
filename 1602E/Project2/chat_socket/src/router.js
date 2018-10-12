@@ -1,6 +1,7 @@
 import React from 'react';
-import { Router, Route, Switch } from 'dva/router';
+import { Router, Redirect, Route, Switch } from 'dva/router';
 import dynamic from 'dva/dynamic';
+import cookie from 'js-cookie';
 
 const IndexPage = dynamic({
   component: () => import('./routes/IndexPage')
@@ -15,7 +16,14 @@ function RouterConfig({ history }) {
   return (
     <Router history={history}>
       <Switch>
-        <Route path="/" exact component={ChatPage} />
+        <Route path="/" exact render={()=>{
+          // 做个跳转前检测
+          if (!cookie.get('token')){
+            return <Redirect to="/login"></Redirect>
+          }else{
+            return <ChatPage/>
+          }
+        }}/>
         <Route path="/login" exact component={IndexPage} />
       </Switch>
     </Router>

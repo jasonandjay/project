@@ -22,6 +22,7 @@ class IndexPage extends React.Component{
         }, (res)=>{
           console.log('收到登陆的返回值...', res);
           this.props.updateLogin(res.payload, values.remember);
+          this.props.history.push('/');
         })
       }
     });

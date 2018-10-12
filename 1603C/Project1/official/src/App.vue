@@ -1,15 +1,22 @@
 <template>
-  <router-view></router-view>
+    <div class="container">
+        <router-view></router-view>
+        <Loading/>
+    </div>
 </template>
 
 <script>
 import {getBrandList, getMakeList} from './api/index.js';
+import Loading from '@/components/Loading';
 export default {
   name: 'app',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
+  },
+  components:{
+    Loading
   },
   mounted(){
       getBrandList().then(res=>{
@@ -31,22 +38,7 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
-
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
+.container{
+    /* height: 100%; */
 }
 </style>

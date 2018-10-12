@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dva Demo</title>
+  <link rel="stylesheet" href="index.css" />
+  <script>
+    // 计算rem
+    var fun = function (doc, win) {
+      var docEl = doc.documentElement,
+          resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+          recalc = function () {
+              var clientWidth = docEl.clientWidth;
+              if (!clientWidth) return;
+
+              //这里是假设在750px宽度设计稿的情况下，1rem = 100px；
+              //可以根据实际需要修改
+              docEl.style.fontSize =  (clientWidth / 750)*100 + 'px';
+          };
+      if (!doc.addEventListener) return;
+      win.addEventListener(resizeEvt, recalc, false);
+      doc.addEventListener('DOMContentLoaded', recalc, false);
+    }
+    fun(document, window);
+  </script>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="index.js"></script>
+</body>
+</html>

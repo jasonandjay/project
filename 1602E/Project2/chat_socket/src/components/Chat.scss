@@ -46,3 +46,14 @@ input,button{
   margin-left: 15px;
   border-radius: 10px;
 }
+// :global(.chat_page){
+//   background:transparent;
+// }
+:global{
+  .chat_page{
+    background: red
+  }
+  .list{
+    height: 1000px;
+  }
+}

@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import store from '../store';
 
 // 加载路由页面
 const Index = ()=>import('@/views/Index.vue');
@@ -11,7 +12,7 @@ const Quotation = ()=>import('@/views/Quotation.vue');
 
 Vue.use(VueRouter);
 
-export default new VueRouter({
+let router = new VueRouter({
     routes:[{
         path: '/index',
         name: 'Index',
@@ -41,3 +42,17 @@ export default new VueRouter({
         redirect: '/index'
     }]
 })
+
+// 全局导航守卫
+router.beforeEach((to, from ,next)=>{
+    store.commit('changeLoading', true);
+    next();
+})
+
+router.afterEach(()=>{
+    setTimeout(()=>{
+        store.commit('changeLoading', false);
+    }, 3000);
+})
+
+export default router;

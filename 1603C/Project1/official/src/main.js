@@ -11,6 +11,9 @@ import '@/styles/common.css';
 // 去掉生成环境提示
 Vue.config.productionTip = false;
 
+// 注入通用Alert弹框
+// Vue.prototype.$alert = Alert;
+
 new Vue({
   el: '#app',
   router,
