@@ -2,34 +2,28 @@
     <div class="container">
         <router-view></router-view>
         <Loading/>
+        <!-- <div class="alert">
+            <div>
+                <h3>dev.chelun.com</h3>
+                <p>1</p>
+                <button>确定</button>
+            </div>
+        </div> -->
     </div>
 </template>
 
 <script>
-import {getBrandList, getMakeList} from './api/index.js';
 import Loading from '@/components/Loading';
 export default {
   name: 'app',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
-    }
-  },
   components:{
     Loading
-  },
-  mounted(){
-      getBrandList().then(res=>{
-          console.log('res...', res);
-      });
-      getMakeList(9).then(res=>{
-          console.log('makeList...', res);
-      })
   }
 }
 </script>
 
-<style>
+<style lang="scss">
+@import './styles/common.scss';
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -39,6 +33,6 @@ export default {
   margin-top: 60px;
 }
 .container{
-    /* height: 100%; */
+    height: 100%;
 }
 </style>

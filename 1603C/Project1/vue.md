@@ -18,15 +18,18 @@
 | 渲染组件| |render 
 
 #### 卸载组件React
-> * 挂载在dom节点：
+- 挂载在dom节点：
         ReactDOM.render(<Component/>, "#app");
         unMountComponentAtNode(选择器)
-> * 在组件中使用组件:  
+- 在组件中使用组件:  
         不渲染即可
 
 #### 卸载组件Vue
-> * 使用vm实例:
+- 使用vm实例:
     vm.$destory()
-> * 在组件中使用：
+- 在组件中使用：
     不渲染即可
+00000
+000000
 
+00000000

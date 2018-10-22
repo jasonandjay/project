@@ -75,6 +75,8 @@
             // 品牌点击
             brandClick(e){
                 let target = null;
+                // 添加事件统计
+                 _hmt.push(['_trackEvent', '汽车报价', 'tap', '品牌点击']);
                 if (e.target.tagName == 'IMG' || e.target.tagName == 'SPAN'){
                     target = e.target.parentNode;
                 }else if (e.target.tagName == 'LI'){
@@ -83,6 +85,8 @@
 
                 if (target){
                     let id = target.dataset.id;
+                    console.log('触发统计事件');
+                      _hmt.push(['_trackEvent', '汽车报价', 'tap', '品牌点击']);
                     console.log('id...', target, id);
                     this.getMakeList(id);
                 }

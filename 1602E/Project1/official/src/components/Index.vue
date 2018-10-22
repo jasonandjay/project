@@ -33,6 +33,7 @@
     import lazyLoad from '../util/lazyLoad.js';
     import '../util/util.js';
     export default {
+        name: 'Index',
         computed: {
             ...mapState({
                 letters: state => state.index.letters,
@@ -130,6 +131,13 @@
         },
         mounted() {
             this.initState();
+            console.log('mounted....');
+        },
+        activated(){
+            console.log('actived...');
+        },
+        deactivated(){
+            console.log('disactived....');
         },
         updated() {
             // 获取每个字母的高度

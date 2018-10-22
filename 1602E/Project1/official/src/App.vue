@@ -1,5 +1,7 @@
 <template>
-	<router-view></router-view>
+    <keep-alive exclude="Index">
+        <router-view></router-view>
+    </keep-alive>
 </template>
 <style>
 	*{

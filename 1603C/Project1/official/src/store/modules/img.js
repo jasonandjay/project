@@ -2,7 +2,9 @@ import {getCategoryImgList} from '@/api/';
 const state = {
     imgList: [],
     Page: 1,
-    isFetching: false
+    isFetching: false,
+    current: 0,
+    showSwiper: false
 }
 
 const mutations = {
@@ -18,6 +20,15 @@ const mutations = {
     },
     startFetching(state){
         state.isFetching = true;
+    },
+    /**
+     * 控制swiper的显示隐藏
+     * @param {*} state
+     * @param {*} payload
+     */
+    changeSwiper(state, payload){
+        state.showSwiper = payload.show;
+        state.current = payload.id
     }
 }
 

@@ -10,9 +10,23 @@
         }
         (window.onload = f) && (window.onresize = f) && f();
     </script>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?fb406f1985517dc4309e4b94e46a5f87";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    <script src="https://browser.sentry-cdn.com/4.1.1/bundle.min.js" crossorigin="anonymous"></script>
+    <script>
+        Sentry.init({ dsn: 'https://8770a905964844f2a3ad036701b92c07@sentry.io/1303633' });
+    </script>
   </head>
   <body>
     <div id="app"></div>
+    <!-- <h1>测试自动化部署</h1> -->
     <script src="/dist/build.js"></script>
   </body>
 </html>

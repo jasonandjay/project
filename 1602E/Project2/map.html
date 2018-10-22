@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<style type="text/css">
+	body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+	</style>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=zj3Sp7KWbZQDQPLexy8fimKBj6zfkLQV"></script>
+	<title>地图展示</title>
+</head>
+<body>
+	<div id="allmap"></div>
+</body>
+</html>
+<script type="text/javascript">
+	// 百度地图API功能
+	var map = new BMap.Map("allmap");    // 创建Map实例
+	map.centerAndZoom(new BMap.Point(116.29845, 39.95933), 11);  // 初始化地图,设置中心点坐标和地图级别
+	//添加地图类型控件
+	// map.addControl(new BMap.MapTypeControl({
+	// 	mapTypes:[
+    //         BMAP_NORMAL_MAP,
+    //         BMAP_HYBRID_MAP
+    //     ]}));	  
+	// map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
+	map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+
+
+    var point = new BMap.Point(116.2994380000, 40.0396220000);
+	map.centerAndZoom(point, 12);
+    var myIcon = new BMap.Icon("http://lbsyun.baidu.com/jsdemo/img/fox.gif", new BMap.Size(300,157));
+	var marker = new BMap.Marker(point, {icon:myIcon});  // 创建标注
+	map.addOverlay(marker);              // 将标注添加到地图中
+    marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+	var label = new BMap.Label("北京八维研修学院",{offset:new BMap.Size(20,-10)});
+	marker.setLabel(label);
+
+
+    // 画条公交路线
+    // var start = "八维黄埔校区";
+	// var end = "北京八维研修学院";
+	// var routePolicy = [BMAP_TRANSIT_POLICY_LEAST_TIME,BMAP_TRANSIT_POLICY_LEAST_TRANSFER,BMAP_TRANSIT_POLICY_LEAST_WALKING,BMAP_TRANSIT_POLICY_AVOID_SUBWAYS];
+	// var transit = new BMap.TransitRoute(map, {
+	// 		renderOptions: {map: map},
+	// 		policy: 0
+	// 	});
+	// $("#result").click(function(){
+    
+		// map.clearOverlays(); 
+		// var i=4;
+        // routePolicy.forEach(item=>{
+        //     search(start, end ,item);
+        // })
+		// search(start,end,routePolicy[i]); 
+		// function search(start,end,route){ 
+		// 	transit.setPolicy(route);
+		// 	transit.search(start,end);
+		// }
+	// });
+
+    // 画条嫩江到三亚的导航
+    var start = "嫩江县";
+	var end = "三亚市";
+	//三种驾车策略：最少时间，最短距离，避开高速
+	var routePolicy = [BMAP_DRIVING_POLICY_LEAST_TIME,BMAP_DRIVING_POLICY_LEAST_DISTANCE,BMAP_DRIVING_POLICY_AVOID_HIGHWAYS];
+	// $("#result").click(function(){
+		// map.clearOverlays(); 
+		// var i=$("#driving_way select").val();
+        var i = 1;
+		// search(start,end,routePolicy[i]); 
+		function search(start,end,route){ 
+			var driving = new BMap.DrivingRoute(map, {renderOptions:{map: map, autoViewport: true},policy: route});
+			driving.search(start,end);
+		}
+	// });
+</script>

@@ -1,0 +1,31 @@
+<!--index.wxml-->
+<view>
+  <view wx:for="{{list}}" class="item" wx:key="{{index}}" bindtap="itemClick" data-id="{{item.restaurant.id}}">
+    <view class="info">
+      <image class="cover" src="{{item.restaurant.image_path}}"/>
+      <view>
+        <view class="title">
+          <text>品牌</text>
+          <text>{{item.restaurant.name}}</text>
+          <text>票</text>
+        </view>
+        <view class="star">
+          <text>★★★★★</text>
+          <text>4.8</text>
+          <text>月售8480单</text>
+        </view>
+        <view class="send">
+          <view>
+            <text>$15起送</text>
+            <text>配送费$0</text>
+          </view>
+          <view>
+            <text>805m</text>
+            <text>34分钟</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>

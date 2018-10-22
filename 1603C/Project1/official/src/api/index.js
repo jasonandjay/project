@@ -10,9 +10,9 @@ function sendRequest(url, method = 'GET', data = {}){
     }
     // 判断请求查询url是否携带query
     if (url.indexOf('?') == -1){
-        url += `?_=${+new Date()}`
+        // url += `?_=${+new Date()}`
     }else{
-        url += `&_=${+new Date()}`
+        // url += `&_=${+new Date()}`
     }
     return fetch(host+url, params).then(res=>res.json()).then(body=>body);
 }

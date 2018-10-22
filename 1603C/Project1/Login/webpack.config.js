@@ -67,6 +67,7 @@ module.exports = {
     // 设置代理
     proxy: {
       '/api':{
+
         target: 'https://apiv2.manhua.weibo.com',
         changeOrigin: true,
         pathRewrite: {

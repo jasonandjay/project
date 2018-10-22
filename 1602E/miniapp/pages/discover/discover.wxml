@@ -1,0 +1,26 @@
+<!--pages/discover.wxml
+<swiper indicator-dots="{{indicatorDots}}"
+  autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+  <block wx:for="{{imgUrls}}" wx:key="{{index}}">
+    <swiper-item>
+      <image src="{{item}}" class="slide-image" width="355" height="150"/>
+    </swiper-item>
+  </block>
+</swiper>
+-->
+
+  <!-- 地图组件 
+<map id="myMap" show-location />
+
+<button type="primary" bindtap="getCenterLocation">获取位置</button>
+<button type="primary" bindtap="moveToLocation">移动位置</button>
+<button type="primary" bindtap="translateMarker">移动标注</button>
+<button type="primary" bindtap="includePoints">缩放视野展示所有经纬度</button>
+-->
+
+<canvas canvas-id="canvas"></canvas>
+
+<button bindtap="selectImg">选择图片</button>
+<button bindtap="saveImg">保存图片</button>
+
+<button open-type="share">转发</button>
