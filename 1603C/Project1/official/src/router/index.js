@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import store from '../store';
+import {getToken} from '@/utils/index.js';
 
 // 加载路由页面
 const Login = ()=>import('@/views/Login.vue');
@@ -51,7 +52,7 @@ let router = new VueRouter({
 // 全局导航守卫
 router.beforeEach((to, from ,next)=>{
     store.commit('changeLoading', true);
-    let login = window.localStorage.getItem('login') || '';
+    let login = getToken() || '';
     if (!login && to.path != '/login'){
         next('/login');
     }else{

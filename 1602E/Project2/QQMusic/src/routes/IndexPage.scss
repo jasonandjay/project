@@ -1,0 +1,35 @@
+.wrap{
+  background: #f4f4f4;
+  height: 100%;
+}
+.banner{
+  width: 100%
+}
+.radio{
+  margin: 14px 10px 7px;
+  p{
+    font-size: 16px;
+    color: #000;
+    margin-bottom: 11px;
+    font-weight: normal;
+  }
+  .radioList{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    div{
+      width: 49%;
+      position: relative;
+      background: #fff;
+    }
+  }
+  .icon{
+    position: absolute;
+    right: 10px;
+    bottom: 30px;
+  }
+  img{
+    width: 100%;
+  }
+}

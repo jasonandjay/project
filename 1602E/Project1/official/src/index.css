@@ -1,0 +1,13 @@
+:global(.img){
+    width: 100%;
+}
+.title{
+    font-size: 100px;
+}
+.img{
+    width: 100%;
+}
+
+img{
+    width: 50%;
+}

@@ -1,3 +1,4 @@
+import {getToken} from '@/utils/index.js';
 // 动态判断域名
 const host = /localhost/.test(window.location.host)?'http://baojia-test.chelun.com':'https://baojia.chelun.com';
 function sendRequest(url, method = 'GET', data = {}){
@@ -14,6 +15,8 @@ function sendRequest(url, method = 'GET', data = {}){
     }else{
         // url += `&_=${+new Date()}`
     }
+    // 拼接登陆态token
+    url += `&token=${getToken()}`;
     return fetch(host+url, params).then(res=>res.json()).then(body=>body);
 }
 

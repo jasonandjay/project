@@ -1,0 +1,18 @@
+{
+  "extraBabelPlugins": [
+    ["import", {
+      "libraryName": "antd",
+      "libraryDirectory": "es",
+      "style": true
+    }]
+  ],
+  "proxy": {
+    "/api": {
+      "target": "https://c.y.qq.com",
+      "changeOrigin": true,
+      "pathRewrite": {
+        "/api": "/"
+      }
+    }
+  }
+}

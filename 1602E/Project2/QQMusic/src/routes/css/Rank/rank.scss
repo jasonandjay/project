@@ -1,0 +1,38 @@
+.wrap{
+    width: 95%;
+   margin: 0 auto;
+   display: block;
+}
+
+dl{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    dt{
+        width: 100px;
+        img{
+            width: 100px;
+            height: 100px;
+            display: block;
+        }
+    }
+    dd{
+        padding-left: 10px;
+        flex: 1;
+        color:#000;
+        p{
+            font-size: 18px;
+        }
+        ol{
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            li{
+                width: 100%; 
+                list-style-position:inside;
+            }
+        }
+    }
+
+}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>原生实现简单的promise</title>
+</head>
+<body>
+    <script>
+        function MyPromise(fn){
+            // promise内部状态
+            this.status = 'pending';
+
+            fn(this.resolveWrap.bind(this), this.rejectWrap.bind(this));
+        }   
+        MyPromise.prototype.resolveWrap = function(res){
+            if (this.status != 'pending'){
+                return;
+            }
+            let that = this;
+            setTimeout(function(){
+                that.resolve(res);
+                that.status = 'fulfilled';
+            }, 0)
+        }
+        MyPromise.prototype.rejectWrap = function(res){
+            if (this.status != 'pending'){
+                return;
+            }
+            let that = this;
+            setTimeout(function(){
+                that.reject(res);
+                that.status = 'rejected';
+            }, 0)
+        }
+        // 实现 
+        MyPromise.prototype.then = function(resolve, reject){
+            this.resolve = resolve || function(){};
+            this.reject = reject || function(){};
+        }
+
+
+        // 应用
+        var loadImg = function(){
+            return new MyPromise((resolve, reject)=>{
+                let img = new Image();
+                img.onload = function(){
+                    resolve(img);
+                    reject(new Error('图片加载失败'));
+                }
+                img.onerror = function(){
+                    reject(new Error('图片加载失败'));
+                }
+                img.src = "http://p1.meituan.net/movie/7a2c3acb1bda2baad8df309b046d0872344909.jpg@160w_220h_1e_1c";
+            })
+        }
+
+        loadImg().then(res=>{
+            document.body.appendChild(res);
+        });
+    </script>
+</body>
+</html>

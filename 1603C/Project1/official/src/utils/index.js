@@ -1,3 +1,5 @@
+import cookie from 'js-cookie';
+
 /**
  * 合并参数相同的车辆
  * @param {*} list 车辆列表
@@ -54,4 +56,21 @@ export function sortCar(list){
  */
 export function filter(year, list){
     return list.filter(item=>item.market_attribute.year == year);
+}
+/**
+ *获取token
+ * @export
+ * @returns
+ */
+export function getToken(){
+    return cookie.get('token');
+}
+
+/**
+ * 设置token，过期时间为10s后
+ * @export
+ * @param {*} token 登陆态
+ */
+export function setToken(token){
+    cookie.set('token', token, {expires: new Date((+new Date())+7*24*60*60*1000)});
 }

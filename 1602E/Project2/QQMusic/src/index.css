@@ -1,0 +1,9 @@
+
+html, body, :global(#root) {
+  height: 100%;
+}
+
+*{
+  text-decoration: none;
+}
+

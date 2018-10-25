@@ -1,0 +1,43 @@
+.wrap {
+  width: 95%;
+  margin: 0 auto;
+  display: block;
+}
+
+dl {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+dl dt {
+  width: 100px;
+}
+
+dl dt img {
+  width: 100px;
+  height: 100px;
+  display: block;
+}
+
+dl dd {
+  padding-left: 10px;
+  flex: 1;
+  color: #000;
+}
+
+dl dd p {
+  font-size: 18px;
+}
+
+dl dd ol {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+dl dd ol li {
+  width: 100%;
+  list-style-position: inside;
+}
