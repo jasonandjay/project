@@ -11,6 +11,8 @@ import componentsRouter from './modules/components'
 import chartsRouter from './modules/charts'
 import tableRouter from './modules/table'
 import nestedRouter from './modules/nested'
+// 挂载1603C的router
+import wz1603CRouter from './modules/1603C';
 
 /** note: Submenu only appear when children.length>=1
  *  detail see  https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
@@ -142,18 +144,6 @@ export const asyncRouterMap = [
     ]
   },
   {
-    path: '/1603C',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/1603c/index'),
-        name: '1603C',
-        meta: { title: 'wz1603c', icon: 'peoples', noCache: true }
-      }
-    ]
-  },
-  {
     path: '/icon',
     component: Layout,
     children: [
@@ -171,6 +161,7 @@ export const asyncRouterMap = [
   chartsRouter,
   nestedRouter,
   tableRouter,
+  wz1603CRouter,
 
   {
     path: '/example',

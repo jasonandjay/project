@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图片布局</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .wrap div{
+            font-size: 0;
+            width: 24%;
+            box-sizing: border-box;
+            padding-left: 3%;
+            display: inline-block;
+        }
+        .wrap div img{
+            width: 100%;
+            height: 20vw;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <!-- <div> -->
+            <!-- <img src="avatar.jpg" alt=""> -->
+        <!-- </div>  -->
+        <div id="add">
+            <img src="add.jpg" alt="">
+        </div>
+    </div>
+
+    <script>
+        // 添加图片
+        var add = document.querySelector('#add');
+        add.addEventListener('click', function(){
+            var div = document.createElement('div');
+            div.innerHTML = '<img src="dir.png" alt="">';
+            add.parentNode.insertBefore(div, add);
+        })
+
+        //删除图片
+        var wrap = document.querySelector('.wrap');
+        wrap.addEventListener('click', function(e){
+            console.log('e.target', e.target, e.target.src, e.target.src.indexOf('add'));
+            if (e.target.tagName == 'IMG' && e.target.src.indexOf('add') == -1){
+                e.target.parentNode.parentNode.removeChild(e.target.parentNode);
+            }
+        })
+    </script>
+</body>
+</html>
