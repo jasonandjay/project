@@ -55,7 +55,7 @@
                 }
                 // window.localStorage.setItem('login', 'true');
                 // this.$router.push('/');
-                fetch('http://169.254.78.172:10001/login', {
+                fetch('http://169.254.57.117:10001/login', {
                     method: 'POST',
                     body: JSON.stringify({
                         username: this.username,
@@ -72,6 +72,7 @@
                     // 设置token
                     setToken(body.data.token);
                     this.$alert(body.msg);
+                    window.location.href="/index";
                 })
             },
             resetForm(){
@@ -86,7 +87,7 @@
                     this.$alert("手机号码有误，请重填");
                     return;
                 }
-                fetch('http://169.254.78.172:10001/sendSMS', {
+                fetch('http://169.254.57.117:10001/sendSMS', {
                     method: 'POST',
                     body: JSON.stringify({
                         phone: this.phone

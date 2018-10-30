@@ -1,30 +1,31 @@
-import {getToken} from '@/utils/index.js';
+import { getToken } from '@/utils/index.js';
 // 动态判断域名
-const host = /localhost/.test(window.location.host)?'http://baojia-test.chelun.com':'https://baojia.chelun.com';
-function sendRequest(url, method = 'GET', data = {}){
+const host = /localhost/.test(window.location.host) ? 'http://baojia-test.chelun.com' : 'https://baojia.chelun.com';
+
+function sendRequest(url, method = 'GET', data = {}) {
     let params = {
         method
     };
     // 判断如果是一个post请求，带上请求体信息
-    if (method == 'POST'){
+    if (method == 'POST') {
         params.body = JSON.stringify(data);
     }
     // 判断请求查询url是否携带query
-    if (url.indexOf('?') == -1){
-        // url += `?_=${+new Date()}`
-    }else{
-        // url += `&_=${+new Date()}`
+    if (url.indexOf('?') == -1) {
+        url += `?_=${+new Date()}`
+    } else {
+        url += `&_=${+new Date()}`
     }
     // 拼接登陆态token
     url += `&token=${getToken()}`;
-    return fetch(host+url, params).then(res=>res.json()).then(body=>body);
+    return fetch(host + url, params).then(res => res.json()).then(body => body);
 }
 
 /**
  *  获取车辆品牌数据
  *  @return promise
  */
-export let getBrandList = ()=>{
+export let getBrandList = () => {
     return sendRequest('/v2-car-getMasterBrandList.html');
 }
 
@@ -33,15 +34,15 @@ export let getBrandList = ()=>{
  * @param id 车辆品牌id
  * @return promise
  */
-export let getMakeList = (id)=>{
-    return sendRequest(`/v2-car-getMakeListByMasterBrandId.html?MasterID=${id}`);
-}
-/**
- * 获取车系详情
- * @param {*} id 车系id
- * @returns promise
- */
-export let getCarInfo = (id)=>{
+export let getMakeList = (id) => {
+        return sendRequest(`/v2-car-getMakeListByMasterBrandId.html?MasterID=${id}`);
+    }
+    /**
+     * 获取车系详情
+     * @param {*} id 车系id
+     * @returns promise
+     */
+export let getCarInfo = (id) => {
     return sendRequest(`/v2-car-getInfoAndListById.html?SerialID=${id}`);
 }
 
@@ -55,16 +56,16 @@ export let getCarInfo = (id)=>{
  * @param {*} colorId 颜色id
  * @returns promise
  */
-export let getCategoryImgList = (param)=>{
+export let getCategoryImgList = (param) => {
     let search = ``;
-    for(let i in param){
+    for (let i in param) {
         search += `&${i}=${param[i]}`;
     }
     // 补充page与pageSize
-    if (!param['Page']){
+    if (!param['Page']) {
         search += `&Page=1`;
     }
-    if (!param['PageSize']){
+    if (!param['PageSize']) {
         search += `&PageSize=30`;
     }
     return sendRequest(`/v2-car-getCategoryImageList.html?${search.slice(1, search.length)}`);
