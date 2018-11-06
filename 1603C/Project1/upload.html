@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图片上传</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <input type="file" multiple>
+
+    <script>
+        var ele = document.querySelector('input');
+        ele.onchange = function(e){
+            console.log('e...', e);
+            let files = e.target.files;
+            // 创建一个formData
+            let form = new FormData();
+            for (let i=0,len=files.length; i<len;i++){
+                console.log(files[i].name);
+                form.append(files[i].name, files[i]);
+            }
+
+            // console.log('from...', form);
+            axios({
+            	method: 'post',
+            	url: 'http://169.254.78.172:10002/uploadFile',
+            	data: form
+            }).then(body=>{
+                console.log('body...', body);
+            }).catch(e=>{
+                console.log('e..', e);
+            })
+        }
+    </script>
+</body>
+</html>

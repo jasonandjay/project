@@ -1,6 +1,7 @@
 import { loginByUsername, logout, getUserInfo } from '@/api/login'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import md5 from 'md5'
+import cookie from 'js-cookie'
 
 const user = {
   state: {
@@ -50,21 +51,19 @@ const user = {
       const username = userInfo.username.trim()
       return new Promise((resolve, reject) => {
         loginByUsername(username, md5(userInfo.password + 'hello world')).then(response => {
-          const data = response.data
-          // console.log('data...', data, data.token);
+          const data = response.data.data
+          console.log('data...', data, data.token);
           commit('SET_TOKEN', data.token)
           setToken(data.token)
 
-          // 设置roles
-          // if (!data.access.length) {
-          //   data.access = ['guest']
-          // }
-          // commit('SET_ROLES', data.access)
+          // 把数据放到cookie里，在getUserInfo的时候再取出来,达到模拟getUserInfo接口获取用户信息
+          cookie.set('userInfo', JSON.stringify({
+            access: data.access,
+            name: data.name,
+            avatar: data.avatar,
+            introduction: data.introduction
+          }))
 
-          // 设置名字，头像，自我介绍
-          // commit('SET_NAME', data.name)
-          // commit('SET_AVATAR', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif')
-          // commit('SET_INTRODUCTION', `我是${data.name}`)
           resolve()
         }).catch(error => {
           console.log('error', error)
@@ -76,31 +75,24 @@ const user = {
     // 获取用户信息
     GetUserInfo({ commit, state }) {
       return new Promise((resolve, reject) => {
-        // resolve({
-        //   data: {
-        //     roles: state.roles
-        //   }
-        // })
-        getUserInfo(state.token).then(response => {
-          if (!response.data) { // 由于mockjs 不支持自定义状态码只能这样hack
-            reject('error')
+        let userInfo = JSON.parse(cookie.get('userInfo'));
+        console.log('userInfo...', userInfo);
+        // 添加权限
+        if (userInfo.access && userInfo.access.length > 0) { // 验证返回的roles是否是一个非空数组
+          commit('SET_ROLES', userInfo.access);
+        } else {
+          commit('SET_ROLES', ['guest']);
+        }
+
+        // 设置用户名，头像，自我介绍
+        commit('SET_NAME', userInfo.name)
+        commit('SET_AVATAR', userInfo.avatar || 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif')
+        commit('SET_INTRODUCTION', userInfo.introduction)
+        resolve({
+          data: {
+            roles: userInfo.access
           }
-          const data = response.data
-
-          if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
-            commit('SET_ROLES', data.roles)
-          } else {
-            reject('getInfo: roles must be a non-null array !')
-          }
-
-          commit('SET_NAME', data.name)
-          commit('SET_AVATAR', data.avatar)
-          commit('SET_INTRODUCTION', data.introduction)
-          resolve(response)
-
-        }).catch(error => {
-          reject(error)
-        })
+        });
       })
     },
 

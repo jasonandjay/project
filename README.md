@@ -11,6 +11,8 @@
 - 查看提交记录：git log 
 - 回滚代码： git reset --hard [commit:6]
 - 回到最新代码：git reset HEAD | git pull origin master
+- 合并分支：git merge chenmanjie
+- 会用PR给他人仓库贡献代码
 
 ## linux日常操作
 - 善用tab健，帮我们补全命令和路径
@@ -32,7 +34,10 @@
 
 ### 复杂版 模板为：webpack
 - 注释掉.gitignore里的dist，既在dist前面加个#号
-- 修改config/index.js里的build/assetsPublicPath为相对路径，在/dist前面加个.
+- 修改config/index.js里的build/assetsPublicPath为相对路径，在/前面加个.
+
+### 遇到404，修改文件夹的权限
+- chmod 666 -R dir
 
 ## 启动一些线上服务
 ### 短信验证码服务
@@ -49,3 +54,7 @@
     - 报错/bin/bash^M: bad interpreter: No such file or directory
     - 更改文件格式：https://www.cnblogs.com/zyb-pp/p/6429448.html
 ### 配置邮件服务器，在push钩子里触发，自动通知收件人
+
+### 线上上传公用接口
+- 文件上传    http://123.206.55.50:11000/upload
+- 请求代理    httP://123.206.55.50:11000/api?url=需要代理的地址

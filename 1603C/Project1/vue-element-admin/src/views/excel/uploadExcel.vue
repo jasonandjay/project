@@ -34,6 +34,7 @@ export default {
       return false
     },
     handleSuccess({ results, header }) {
+      console.log('results..', results, 'header...', header);
       this.tableData = results
       this.tableHeader = header
     }

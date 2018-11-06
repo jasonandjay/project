@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>generator函数</title>
+</head>
+<body>
+    <script>
+        var asyncFunc = ()=>{
+            setTimeout(()=>{
+                console.log('5秒钟之后执行');
+                console.log(iterator.next(10000))
+            }, 5000)
+            return 'asyncFunc的返回值';
+        }
+
+
+        function *func (){
+            console.log('开始执行代码');
+            let data = yield asyncFunc();
+            console.log('data...', data);
+            return 2;
+        }
+        let iterator = func();
+        console.log(iterator.next())
+
+        // // 执行顺序
+        // 开始执行代码    // 22行
+        // {value:'asyncFunc的返回值',done:false}; //28行
+        // ....等待5秒
+        // 5秒钟之后执行   // 13行
+        // data....100000  //24行
+        // {value: 2, done: true}  // 14行
+    </script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>手动实现Hahs和History路由模式</title>
+</head>
+<body>
+    <!-- 导航区域 -->
+    <div class="router_box">
+        <a href="/home.html" class="router" replace="true">主页</a>
+        <a href="/news.html" class="router">新闻</a>
+        <a href="/team.html" class="router">团队</a>
+        <a href="/about.html" class="router">关于</a>
+    </div>
+    <!-- 路由区域 -->
+    <div id="router-view"></div>
+
+    <script>
+        var index = 0;
+        function Router(options){
+            // 获取路由模式
+            this.mode = options.mode || 'hash';
+            // 获取路由列表
+            this.routes = options.routes || [];
+            this.init = function(){
+                var that = this;
+                // 给导航按钮绑定事件
+                [...document.querySelectorAll('.router')].forEach(item=>{
+                    item.addEventListener('click', function(e){
+                        // 阻止默认行为
+                        if (e && e.preventDefault){
+                            e.preventDefault();
+                        }else{
+                            window.event.returnValue = false;
+                        }
+                        
+                        // 判断路由模式
+                        if (that.mode == 'hash'){
+                            // 判断是添加还是替换历史记录
+                            if (this.getAttribute('replace')){
+                                var i = window.location.href.indexOf('#');
+                                // 通过replcae方法改变地址,就能实现替换的效果
+                                window.location.replace(
+                                    window.location.href.slice(0, i>0?i: window.location.href.length)+'#'+this.getAttribute('href')
+                                )
+                            }else{
+                                // 直接赋值实现追加历史记录的效果
+                                window.location.hash = this.getAttribute('href');
+                            }
+                        }else{
+                            // 判断是添加还是替换历史记录
+                            if (this.getAttribute('replace')){
+                                // 通过window.history.replaceState替换历史记录
+                                window.history.replaceState({}, `这是标题${index++}`, this.getAttribute('href'));
+                            }else{
+                                // 通过window.history.pushState追加历史记录
+                                window.history.pushState({}, `这是标题${index++}`, this.getAttribute('href'));
+                            }
+                            // 因为pushState和replaceState不会触发popState事件
+                            that.historyChange();
+                        }
+                    });
+                })
+                
+                if (this.mode == 'hash'){
+                    // 监听hashChange事件
+                    window.addEventListener('hashchange', function(){
+                        that.routeChange();
+                    })
+                }else{
+                    // 监听popState事件
+                    window.addEventListener('popstate', function(){
+                        that.routeChange();
+                    })
+                }
+
+                this.routeChange();
+            };
+
+            // 路由改变方法
+            this.routeChange = function(){
+                if (this.mode == 'hash'){
+                    // 获取新页面的hash值
+                    var newHash = window.location.hash.slice(1);
+                    // 获取对应的路由下标
+                    var index = this.routes.findIndex(item=>{
+                        return item.path == newHash;
+                    })
+                    console.log(newHash, index);
+                    // 如果存在路由表中直接赋值
+                    if (index != -1){
+                        document.querySelector('#router-view').innerHTML = this.routes[index].component;
+                    }else{
+                        // 如果不存在查找是否配置了*
+                        var defaultIndex = this.routes.findIndex(item=>{
+                            return item.path == '*';
+                        })
+                        if (defaultIndex != -1){
+                            var i = window.location.href.indexOf('#');
+                            window.location.replace(
+                                window.location.href.slice(0, i>0?i: window.location.href.length)+'#'+this.routes[defaultIndex].redirect
+                            )
+                        }
+                    }
+                }else{
+                    // console.log(111);
+                    this.historyChange();
+                }
+            }
+
+            // 地址修改方法
+            this.historyChange = function(){
+                let path = window.location.href.replace(window.location.origin, '');
+                var index = this.routes.findIndex(item=>{
+                    return item.path == path;
+                })
+                console.log('path...', path, index);
+                if (index != -1){
+                    document.querySelector('#router-view').innerHTML = this.routes[index].component;
+                }else{
+                    var defaultIndex = this.routes.findIndex(item=>{
+                        return item.path == '*';
+                    })
+                    if (defaultIndex != -1){
+                        window.history.replaceState({}, '', this.routes[defaultIndex].redirect);
+                        var newIndex = this.routes.findIndex(item=>{
+                            return item.path == this.routes[defaultIndex].redirect;
+                        })
+                        document.querySelector('#router-view').innerHTML = this.routes[newIndex].component;
+                    }
+                }
+            }
+
+            this.init();
+        }
+        new Router({
+            mode: 'browser',
+            routes:[
+                { path: '/home.html', component: '<h1>主页</h1><h4>新一代前端工程师：我们啥都会</h4>' },
+                { path: '/news.html', component: '<h1>新闻</h1><h4>今天2018-11-5，上课还得穿工装</h4>' },
+                { path: '/team.html', component: '<h1>团队</h1><h4>WEB前端工程师</h4>' },
+                { path: '/about.html', component: '<h1>关于</h1><h4>一面而高薪就业</h4>' },
+                { path:'*', redirect:'/team.html'}
+            ]
+        });
+    </script>
+</body>
+</html>

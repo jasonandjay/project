@@ -36,7 +36,7 @@
       </el-table-column>
       <el-table-column :label="$t('table.status')" class-name="status-col" width="100">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.status | statusFilter">{{ scope.row.status }}</el-tag>
+          <el-tag :type="scope.row.status | statusFilter">{{ scope.row.status?'正常用户':'已删除' }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column :label="$t('table.actions')" align="center" width="400" class-name="small-padding fixed-width">
@@ -46,7 +46,7 @@
           </el-button>
           <el-button v-if="scope.row.status!='draft'" size="mini" @click="handleModifyStatus(scope.row,'draft')">{{ $t('table.draft') }}
           </el-button>
-          <el-button v-if="scope.row.status!='deleted'" size="mini" type="danger" @click="handleModifyStatus(scope.row,'deleted')">{{ $t('table.delete') }}
+          <el-button v-if="scope.row.status!='deleted'" :disabled="scope.row.status?false:true" size="mini" type="danger" @click="handleModifyStatus(scope.row,'deleted')">{{ $t('table.delete') }}
           </el-button>
         </template>
       </el-table-column>
@@ -56,27 +56,29 @@
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="70px" style="width: 400px; margin-left:50px;">
-        <el-form-item :label="$t('table.type')" prop="type">
-          <el-select v-model="temp.type" class="filter-item" placeholder="Please select">
-            <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name" :value="item.key"/>
-          </el-select>
+        <el-form-item label="ID" prop="id">
+          <el-input v-model="temp.id" disabled/>
         </el-form-item>
+        <el-form-item :label="$t('table.username')" prop="username">
+          <el-input v-model="temp.username"/>
+        </el-form-item>
+
+        <el-form-item :label="$t('table.phone')" prop="phone">
+          <el-input v-model="temp.phone"/>
+        </el-form-item>
+
+        <el-form-item :label="$t('table.email')" prop="email">
+          <el-input v-model="temp.email" placeholder="请输入你的邮箱"/>
+        </el-form-item>
+
         <el-form-item :label="$t('table.date')" prop="timestamp">
           <el-date-picker v-model="temp.timestamp" type="datetime" placeholder="Please pick a date"/>
         </el-form-item>
-        <el-form-item :label="$t('table.title')" prop="title">
-          <el-input v-model="temp.title"/>
-        </el-form-item>
+
         <el-form-item :label="$t('table.status')">
-          <el-select v-model="temp.status" class="filter-item" placeholder="Please select">
+          <el-select v-model="temp.status" class="filter-item" placeholder="Please select" disabled>
             <el-option v-for="item in statusOptions" :key="item" :label="item" :value="item"/>
           </el-select>
-        </el-form-item>
-        <el-form-item :label="$t('table.importance')">
-          <el-rate v-model="temp.importance" :colors="['#99A9BF', '#F7BA2A', '#FF9900']" :max="3" style="margin-top:8px;"/>
-        </el-form-item>
-        <el-form-item :label="$t('table.remark')">
-          <el-input :autosize="{ minRows: 2, maxRows: 4}" v-model="temp.remark" type="textarea" placeholder="Please input"/>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -100,7 +102,7 @@
 
 <script>
 import { fetchList, fetchPv, createArticle, updateArticle } from '@/api/article'
-import {getAllUser} from '@/api/1603C/user';
+import {getAllUser, updateUser, deleteUser} from '@/api/1603C/user';
 import waves from '@/directive/waves' // Waves directive
 import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
@@ -136,6 +138,15 @@ export default {
     }
   },
   data() {
+    var emailValidate = (rule, value, callback)=>{
+      if (!value){
+        callback(new Error('email is required'));
+      }
+      if (!/^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/.test(value)){
+        callback(new Error('email is not valid'));
+      }
+      callback();
+    };
     return {
       tableKey: 0,
       list: null,
@@ -152,7 +163,7 @@ export default {
       importanceOptions: [1, 2, 3],
       calendarTypeOptions,
       sortOptions: [{ label: 'ID Ascending', key: '+id' }, { label: 'ID Descending', key: '-id' }],
-      statusOptions: ['published', 'draft', 'deleted'],
+      statusOptions: [1, 0],
       showReviewer: false,
       temp: {
         id: undefined,
@@ -172,9 +183,12 @@ export default {
       dialogPvVisible: false,
       pvData: [],
       rules: {
-        type: [{ required: true, message: 'type is required', trigger: 'change' }],
         timestamp: [{ type: 'date', required: true, message: 'timestamp is required', trigger: 'change' }],
-        title: [{ required: true, message: 'title is required', trigger: 'blur' }]
+        username: [{ required: true, message: 'username is required', trigger: 'blur' }],
+        phone: [{ required: true, message: 'phone is required', trigger: 'blur' },
+         { type: 'string', len: 11, message: 'phone is not valid'}],
+        email: [{ required: true, message: 'email is required', trigger: 'blur' },
+        {validator: emailValidate, trigger: 'blur'}]
       },
       downloadLoading: false
     }
@@ -209,11 +223,17 @@ export default {
       this.getList()
     },
     handleModifyStatus(row, status) {
-      this.$message({
-        message: '操作成功',
-        type: 'success'
-      })
-      row.status = status
+      if (status == 'deleted'){
+        deleteUser({id: row.id}).then(res=>{
+          console.log('res...', res);
+          this.$message({
+            message: res.data.msg,
+            type: res.data.code==1?'success':'error'
+          })
+          // 重新获取下数据
+          this.getList();
+        })
+      }
     },
     resetTemp() {
       this.temp = {
@@ -254,7 +274,8 @@ export default {
     },
     handleUpdate(row) {
       this.temp = Object.assign({}, row) // copy obj
-      this.temp.timestamp = new Date(this.temp.timestamp)
+      console.log('temp...', this.temp);
+      this.temp.timestamp = new Date(parseInt(this.temp.create_time));
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
       this.$nextTick(() => {
@@ -265,22 +286,26 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.temp)
-          tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
-          updateArticle(tempData).then(() => {
-            for (const v of this.list) {
-              if (v.id === this.temp.id) {
-                const index = this.list.indexOf(v)
-                this.list.splice(index, 1, this.temp)
-                break
-              }
-            }
+          tempData.create_time = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
+          delete tempData.timestamp;
+          updateUser(tempData).then((res)=>{
+            console.log('res...', res);
             this.dialogFormVisible = false
-            this.$notify({
-              title: '成功',
-              message: '更新成功',
-              type: 'success',
-              duration: 2000
-            })
+            if (res.data.code != 1){
+              this.$notify({
+                title: '成功',
+                message: '用户信息更新成功',
+                type: 'success',
+                duration: 2000
+              })
+            }else{
+               this.$notify({
+                title: '失败',
+                message: '用户信息更新失败',
+                type: 'error',
+                duration: 2000
+              })
+            }
           })
         }
       })

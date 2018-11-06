@@ -15,7 +15,7 @@
       :width="300"
       :height="300"
       :key="imagecropperKey"
-      url="https://httpbin.org/post"
+      url="http://169.254.78.172:10002/upload"
       lang-type="en"
       @close="close"
       @crop-upload-success="cropSuccess"/>
@@ -38,6 +38,8 @@ export default {
   },
   methods: {
     cropSuccess(resData) {
+      resData = resData.data;
+      console.log('data...', resData.files.avatar);
       this.imagecropperShow = false
       this.imagecropperKey = this.imagecropperKey + 1
       this.image = resData.files.avatar
