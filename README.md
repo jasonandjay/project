@@ -55,6 +55,32 @@
     - 更改文件格式：https://www.cnblogs.com/zyb-pp/p/6429448.html
 ### 配置邮件服务器，在push钩子里触发，自动通知收件人
 
-### 线上上传公用接口
+### 线上公用接口
 - 文件上传    http://123.206.55.50:11000/upload
-- 请求代理    httP://123.206.55.50:11000/api?url=需要代理的地址
+```
+支持文件上传,用post方式提交formData对象,键为文件名,值为文件
+eg:
+var ele = document.querySelector('input');
+ele.onchange = function(e){
+    console.log('e...', e);
+    let files = e.target.files;
+    // 创建一个formData
+    let form = new FormData();
+    for (let i=0,len=files.length; i<len;i++){
+        console.log(files[i].name);
+        form.append(files[i].name, files[i]);
+    }
+
+    axios({
+        method: 'post',
+        url: 'http://123.206.55.50:11000/upload',
+        data: form
+    }).then(body=>{
+        console.log('body...', body);
+    }).catch(e=>{
+        console.log('e..', e);
+    })
+}
+
+```
+- 请求代理    http://123.206.55.50:11000/api?url=需要代理的地址

@@ -1,0 +1,328 @@
+.wrap {
+  width: 800px;
+  height: 500px;
+  margin: 20px auto;
+  display: flex;
+  border: 1px solid #000;
+}
+
+.left {
+  flex: 5;
+  display: flex;
+}
+
+.user {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  background: #28292D;
+}
+
+.user li {
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  color: #fff;
+}
+
+.user li:nth-child(1) {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.user li i {
+  font-size: 20px;
+}
+
+.con {
+  flex: 7;
+  background: #E5E5E5;
+  display: flex;
+  flex-direction: column;
+  /* overflow: hidden; */
+}
+
+.con .search {
+  width: 100%;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #EEEAE7;
+}
+
+.con .search>div {
+  flex: 1;
+  background: #DAD9D7;
+  margin: 0 10px;
+  height: 25px;
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  color: #7C7B79;
+}
+
+.con .search>div>i {
+  margin-right: 10px;
+}
+
+.con .search>p {
+  background: #DDD9D6;
+  padding: 5px;
+  margin: 0 5px;
+  border-radius: 5px;
+}
+
+.con .userList {
+  width: 100%;
+  flex: 1;
+  overflow-y: scroll;
+  background: #E4E4E4;
+}
+
+.con .userList::-webkit-scrollbar {
+  display: none
+}
+
+.con .userList li {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+}
+
+.con .userList li p {
+  flex: 2;
+  padding-left: 10px
+}
+
+.con .userList .active {
+  background: #C5C5C5
+}
+
+.usercon {
+  flex: 9;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.usercon_top {
+  width: 100%;
+  display: flex;
+  height: 16px;
+  margin-top: 12px;
+  margin-bottom: 5px;
+}
+
+.usercon_top .userlistname {
+  width: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.time {
+  padding: 0 10px;
+}
+
+.usercon_bottom {
+  width: 100%;
+  display: flex;
+  height: 16px;
+}
+
+.username {
+  width: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.right {
+  flex: 7;
+  display: flex;
+  flex-direction: column;
+  background: #F5F5F5;
+}
+
+.rightTop {
+  width: 100%;
+  height: 71px;
+  border-bottom: 1px solid #E4E4E4;
+  display: flex;
+  flex-direction: column;
+  background: #ddf;
+}
+
+.head_num {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.head_num>li {
+  margin: 3px 10px;
+}
+
+.head_num>li:nth-child(1) span {
+  font-size: 14px;
+}
+
+.head_num>li span {
+  font-size: 10px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+.title h2 {
+  font-weight: normal;
+}
+
+.right_top {
+  flex: 1;
+  overflow-x: hidden;
+  width: 100%;
+  background: #f00;
+}
+
+.main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.right_top::-webkit-scrollbar {
+  display: none
+}
+
+.userValue {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.userValue>div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  box-sizing: border-box;
+}
+
+.suerImg {
+  width: 40px;
+  height: 40px;
+  margin-right: 8px;
+}
+
+.userContent p:nth-child(1) {
+  color: #ccc;
+}
+
+.userContent p:nth-child(2) {
+  background: #fff;
+  padding: 5px 20px;
+  margin-top: 10px;
+}
+
+.myself {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.myself>div {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+
+}
+
+.myself .userContent {
+  margin-right: 10px;
+  min-height: 40px;
+}
+
+.userContent p:nth-child(1) {
+  color: #ccc;
+}
+
+.userContent p:nth-child(2) {
+  background: #fff;
+  padding: 5px 20px;
+  margin-top: 10px;
+}
+
+.dialogue {
+  width: 100%;
+  height: 150px;
+  border-top: 1px solid #EBEBEB;
+  background: #fff;
+  position: relative;
+}
+
+.dialogueTop {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  box-sizing: border-box;
+  height: 30px;
+  align-items: center;
+}
+
+.dialogueTop ul {
+  display: flex;
+  font-size: 20px;
+}
+
+.dialogueTop ul li {
+  margin-right: 15px;
+}
+
+.dialogueTop span {
+  font-size: 20px;
+}
+
+.sendCon {
+  border: none;
+  flex: 1;
+  width: 92%;
+  margin: 0 auto;
+  display: block;
+  height: 70%;
+  overflow: hidden;
+  resize: none;
+  font-size: 14px;
+}
+
+.btn {
+  position: absolute;
+  right: 25px;
+  bottom: 10px;
+  background: #EFEFEF;
+  border: none;
+  padding: 5px;
+  border: 1px solid #ccc;
+  color: #6F6E6C;
+}
+
+ul,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.avatar {
+  width: 60%;
+}
