@@ -10,6 +10,7 @@
 - 推送远程：git push origin master
 - 查看提交记录：git log 
 - 回滚代码： git reset --hard [commit:6]
+- 回滚文件： git checkout -- filepath
 - 回到最新代码：git reset HEAD | git pull origin master
 - 合并分支：git merge chenmanjie
 - 会用PR给他人仓库贡献代码
