@@ -3,6 +3,13 @@ var router = express.Router();
 var query = require('../db.js');
 var {geneToken, getIdFromToken} = require('../utils');
 
+const roler = [{
+  id: 1,
+  name: 'admin'
+},{
+  id: 2,
+  name: 'staff'
+}];
 // 用户登陆
 router.post('/login', function(req, res, next) {
   query('select id from user where username=? and password = ?', [req.body.username, req.body.password], function(error, results, fields){
@@ -12,7 +19,7 @@ router.post('/login', function(req, res, next) {
         msg: error.sqlMessage
       })
     }
-    if (!results[0].id){
+    if (!results[0] || !results[0].id){
       res.json({
         code: -2,
         msg: '用户名或密码错误'
@@ -156,8 +163,10 @@ router.get('/info', function(req, res, next){
 })
 
 // 更新用户信息
-router.get('/update', function(req, res, next){
+router.post('/update', function(req, res, next){
   let uid = getIdFromToken(req.header('X-Token'));
+  req.body.username = req.body.name;
+  delete req.body.name;
   query('update user set ? where id=?', [req.body, uid], function(error, results, fields){
     console.log('results...', error, req.body);
     if (error){
@@ -176,6 +185,211 @@ router.get('/update', function(req, res, next){
       res.json({
         code: -2,
         msg: '修改用户信息失败'
+      })
+    }
+  })
+})
+function getAuths(id){
+  return new Promise((resolve, reject)=>{
+    query('select rid from user_roler where uid=? and status=1', id, function(error, results, fields){
+      console.log('rid results...', error, results);
+      resolve(results);
+      // if (error){
+      //   res.json({
+      //     code: -1,
+      //     msg: error.sqlMessage
+      //   })
+      // }
+    })
+  })
+}
+// 获取用户列表
+router.get('/list', async function(req, res, next){
+  let sql = '',
+      search = [],
+      type = req.query.type || 1,
+      page = (req.query.page || 1)-1;
+  search.push(`type=${type}`)
+  if (req.query.search){
+    search.push(`username like '%${req.query.search}%'`);
+  }
+  if (req.query.phone){
+    search.push(`phone like '%${req.query.phone}%'`);
+  }
+  if (search.length){
+    sql = `select * from user where ${search.join(' and ')} limit ${page*10},10`
+  }else{
+    sql = `select * from user,user_roler limit ${page*10},10`
+  }
+  query(sql, {}, function(error, results, fields){
+    // console.log('list results...', req,query, search, sql, error, results);
+    if (error){
+      res.json({
+        code: -1,
+        msg: error.sqlMessage
+      })
+    }
+    // 去掉用户密码
+    results.forEach(item=>{
+      delete item.password
+    })
+    // 获取用户的权限
+    if (type == 2){
+      // results.forEach(async item=>{
+      //   delete item.password
+      //   item.auths = await getAuths(item.id);
+      //   console.log('item.auths...', item.auths);
+      //   // item.auths
+      // })
+
+      // 用promise做多次连接处理
+      // let promises = results.map(item=>getAuths(item.id));
+      // Promise.all(promises).then(body=>{
+      //   console.log('auth results...', body);
+      //   results.forEach((item, index)=>{
+      //     delete item.password;
+      //     item.auths = ['staff'];
+      //     if (body[index] && body[index].length){
+      //       item.auths = body[index].map(item=>{
+      //         console.log('item...', item);
+      //         return roler[item.rid-1].name
+      //       })
+      //     }
+      //   })
+      //   res.json({
+      //     code: 1,
+      //     data: {
+      //       list: results
+      //     },
+      //     msg: '获取用户列表成功'
+      //   })
+      // }).catch(err=>{
+      //   console.log('err...', err);
+      // })
+
+      // 用in语法搜索
+      let ids = results.map(item=>item.id);
+      console.log('ids...', ids);
+      query('select uid,rid from user_roler where status=1 and uid in (?)', [ids], function(error, auths, fields){
+        console.log('auth results...', auths);
+        results.forEach(item=>{
+          delete item.password;
+          // 获取权限
+          item.auths = auths.map(value=>{
+            if (value.uid == item.id){
+              return roler[value.rid-1].name;
+            }
+          })
+          if (!item.auths || !item.auths.length || !item.auths[0]){
+            item.auths = ['staff'];
+          }
+        })
+        res.json({
+          code: 1,
+          data: {
+            list: results
+          },
+          msg: '获取用户列表成功'
+        })
+      })
+    }else{
+      res.json({
+        code: 1,
+        data: {
+          list: results
+        },
+        msg: '获取用户列表成功'
+      })
+    }
+  })
+})
+
+// 注销账号
+router.delete('/action', function(req, res, next){
+  let type = req.body.type || 1,
+      status = req.body.status || 0,
+      id = req.body.uid;
+  console.log('req.body...', req.body);
+  if (!id){
+    res.json({
+      code: -2,
+      data: {},
+      msg: '缺少需要注销账号的id'
+    })
+    return;
+  }
+  query('update user set status=? where id=? and type=?', [status, id, type], function(error, results, fields){
+    console.log('results...', error, results);
+    if (error){
+      res.json({
+        code: -1,
+        msg: error.sqlMessage
+      })
+    }
+    if (results.affectedRows){
+      res.json({
+        code: 1,
+        data: {},
+        msg: `注销${type==1?'普通用户':'员工'}成功`
+      })
+    }else{
+      res.json({
+        code: -3,
+        data: {},
+        msg: `注销${type==1?'普通用户':'员工'}失败`
+      })
+    }
+  })
+})
+
+// 分配权限接口
+router.put('/action', function(req, res, next){
+  if (!req.body.type || req.body.type == 1){
+    res.json({
+      code: -2,
+      data: {},
+      msg: '分配权限接口只对员工开放'
+    })
+  }
+  // 把权限转化为rids
+  let rids = req.body.auths.map(item=>{
+    let rid = 0;
+    roler.forEach(value=>{
+      if (value.name == item){
+        rid = value.id;
+      }
+    })
+    return rid;
+  })
+  let values = [];
+  rids.forEach(item=>{
+    values.push({
+      uid: req.body.uid,
+      rid: item,
+      status: 1,
+      create_time: +new Date()
+    })
+  })
+  console.log('values..', rids, values);
+  query('update user_roler set status=0 where uid=?', req.body.uid, function(){});
+  query('insert into user_roler set ?', values, function(error, results, fields){
+    console.log('results...', error, results);
+    if (error){
+      res.json({
+        code: -1,
+        msg: error.sqlMessage
+      })
+    }
+    if (results.affectedRows){
+      res.json({
+        code: 1,
+        data: {},
+        msg: '为用户分配权限成功'
+      })
+    }else{
+      res.json({
+        code: -2,
+        msg: '为用户分配权限失败'
       })
     }
   })

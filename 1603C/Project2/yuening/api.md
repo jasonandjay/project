@@ -23,6 +23,30 @@
 	msg： '登陆成功'
 }
 ```
+#### 获取用户信息接口
+```js
+@url get  /user/info
+@return {
+	code: 1
+  data:{
+    address: "轨顶风道111"
+    avatar: "http://123.206.55.50:11000/static/UT5B4pk0uNPqsPZkEKI4Epna.jpg"
+    city: "太原市"
+    create_time: "1540189715161"
+    email: "503032527@qq.com"
+    id: 26
+    name: "chenmanjie"
+    phone: "15712892269"
+    profile: "打算放假肯定发酒店客房酒店客房11111"
+    province: "山西省"
+    status: 1
+    type: 1
+    userid: 26
+    username: "chenmanjie"
+  },
+  msg: "获取用户信息成功"
+}
+```
 
 #### 注册接口
 ```js
@@ -57,6 +81,7 @@
 @param  type //1表示普通用户 2表示员工
 @param  search  可选  用户名
 @param  phone   可选  手机号
+@param  page 可选 第几页数据，默认为第一页，每页十条数据
 @url  get /user/list
 @return {
 	code :1,
@@ -74,7 +99,30 @@
 	msg： '用户列表获取成功'
 }
 ```
-### 更新自己的信息
+#### 注销账号的接口
+```js
+@param  type //1表示普通用户 2表示员工
+@param  uid  用户id
+@url    delete /user/action
+@return {
+  code: 1,
+  data: {},
+  msg: '注销用户成功'
+}
+```
+#### 分配权限接口
+```js
+@param  type = 2
+@param  uid 用户id
+@param  auths(['admin', 'staff'])
+@url    put /user/action
+@return {
+  code: 1,
+  data: {},
+  msg: '分配用户权限成功'
+}
+```
+#### 更新信息接口
 ```js
 @param object 自己的信息
 {
@@ -85,24 +133,10 @@
   province: '',
   city: '',
   address: '',
-  phone: ''
+  phone: '',
+  status: ''
 }
-@url    post /user/updateMy
-@return {
-  code: 1,
-  data: {},
-  msg: '更新用户信息成功'
-}
-```
-#### 更新用户信息
-```js
-@param  object 用户信息
-{
-  status: 1,
-  avatar: '',
-  auths: ['admin']
-}
-@url    get /user/update
+@url    post /user/update
 @return {
   code: 1,
   data: {},
@@ -207,8 +241,8 @@
 }
 ```
 
-## 物品接口
-### 物品列表功能
+### 物品接口
+#### 物品列表功能
 ```js
 @param sid  门店的id
 @param page 可选 第几页数据，默认为第一页，每页十条数据
@@ -234,17 +268,18 @@
 	msg: '物品列表'
 }
 ```
-### 新增物品功能
+#### 新增物品功能
 ```js
 @param object 物品信息
 {
   sid: 1, // 店铺的id
   img: '',
+  name: "活着",
   num: 100,
   info: '讲诉一个地主的悲惨生活，从一个地主到破产，到身边的亲人一个个离他而去，留下他自己和一头老黄牛的故事',
   price: 3
 }
-@url  post /goods/update
+@url  post /goods/add
 @return {
   code: 1,
   data: {},
@@ -252,7 +287,7 @@
 }
 ```
 
-### 更新物品功能
+#### 更新物品功能
 ```js
 @param object 物品信息
 {
@@ -268,13 +303,66 @@
   msg: '更改物品成功'
 }
 ```
-### 下架物品功能
+#### 上架/下架物品功能
 ```js
 @param gid  物品的id
+@param status 可选  物品状态，1为上架2为下架 
 @url  get /goods/close
 @return {
   code: 1,
   data: {},
-  msg: '下架物品成功'
+  msg: '上架/下架物品成功'
+}
+```
+
+### 订单接口
+#### 订单列表
+```js
+@param phone  可选，通过手机号筛选
+@param name   可选，通过用户名筛选
+@param date   可选，通过日期筛选
+@param order  可选，1表示升序，0表示降序，默认0
+@param status 可选，筛选订单状态
+@param page 可选 第几页数据，默认为第一页，每页十条数据
+@url   get  /order/list
+@return {
+  code: 1,
+  data: {
+    list: [{
+      id: 1,
+      username: '',
+      phone: '',
+      orderNu: 'abbcsadjsadjajdakdjkakdajsd',
+      price: 100,
+      goods: [{
+        name: '拿铁咖啡小杯',
+        num: 1,
+        price: 10
+      },{
+        name: '拿铁咖啡大杯',
+        num: 1,
+        price: 90
+      }],
+      status: 1,  // 1未发货，2已发货，3完成
+      shipName: '', // 快递公司名字
+      logisticCode: '',   //快递单号
+      create_time: '132131231',
+      Traces: []
+    }]，
+    total: 100
+  },
+  msg: '获取订单列表成功'
+}
+```
+#### 更新订单
+```js
+@param  status,
+@param  shipName
+@param  logisticCode
+@url  post /order/update
+@return {
+  code: 1,
+  data: {},
+  msg: '更新订单成功'
 }
 ```

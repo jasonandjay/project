@@ -1,4 +1,4 @@
-const list = [
+[
     {
         "name": "剑心",
         "src": "http://123.206.55.50/ftp/music/剑心-张杰.m4a"
@@ -40,20 +40,3 @@ const list = [
         "src": "http://123.206.55.50/ftp/music/词酒长安.m4a"
     }
 ]
-
-// 获取歌曲列表
-export let getMusicList = ()=>{
-    return new Promise((resolve, reject)=>{
-        // wx.request({
-        //     // url: 'https://mock.jasonandjay.com/mock/5b5fa6de5561566d446a3802/music',
-        //     url: './music.json',
-        //     success: (res)=>{
-        //         resolve(res.data);
-        //     },
-        //     fail: (error)=>{
-        //         reject(error);
-        //     }
-        // })
-        resolve({songs:list});
-    })
-}

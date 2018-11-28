@@ -1,0 +1,59 @@
+<template>
+  <view>
+    <text>登陆页面</text>
+    <input placeholder="请输入用户名" value="{{username}}" @change="usernameChange"/>
+    <input password placeholder="请输入密码" value="{{password}}" @change="passwordChange"/>
+    <button @tap="submit">登陆</button>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import md5 from 'md5';
+import {login} from '../../api/index';
+
+export default class extends wepy.page{
+  data = {
+    username: 'chenmanjie',
+    password: '123456'
+  }
+  methods = {
+    usernameChange: (e)=>{
+      this.username = e.detail.value;
+    },
+    passwordChange: (e)=>{
+      this.password = e.detail.value;
+    },
+    submit(){
+      console.log('username...', this.username);
+      if (!this.username || !this.password){
+        wepy.showToast({
+          icon: 'none',
+          title: '请输入用户名或密码!'
+        })
+        return;
+      }
+      wepy.showLoading();
+      login(this.username, md5(this.password+'hello world')).then(res=>{
+        wepy.hideLoading();
+        console.log('login...', res);
+        if (res.data.code == 1){
+          wepy.setStorageSync('token', res.data.data.token);
+          wepy.switchTab({
+            url: '/pages/my'
+          })
+        }else{
+          wepy.showToast({
+            icon: 'none',
+            title: res.data.msg
+          })
+        }
+      })
+    }
+  }
+}
+</script>
+
+<style lang="less" scoped>
+
+</style>

@@ -1,0 +1,70 @@
+<template>
+  <block>
+    <view class="info">
+      <open-data class="avatar" type="userAvatarUrl"></open-data>
+      <view class="text">
+        <open-data type="userNickName"></open-data>
+        <text>176****6605</text>
+      </view>
+    </view>
+
+    <!-- 需要使用 button 来授权登录 -->
+    <button wx:if="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
+    <button>我的订单</button>
+  </block>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class extends wepy.page{
+  data = {
+    canIUse: wx.canIUse('button.open-type.getUserInfo')
+  }
+  methods = {
+    bindGetUserInfo (e) {
+      console.log(e.detail.userInfo)
+    }
+  }
+  onLoad(){
+    let token = wepy.getStorageSync('token');
+    if (!token){
+      wepy.redirectTo({
+        url: '/pages/My/login'
+      })
+    }
+    wx.getSetting({
+      success (res){
+        console.log('res.authSetting...', res.authSetting);
+        if (res.authSetting['scope.userInfo']) {
+          // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+          wx.getUserInfo({
+            success: function(res) {
+              console.log(res.userInfo)
+            }
+          })
+        }
+      }
+    })
+  }
+}
+
+</script>
+
+<style lang="less" scoped>
+.info{
+  display: flex;
+  align-items: center;
+  .avatar{
+    width: 250rpx;
+    height: 250rpx;
+    border-radius: 50%;
+  }
+  .text{
+    display: flex;
+    height: 250rpx;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-around;
+  }
+}
+</style>

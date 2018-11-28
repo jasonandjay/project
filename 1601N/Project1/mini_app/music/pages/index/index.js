@@ -93,14 +93,22 @@ Page({
             console.log('res...',res);
             this.setData({
                 allList: res.songs,
-                list: res.songs.slice(0, 10)
+                list: res.songs.slice(0, 10),
+                playList: res.songs
             }, ()=>{
+                // 随机播放音乐
+                this.list = this.randomList('src');
+                this.play(this.list[this.data.current]);
+                this.setData({
+                    nameList: this.randomList('name'),
+                })
+
                 wx.hideLoading();
             })
         })
     },
     play(src){
-        console.log('src...', src);
+        // console.log('src...', src);
         if (this.audio){
             this.audio.destroy();
         }
@@ -142,6 +150,7 @@ Page({
                             }
                         }
                         wx.showToast({
+                            icon: 'none',
                             title: (right/10)*100+'%'
                         })
                         return;

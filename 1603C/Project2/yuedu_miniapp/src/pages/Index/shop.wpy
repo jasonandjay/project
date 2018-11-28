@@ -1,0 +1,27 @@
+<template>
+  <text>店铺详情</text>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class extends wepy.page{
+  data(){
+    return {
+      id: ''
+    }
+  }
+
+  onLoad(options){
+    console.log('options...', options);
+    this.id = options.id;
+  }
+
+  onShow(){
+
+  }
+}
+</script>
+
+<style lang="less" scoped>
+
+</style>

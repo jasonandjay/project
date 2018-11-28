@@ -8,6 +8,16 @@ import Result from '@/components/Result';
 const FormItem = Form.Item;
 const SelectOption=Select.Option
 const {TextArea } = Input
+// function connect(mapStateToProps, mapDispathcToPorps){
+//   return function(Target){
+//     return class extends React.Component{
+//         render(){
+//           return <Target {...mapDispathcToPorps()} {...mapStateToProps()}/>
+//         }
+//     }
+//   }
+// }
+// export default connect()(Form.create()(ShopList))
 
 @connect(state=>{
   return {}
