@@ -52,9 +52,6 @@
                             }else{
                                 window.history.pushState({}, '', window.location.origin+this.getAttribute("href"))
                             }
-
-                            // 改变history的同时切换页面
-                            that.historyChange();
                         }
                         
                     }, false);
@@ -62,13 +59,12 @@
 
                 // 监听路由改变
                 if (this.mode == 'hash'){
-                    // 监听浏览器的hash值改变
                     window.addEventListener("hashchange",()=>{
                         this.routerChange();
                     });
                 }else{
-                    // 监听浏览器的前进后退事件
-                    window.addEventListener('popstate', ()=>{
+                    window.addEventListener('popstate', e => {
+                        console.log(123);
                         this.routerChange();
                     })
                 }
@@ -95,28 +91,24 @@
                         }
                     }
                 }else{
-                   this.historyChange();
-                }
-            }
-
-            this.historyChange = function(){
-                let path = window.location.href.replace(window.location.origin, '');
-                let index=this.routes.findIndex((item,index)=>{
-                    console.log('path...', path, 'item.path...', item.path);
-                    return path == item.path;
-                });
-                if(index>=0){
-                    document.querySelector("#router-view").innerHTML=this.routes[index].component;
-                }else {
-                    let defaultIndex=this.routes.findIndex((item,index)=>{
-                        return item.path=='*';
+                    let path = window.location.href.replace(window.location.origin, '');
+                    let index=this.routes.findIndex((item,index)=>{
+                        console.log('path...', path, 'item.path...', item.path);
+                        return path == item.path;
                     });
-                    // if(defaultIndex>=0){
-                    //     const i = window.location.href.indexOf('#')
-                    //     window.location.replace(
-                    //         window.location.href.slice(0, i >= 0 ? i : 0) + '#' + this.routes[defaultIndex].redirect
-                    //     )
-                    // }
+                    if(index>=0){
+                        document.querySelector("#router-view").innerHTML=this.routes[index].component;
+                    }else {
+                        // let defaultIndex=this.routes.findIndex((item,index)=>{
+                        //     return item.path=='*';
+                        // });
+                        // if(defaultIndex>=0){
+                        //     const i = window.location.href.indexOf('#')
+                        //     window.location.replace(
+                        //         window.location.href.slice(0, i >= 0 ? i : 0) + '#' + this.routes[defaultIndex].redirect
+                        //     )
+                        // }
+                    }
                 }
             }
 

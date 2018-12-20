@@ -251,56 +251,52 @@ INSERT INTO `token` (`id`, `uid`, `token`, `status`, `create_time`) VALUES
 
 -- --------------------------------------------------------
 
---
--- 表的结构 `user`
---
 
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
-  `username` varchar(30) NOT NULL,
+  `username` varchar(100) NOT NULL,
   `password` varchar(32) NOT NULL,
-  `phone` varchar(11) NOT NULL,
-  `email` varchar(30) NOT NULL,
-  `avatar` varchar(500) NOT NULL,
-  `introduction` varchar(100) NOT NULL,
-  `status` int(1) NOT NULL DEFAULT '1' COMMENT '1表示有效，0表示无效',
-  `create_time` varchar(16) NOT NULL
+  `email` varchar(100) DEFAULT NULL,
+  `phone` varchar(11) DEFAULT NULL,
+  `address` varchar(100) DEFAULT NULL,
+  `avatar` varchar(100) NOT NULL,
+  `introduction` varchar(100) DEFAULT NULL,
+  `create_time` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 --
 -- 转存表中的数据 `user`
 --
 
-INSERT INTO `user` (`id`, `username`, `password`, `phone`, `email`, `avatar`, `introduction`, `status`, `create_time`) VALUES
-(1, '栗阳', '4bc4ca0bffe3f12b0a71369a8b0bcb79', '17610119157', '11@qq.com', 'http://ww1.rs.fanjian.net/c/39/99/db/fd39a440da9920d1cfdb12d51089faee.jpg', '', 0, '1539932754767'),
-(2, '刘承明', '4bc4ca0bffe3f12b0a71369a8b0bcb79', '17601634044', '22113303200@qq.com', '', '', 0, '1539932754813'),
-(3, '富二代小李', '4bc4ca0bffe3f12b0a71369a8b0bcb79', '17634975869', '', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542331152&di=b259d011665e15a8c48e9f36a62ddf70&imgtype=jpg&er=1&src=http%3A%2F%2Fi2.hdslb.com%2Fbfs%2Fface%2Fde59e9356b3c08d75fe2e6d87e6ffabaa2568d1c.jpg', '', 0, '1539932771577'),
-(4, '王盛群', '4bc4ca0bffe3f12b0a71369a8b0bcb79', '13331044569', '', 'http://img.52z.com/upload/news/image/20180721/20180721051014_12703.jpg', '', 0, '1539932780426'),
-(5, 'fzk', '4bc4ca0bffe3f12b0a71369a8b0bcb79', '15135798649', '', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541735542040&di=10a77e7e11194fef256b85cb99ceb8bd&imgtype=0&src=http%3A%2F%2Fp1.bqimg.com%2F569606%2F66b13184bb56cf36.jpg%3Fv%3D0', '', 0, '1539932781107'),
-(6, 'wyx', '4bc4ca0bffe3f12b0a71369a8b0bcb79', '13436834792', '', 'http://img0.imgtn.bdimg.com/it/u=1227331704,294852480&fm=26&gp=0.jpg', '', 0, '1539932781648'),
-(7, '旺旺', '4bc4ca0bffe3f12b0a71369a8b0bcb79', '15011410132', '', '', '', 0, '1539932781991'),
-(8, '蓝心', '4bc4ca0bffe3f12b0a71369a8b0bcb79', '18811302462', '2739094851@qq.com', 'https://img5.duitang.com/uploads/item/201509/30/20150930221542_Ad8WQ.jpeg', '', 1, '1539932784101'),
-(9, 'zhouzhou', '4bc4ca0bffe3f12b0a71369a8b0bcb79', '15011518243', '', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541735399599&di=727f65c94d94faa33d1bbdd960409a01&imgtype=0&src=http%3A%2F%2Fimg2.ctoutiao.com%2Fuploads%2F2017%2F12%2F17%2Fd78580eb384d2f37394bdad16c340f1a.jpg', '', 1, '1539932784290'),
-(10, 'Zoe', '4bc4ca0bffe3f12b0a71369a8b0bcb79', '13522757621', '', 'http://pic.qqtn.com/up/2018-2/15193486698457350.jpg', '', 1, '1539932784668'),
-(11, 'haocaixia', '4bc4ca0bffe3f12b0a71369a8b0bcb79', '15810707091', '', 'http://kanimg.9ku.com/kanqq/pic/upload/2018/0727/234c1063e9b0e1769bb32cdeb34ea536.jpg', '', 1, '1539932791374'),
-(12, '往后余生', '4bc4ca0bffe3f12b0a71369a8b0bcb79', '13701124921', '', 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1225729750,3115058958&fm=26&gp=0.jpg', '', 1, '1539932792845'),
-(13, '贺凯caibencai1', '4bc4ca0bffe3f12b0a71369a8b0bcb79', '17600067044', '', 'https://img4q.duitang.com/uploads/item/201504/02/20150402H3858_G3Umw.thumb.700_0.jpeg', '', 1, '1539932800165'),
-(14, '王晗菲', '4bc4ca0bffe3f12b0a71369a8b0bcb79', '15512984890', '', 'https://tvax2.sinaimg.cn/crop.0.0.996.996.180/006qL3Lqly8fpjl54v1xmj30ro0ro0uz.jpg', '', 1, '1539932801105'),
-(15, '赌侠1999', '4bc4ca0bffe3f12b0a71369a8b0bcb79', '15313136838', '', 'http://imgsrc.baidu.com/imgad/pic/item/f703738da9773912d40a27abf2198618377ae2c8.jpg', '', 1, '1539932805605'),
-(16, '王文乐123', '4bc4ca0bffe3f12b0a71369a8b0bcb79', '13673412645', '', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541735543727&di=368ae9e32933a599018327310d37c0e6&imgtype=0&src=http%3A%2F%2Fpic43.photophoto.cn%2F20170403%2F0005081864232270_b.jpg', '', 1, '1539932813030'),
-(17, '农村小孩', '4bc4ca0bffe3f12b0a71369a8b0bcb79', '13691096512', '', 'https://img01.sogoucdn.com/net/a/04/link?appid=100520145&url=https%3A%2F%2Fimg02.sogoucdn.com%2Fapp%2Fa%2F100520021%2Facc6bc6989393cc2a8489603781bcefc', '', 1, '1539932816829'),
-(18, '张舒童', '4bc4ca0bffe3f12b0a71369a8b0bcb79', '17600903076', '', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541429054762&di=1680a9ff41b5dc509124f70d3dd561a2&imgtype=0&src=http%3A%2F%2Flife.southmoney.com%2Ftuwen%2FUploadFiles_6871%2F201808%2F20180809115818693.jpg', '', 1, '1539932825136'),
-(19, 'lvjintao1998', '4bc4ca0bffe3f12b0a71369a8b0bcb79', '13716049965', '', 'http://img.mp.itc.cn/q_mini,c_zoom,w_640/upload/20160723/c51dbf5cb1e545a3a2cef1db8bf1e341_th.jpg', '', 1, '1539932825848'),
-(20, '许阳', '4bc4ca0bffe3f12b0a71369a8b0bcb79', '15010625139', '', 'http://www.qqtouxiang.com/d/file/tupian/mx/20170715/jispb5mubhvwd.jpg', '', 1, '1539932830948'),
-(21, '张瑞迪caibencai2', '4bc4ca0bffe3f12b0a71369a8b0bcb79', '15210420735', '', 'http://img.duoziwang.com/2016/12/23/01063752065.jpg', '', 1, '1539932834140'),
-(22, '张云', '4bc4ca0bffe3f12b0a71369a8b0bcb79', '18210718143', '', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541735399599&di=727f65c94d94faa33d1bbdd960409a01&imgtype=0&src=http%3A%2F%2Fimg2.ctoutiao.com%2Fuploads%2F2017%2F12%2F17%2Fd78580eb384d2f37394bdad16c340f1a.jpg', '', 1, '1539932849749'),
-(23, '的无奈好', '4bc4ca0bffe3f12b0a71369a8b0bcb79', '15063211584', '', '', '', 1, '1539932859038'),
-(24, '李志辉', '4bc4ca0bffe3f12b0a71369a8b0bcb79', '13120050167', '', 'http://img1.imgtn.bdimg.com/it/u=150955617,364432300&fm=26&gp=0.jpg', '', 1, '1539932886919'),
-(25, '顾1999', '4bc4ca0bffe3f12b0a71369a8b0bcb79', '15313136839', '', 'http://img4.imgtn.bdimg.com/it/u=1840567301,1460196545&fm=26&gp=0.jpg', '', 1, '1539932887355'),
-(26, 'chenmanjie', '4bc4ca0bffe3f12b0a71369a8b0bcb79', '17621526605', '', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541044556657&di=da4cfdb492d82c6199f62603e0dd36c3&imgtype=0&src=http%3A%2F%2Fwww.jf258.com%2Fuploads%2F2013-08-01%2F184221792.jpg', '', 1, '1540189715161');
-
--- --------------------------------------------------------
-
+INSERT INTO `user` (`id`, `username`, `password`, `email`, `phone`, `address`, `avatar`, `create_time`) VALUES
+(4, 'chenmanjie', '09bf00354c92eb10413126d27e22449c', NULL, '17621526606', NULL, 'http://img.52z.com/upload/news/image/20180721/20180721051014_12703.jpg', '1545099198781'),
+(5, 'zhenglong', '09bf00354c92eb10413126d27e22449c', NULL, '13381045200', NULL, 'http://img.52z.com/upload/news/image/20180721/20180721051014_12703.jpg', '1545099502629'),
+(6, 'mfc506321322', '09bf00354c92eb10413126d27e22449c', NULL, '15623364233', NULL, 'http://img.52z.com/upload/news/image/20180721/20180721051014_12703.jpg', '1545099504045'),
+(7, 'liujingxue', '09bf00354c92eb10413126d27e22449c', NULL, '13199502226', NULL, 'http://img.52z.com/upload/news/image/20180721/20180721051014_12703.jpg', '1545099506731'),
+(8, 'renkehao', '09bf00354c92eb10413126d27e22449c', NULL, '18515355836', NULL, 'http://img.52z.com/upload/news/image/20180721/20180721051014_12703.jpg', '1545099507382'),
+(9, 'cfr328', '09bf00354c92eb10413126d27e22449c', NULL, '18235608463', NULL, 'http://img.52z.com/upload/news/image/20180721/20180721051014_12703.jpg', '1545099510026'),
+(10, '17746570095', '09bf00354c92eb10413126d27e22449c', NULL, '17746570095', NULL, 'http://img.52z.com/upload/news/image/20180721/20180721051014_12703.jpg', '1545099511594'),
+(11, 'zhangyu', '09bf00354c92eb10413126d27e22449c', NULL, '16619940015', NULL, 'http://img.52z.com/upload/news/image/20180721/20180721051014_12703.jpg', '1545099513776'),
+(12, 'wangyuru', '09bf00354c92eb10413126d27e22449c', NULL, '13503509552', NULL, 'http://img.52z.com/upload/news/image/20180721/20180721051014_12703.jpg', '1545099514837'),
+(13, 'zyy', '09bf00354c92eb10413126d27e22449c', NULL, '15712879695', NULL, 'http://img.52z.com/upload/news/image/20180721/20180721051014_12703.jpg', '1545099523706'),
+(14, 'youmingxin', '09bf00354c92eb10413126d27e22449c', NULL, '18310870677', NULL, 'http://img.52z.com/upload/news/image/20180721/20180721051014_12703.jpg', '1545099525177'),
+(15, 'wangshuo', '09bf00354c92eb10413126d27e22449c', NULL, '16619932979', NULL, 'http://img.52z.com/upload/news/image/20180721/20180721051014_12703.jpg', '1545099527522'),
+(16, '18301120572', '09bf00354c92eb10413126d27e22449c', NULL, '18301120572', NULL, 'http://img.52z.com/upload/news/image/20180721/20180721051014_12703.jpg', '1545099527620'),
+(17, 'amy', '09bf00354c92eb10413126d27e22449c', NULL, '18811126840', NULL, 'http://img.52z.com/upload/news/image/20180721/20180721051014_12703.jpg', '1545099528243'),
+(18, 'sunShine', '09bf00354c92eb10413126d27e22449c', NULL, '13001037791', NULL, 'http://img.52z.com/upload/news/image/20180721/20180721051014_12703.jpg', '1545099528997'),
+(19, 'wangyinshan', '09bf00354c92eb10413126d27e22449c', NULL, '17611351917', NULL, 'http://img.52z.com/upload/news/image/20180721/20180721051014_12703.jpg', '1545099532525'),
+(20, 'cfr328', '09bf00354c92eb10413126d27e22449c', NULL, '13934318787', NULL, 'http://img.52z.com/upload/news/image/20180721/20180721051014_12703.jpg', '1545099533678'),
+(21, 'wym', '09bf00354c92eb10413126d27e22449c', NULL, '17611383686', NULL, 'http://img.52z.com/upload/news/image/20180721/20180721051014_12703.jpg', '1545099557696'),
+(22, 'guchangcheng', '09bf00354c92eb10413126d27e22449c', NULL, '18336623497', NULL, 'http://img.52z.com/upload/news/image/20180721/20180721051014_12703.jpg', '1545099563670'),
+(23, 'oliver', '09bf00354c92eb10413126d27e22449c', NULL, '17626181997', NULL, 'http://img.52z.com/upload/news/image/20180721/20180721051014_12703.jpg', '1545099564571'),
+(24, 'chenmeifeng', '09bf00354c92eb10413126d27e22449c', NULL, '18410105520', NULL, 'http://img.52z.com/upload/news/image/20180721/20180721051014_12703.jpg', '1545099567426'),
+(25, 'niubi666', '09bf00354c92eb10413126d27e22449c', NULL, '13838384388', NULL, 'http://img.52z.com/upload/news/image/20180721/20180721051014_12703.jpg', '1545099586536'),
+(26, 'wym', '09bf00354c92eb10413126d27e22449c', NULL, '17611388979', NULL, 'http://img.52z.com/upload/news/image/20180721/20180721051014_12703.jpg', '1545099612219'),
+(27, 'sunShine', '09bf00354c92eb10413126d27e22449c', NULL, '13001037795', NULL, 'http://img.52z.com/upload/news/image/20180721/20180721051014_12703.jpg', '1545099620257'),
+(28, 'niubi666', '09bf00354c92eb10413126d27e22449c', NULL, '13838384381', NULL, 'http://img.52z.com/upload/news/image/20180721/20180721051014_12703.jpg', '1545099627360'),
+(29, 'AsDragon', '09bf00354c92eb10413126d27e22449c', NULL, '13908683718', NULL, 'http://img.52z.com/upload/news/image/20180721/20180721051014_12703.jpg', '1545099696275'),
+(30, 'ningyanze', '09bf00354c92eb10413126d27e22449c', NULL, '18210249690', NULL, 'http://img.52z.com/upload/news/image/20180721/20180721051014_12703.jpg', '1545099716818'),
+(33, 'chenmanjie', '123456', NULL, '17621526605', NULL, 'http://img.52z.com/upload/news/image/20180721/20180721051014_12703.jpg', '1545196071456');
+-------------------------------
 --
 -- 表的结构 `user_roler`
 --

@@ -12,6 +12,9 @@ check-score/
 # production
 /build
 
+# ½Ó¿Ú
+/document
+
 # misc
 .DS_Store
 .env.local
