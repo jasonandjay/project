@@ -85,5 +85,7 @@ ele.onchange = function(e){
 
 ```
 - 请求代理    http://123.206.55.50:11000/api?url=需要代理的地址
+- 发送短信验证码   http://123.206.55.50:11000/smsCode 五分钟有效期
 ```
-- 发送短信验证码    post phone='your phone' http://123.206.55.50:11000/smsCode 五分钟有效期
+post phone='your phone'
+```
