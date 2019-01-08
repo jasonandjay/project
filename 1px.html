@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>1px像素问题</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        p{
+            border-bottom: 1px solid #000;
+            padding: 20px 0;
+        }
+        .scale,.background{
+            border: none;
+            position: relative;
+        }
+        .scale::after,.background::after{
+            content: "";
+            display: inline-block;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            margin-top: 20px;
+            height: 1px;
+            background: #000;
+        }
+        .background:after{
+            background: none;
+            background-image : -webkit-linear-gradient( top ,transparent , #000) ;
+            background-repeat : no-repeat ;
+            background-position : top left ;
+            background-size : 100% 1px;
+        }
+        @media screen and (-webkit-min-device-pixel-ratio: 2) {
+            .border { border-bottom: 0.5px solid #000 }
+            .scale::after{
+                transform: scaleY(0.5);
+            }
+        }
+        @media screen and (-webkit-min-device-pixel-ratio: 3) {
+            .border { border-bottom: 0.333333px solid #000 }
+            .scale::after{
+                transform: scaleY(0.33);
+            }
+        }
+    </style>   
+</head>
+<body>
+    <p>正常的1px</p>
+    <p class="scale">缩放之后的1px</p>
+    <p class="border">设置border为小数的 (仅ios支持，android不支持)</p>
+    <p class="background">渐变的1px</p>
+</body>
+</html>

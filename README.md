@@ -84,6 +84,18 @@ ele.onchange = function(e){
 }
 
 ```
+- base64图片上传 post http://123.206.55.50:11000/upload_base64
+```
+    axios({
+        method: 'post',
+        url: 'http://123.206.55.50:11000/upload_base64',
+        data: {base64: 'data:image/jpeg;base64,.....'}
+    }).then(body=>{
+        console.log('body...', body);
+    }).catch(e=>{
+        console.log('e..', e);
+    })
+```
 - 请求代理    http://123.206.55.50:11000/api?url=需要代理的地址
 - 发送短信验证码   http://123.206.55.50:11000/smsCode 五分钟有效期
 ```
