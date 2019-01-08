@@ -2,6 +2,8 @@ const express = require('express');
 var multipart = require('connect-multiparty');
 var request = require('request');
 var query = require('./db.js');
+var base64Img = require('base64-img');
+var md5 = require('md5');
 const app = express();
 
 // 设置跨域访问
@@ -42,7 +44,17 @@ app.post('/upload', multipart({
         msg: '上传成功'
     })
 })
-
+// base64上传
+app.post('/upload_base64', (req, res)=>{
+    var filepath = base64Img.imgSync(req.body.base64, './static', md5(req.body.base64).slice(0, 24)).replace('\\', '/');
+    res.json({
+        code: 1,
+        data: {
+            path:  `http://123.206.55.50:11000/${filepath}`
+        },
+        msg: '上传成功'
+    })
+})
 // 代理转发接口
 app.get('/api', (req, res)=>{
 	console.log('req...', req.query)

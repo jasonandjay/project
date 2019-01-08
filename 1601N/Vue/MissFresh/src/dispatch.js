@@ -1,89 +1,45 @@
-//MVVM 事件管理器
+张云背调
+北京亿评网络科技有限公司
+入职时间2016年10月
+离职时间2018年11月30
+薪资16，
+刚去公司的时候没那么高，刚去公司12，最近一次调薪是在5月多，调了1000左右，公司地址在海淀区皂君庙路5号卉园大楼C座A08室，
 
-class Dispatch {
-	constructor() {
-		this.store = {};
-	}
+公司的业务内容: 一个拍卖的网站，就是一些艺术家的作品展示在上面，一些艺术爱好者方便了解，询价
+做过的项目:
+M站
+后台管理系统
+小程序
+公司100多人，属于技术部，部门20人，
+上级领导叫李志虎，就是你。
+孔祥雪，职务:HR
 
-	/**
-	 * 获取事件在列表中的位置
-	 * @param context
-	 * @param callback
-	 * @private
-	 */
-	_evIndex(event, context, callback) {
-		let index = -1;
-		for (let i = 0; i <= event.length; i++) {
-			if (event[i].context === contex && event[i].callback === callback) {
-				index = i;
-				break;
-			}
-		}
-		return index;
-	}
-
-	/**
-	 * 绑定事件
-	 * @param eventType string 事件类型
-	 * @param context Object callback的this作用域
-	 * @param callback
-	 */
-	on(context, eventType, callback) {
-		if (typeof eventType != 'string' || typeof callback != 'function') {
-			return;
-		}
-		let event = this.store[eventType];
-		let eventObj = {
-			context: context,
-			callback: callback
-		};
-		if (!event || !Array.isArray(event)) {
-			this.store[eventType] = [eventObj];
-		} else if (this._evIndex(event, context, callback) < 0) {
-			this.store[eventType].push(eventObj);
-		}
-	}
-
-	/**
-	 * 解绑事件
-	 * @param eventType string
-	 * @param callback 回调
-	 */
-	off(context, eventType, callback) {
-		if (typeof eventType != 'string' || typeof callback != 'function') {
-			return;
-		}
-		let event = this.store[eventType];
-		let eventObj = {
-			context: context,
-			callback: callback
-		};
-		if (event && Array.isArray(event)) {
-			let index = this._evIndex(event, context, callback);
-			if (index >= 0) {
-				this.store[eventType].splice(index, 1);
-			}
-		}
-	}
-
-	/**
-	 * 广播某个事件
-	 * @param eventType 时间类型
-	 * @param data 数据
-	 */
-	emit(eventType, data = {}) {
-		if (typeof eventType != 'string') {
-			return;
-		}
-		let event = this.store[eventType];
-		if (event && Array.isArray(event)) {
-			for (let i = 0; i < event.length; i++) {
-				event[i].callback.call(event[i].context, data, eventType);
-			}
-		}
-	}
-
-}
-
-let Dispatcher = new Dispatch();
-export default Dispatcher;
+就业指导/孙瑞萍给您发送了一个窗口抖动。
+就业指导/孙瑞萍  13:51:34
+这个是张云的背调
+小孩神游  13:51:37
+好
+就业指导/孙瑞萍  13:51:39
+要两个电话
+我是人事，你是他领导
+李志虎
+小孩神游  13:52:26
+项目名叫啥
+就业指导/孙瑞萍  13:54:32
+艺评网
+小孩神游  13:55:02
+好的
+就业指导/孙瑞萍  14:17:46
+给你打了吗
+小孩神游  14:22:01
+没有呢
+就业指导/孙瑞萍  14:22:37
+给我打了
+也快给你打了
+小孩神游  14:22:54
+好的
+就业指导/孙瑞萍  14:23:14
+我就说不太记得啥时候入职了，大概两年了，性格还可以，工作能力还不错
+薪资我没透露
+小孩神游  14:23:35
+嗯嗯
