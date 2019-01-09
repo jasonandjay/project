@@ -1,9 +1,10 @@
 const express = require('express');
-var multipart = require('connect-multiparty');
-var request = require('request');
-var query = require('./db.js');
-var base64Img = require('base64-img');
-var md5 = require('md5');
+const multipart = require('connect-multiparty');
+const request = require('request');
+const query = require('./db.js');
+const base64Img = require('base64-img');
+const image2base64 = require('image-to-base64');
+const md5 = require('md5');
 const app = express();
 
 // 设置跨域访问
@@ -16,12 +17,12 @@ app.all('*', function (req, res, next) {
 });
   
 // body解析
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json({limit: '50mb'}));
+app.use(express.urlencoded({ extended: false, limit: '50mb' }));
 // 设置静态文件夹
 app.use('/static', express.static('static'));
 
-// 上传接口
+// formData上传接口
 app.post('/upload', multipart({
     autoFiles: true,
     uploadDir: 'static/'
@@ -54,6 +55,32 @@ app.post('/upload_base64', (req, res)=>{
         },
         msg: '上传成功'
     })
+})
+// 图片转base64
+app.post('/tobase64', (req, res)=>{
+    if (req.body.url){
+        image2base64(req.body.url)
+        .then(response=>{
+            // console.log('res...', response)
+            res.json({
+                code: 1,
+                data: {
+                    base64: `data:image/png;base64,${response}`
+                },
+                msg: '图片转base64成功'
+            })
+        }).catch(err=>{
+            res.json({
+                code: -1,
+                msg: err.data && err.data.msg
+            })
+        })
+    }else{
+        res.json({
+            code: 0,
+            msg: '请传要转成base64的图片地址'
+        })
+    }
 })
 // 代理转发接口
 app.get('/api', (req, res)=>{
