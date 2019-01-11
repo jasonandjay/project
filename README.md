@@ -100,7 +100,7 @@ ele.onchange = function(e){
 ```
     axios({
         method: 'post',
-        url: 'http://123.206.55.50:11000/upload_base64',
+        url: 'http://123.206.55.50:11000/tobase64',
         data: {url: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3360034032,4096528553&fm=26&gp=0.jpg'}
     }).then(body=>{
         console.log('body...', body);
