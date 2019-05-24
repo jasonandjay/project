@@ -78,28 +78,28 @@ router.post('/login', function(req, res, next) {
     } else{
       var token = geneToken(results[0].id);
       query('insert into token set ?', {uid: results[0].id, token, create_time: +new Date()}, (error, result, fields)=>{
-        // let uid = results[0].id;
-        // query('select rolername from roler,user_roler where roler.id=user_roler.rid and user_roler.uid=? and user_roler.status=1', [uid], (error, results, fields)=>{
-        //   if (error){
-        //     res.json({
-        //       code: -1,
-        //       msg: error.sqlMessage
-        //     })
-        //   }
-        //   let roles = results.map(item=>item.rolername);
-        //   if (!roles.length){
-        //     roles = ['staff'];
-        //   }
-        //   res.json({
-        //     code: 1,
-        //     data: {
-        //       auths: roles,
-        //       token
-        //     },
-        //     msg: '用户权限获取成功'
-        //   })
-        //   // console.log('error...', error, results);
-        // })
+        let uid = results[0].id;
+        query('select rolername from roler,user_roler where roler.id=user_roler.rid and user_roler.uid=? and user_roler.status=1', [uid], (error, results, fields)=>{
+          if (error){
+            res.json({
+              code: -1,
+              msg: error.sqlMessage
+            })
+          }
+          let roles = results.map(item=>item.rolername);
+          if (!roles.length){
+            roles = ['staff'];
+          }
+          res.json({
+            code: 1,
+            data: {
+              auths: roles,
+              token
+            },
+            msg: '用户权限获取成功'
+          })
+          // console.log('error...', error, results);
+        })
 
         res.json({
           code: 1,
@@ -167,7 +167,7 @@ router.post('/register', function(req, res, next){
 });
 
 // 获取用户信息
-router.get('/currentUser', (req, res)=>{
+router.get('/info', (req, res)=>{
   let token =  req.header('X-Token');
   var uid = getIdFromToken(token);
   console.log('token...', token);
@@ -180,10 +180,36 @@ router.get('/currentUser', (req, res)=>{
     }else{
       if(result && result.length){
         delete result[0].password;
-        res.json({
-          code: 1,
-          data: result[0],
-          msg: '获取用户信息成功'
+        query(`select user_roler.uid as uid,rolername, roler.id as rid, access.id as aid, accessname from user_roler, roler, roler_access, access where roler_access.rid = roler.id and roler_access.aid = access.id and user_roler.status=1 and user_roler.rid = roler.id 
+        and user_roler.uid = ?`, [uid], function(error, auths, fields){
+          // console.log('auth results...', auths);
+          if (error){
+            res.json({
+              code: -2,
+              msg: error.sqlMessage
+            })
+          }
+          let rolers = [],
+            rolersId = [], 
+            access = ['staff'],
+            accessId = [1];
+          // 获取角色
+          auths.map(value=>{
+            rolers.push(value.rolername);
+            rolersId.push(value.rid);
+            access.push(value.accessname);
+            accessId.push(value.aid);
+          })
+          // 获取权限
+          result[0].rolers = [...new Set(rolers)];
+          result[0].rolersId = [...new Set(rolersId)];
+          result[0].access = [...new Set(access)];
+          result[0].accessId = [...new Set(accessId)];
+          res.json({
+            code: 1,
+            data: result[0],
+            msg: '获取用户信息成功'
+          })
         })
       }else{
         res.json({
@@ -198,9 +224,16 @@ router.get('/currentUser', (req, res)=>{
 
 // 更新用户信息
 router.post('/update', function(req, res, next){
-  let uid = getIdFromToken(req.header('X-Token'));
-  req.body.username = req.body.name;
-  delete req.body.name;
+  let uid = req.header('X-Token') && getIdFromToken(req.header('X-Token'));
+  // 支持更新他人信息
+  if (req.body.id){
+    uid = req.body.id;
+  }
+  // 更改name字段
+  if (req.body.name){
+    req.body.username = req.body.name;
+    delete req.body.name;
+  }
   query('update user set ? where id=?', [req.body, uid], function(error, results, fields){
     console.log('results...', error, req.body);
     if (error){
@@ -262,4 +295,196 @@ router.post('/smsCode', function(req, res, next){
   })
 })
 
+// 获取用户列表
+router.get('/list', async function(req, res, next){
+  let sql = '',
+      search = [],
+      type = req.query.type || 1,
+      page = (req.query.page || 1)-1;
+  search.push(`type=${type}`)
+  if (req.query.search){
+    search.push(`username like '%${req.query.search}%'`);
+  }
+  if (req.query.phone){
+    search.push(`phone like '%${req.query.phone}%'`);
+  }
+  if (search.length){
+    sql = `select * from user where ${search.join(' and ')} and status=1 limit ${page*10},10`
+  }else{
+    sql = `select * from user,user_roler where status=1 limit ${page*10},10`
+  }
+  query(sql, {}, function(error, results, fields){
+    // console.log('list results...', req,query, search, sql, error, results);
+    if (error){
+      res.json({
+        code: -1,
+        msg: error.sqlMessage
+      })
+    }
+    // 去掉用户密码
+    results.forEach(item=>{
+      delete item.password
+    })
+    // 获取用户的权限
+    // 用in语法搜索
+    let ids = results.map(item=>item.id);
+    console.log('ids...', ids);
+    query(`select user_roler.uid as uid,rolername, roler.id as rid, access.id as aid, accessname from user_roler, roler, roler_access, access where roler_access.rid = roler.id and roler_access.aid = access.id and user_roler.status=1 and user_roler.rid = roler.id 
+    and user_roler.uid in (?)`, [ids], function(error, auths, fields){
+      console.log('auth results...', auths);
+      if (error){
+        res.json({
+          code: -2,
+          msg: error.sqlMessage
+        })
+      }
+      results.forEach(item=>{
+        delete item.password;
+        let rolers = [],
+            rolersId = [], 
+            access = ['staff'],
+            accessId = [1];
+        // 获取角色
+        auths.map(value=>{
+          if (value.uid == item.id){
+            rolers.push(value.rolername);
+            rolersId.push(value.rid);
+            access.push(value.accessname);
+            accessId.push(value.aid);
+          }
+        })
+        // 获取权限
+        item.rolers = [...new Set(rolers)];
+        item.rolersId = [...new Set(rolersId)];
+        item.access = [...new Set(access)];
+        item.accessId = [...new Set(accessId)];
+      })
+      res.json({
+        code: 1,
+        data: {
+          list: results
+        },
+        msg: '获取用户列表成功'
+      })
+    })
+  })
+})
+
+// 注销账号
+router.delete('/action', function(req, res, next){
+  let type = req.body.type || 1,
+      status = req.body.status || 0,
+      id = req.body.uid;
+  console.log('req.body...', req.body);
+  if (!id){
+    res.json({
+      code: -2,
+      data: {},
+      msg: '缺少需要注销账号的id'
+    })
+    return;
+  }
+  query('update user set status=? where id=?', [status, id], function(error, results, fields){
+    console.log('results...', error, results);
+    if (error){
+      res.json({
+        code: -1,
+        msg: error.sqlMessage
+      })
+    }
+    if (results.affectedRows){
+      res.json({
+        code: 1,
+        data: {},
+        msg: `注销${type==1?'普通用户':'员工'}成功`
+      })
+    }else{
+      res.json({
+        code: -3,
+        data: {},
+        msg: `注销${type==1?'普通用户':'员工'}失败`
+      })
+    }
+  })
+})
+
+// 分配角色接口
+router.put('/action', function(req, res, next){
+  // const roler = [{
+  //   id: 1,
+  //   name: 'admin'
+  // },{
+  //   id: 2,
+  //   name: 'staff'
+  // }];
+  // if (!req.body.type || req.body.type == 1){
+  //   res.json({
+  //     code: -2,
+  //     data: {},
+  //     msg: '分配权限接口只对员工开放'
+  //   })
+  // }
+  // 把权限转化为rids
+  let rows = req.body.rolersId.map(item=>{
+    return `(${req.body.uid}, ${item}, ${+new Date()})`
+  })
+  // console.log('rows...', rows.join(','));
+  query(`update user_roler set status = 0 where uid = ?`, [req.body.uid], function(error){
+    if (error){
+      res.json({
+        code: -1,
+        msg: error.sqlMessage
+      })
+    }else if(rows.length){
+      query(`insert into user_roler (uid, rid, create_time) values ${rows.join(',')}`, [], function(error, results, fields){
+        // console.log('results...', error, results);
+        if (error){
+          res.json({
+            code: -1,
+            msg: error.sqlMessage
+          })
+        }
+        if (results.affectedRows){
+          res.json({
+            code: 1,
+            data: {},
+            msg: '为用户分配角色成功'
+          })
+        }else{
+          res.json({
+            code: -2,
+            msg: '为用户分配角色失败'
+          })
+        }
+      })
+    }else{
+      res.json({
+        code: 1,
+        data: {},
+        msg: '为用户分配角色成功'
+      })
+    }
+  })
+})
+
+// 用户提交记录
+router.get('/commit', function(req, res, next){
+  let month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  let commit = [];
+  month.forEach((item, index)=>{
+    let grade = [];
+    for (let i=0;i<item; i++){
+      grade.push({
+        date: i+1,
+        commit: ~~(Math.random()*12)+3
+      })
+    }
+    commit.push({
+      month: index+1,
+      commit: grade
+    })
+  })
+  res.json(commit)
+})
+ 
 module.exports = router;
