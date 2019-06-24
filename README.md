@@ -12,6 +12,8 @@
 - 回滚代码： git reset --hard [commit:6]
 - 回滚文件： git checkout -- filepath
 - 回到最新代码：git reset HEAD | git pull origin master
+- 隐藏当前分支改动： git stash 
+- 回退隐藏：git stash pop
 - 合并分支：git merge chenmanjie
 - 会用PR给他人仓库贡献代码
 
@@ -57,8 +59,12 @@
 ### 配置邮件服务器，在push钩子里触发，自动通知收件人
 
 ### 线上公用接口
-- 文件上传    post http://123.206.55.50:11000/upload
+#### 文件上传
+- formData文件上传    post http://123.206.55.50:11000/upload
+```html
+<input type="file">
 ```
+```js
 支持文件上传,用post方式提交formData对象,键为文件名,值为文件
 eg:
 var ele = document.querySelector('input');
@@ -85,30 +91,45 @@ ele.onchange = function(e){
 
 ```
 - base64图片上传 post http://123.206.55.50:11000/upload_base64
+``` html
+<input type="file">
 ```
-    axios({
-        method: 'post',
-        url: 'http://123.206.55.50:11000/upload_base64',
-        data: {base64: 'data:image/jpeg;base64,.....'}
-    }).then(body=>{
-        console.log('body...', body);
-    }).catch(e=>{
-        console.log('e..', e);
-    })
+``` js
+var ele = document.querySelector('input');
+ele.onchange = function(e){
+    let files = e.target.files;
+    var reader = new FileReader();
+    reader.onload = function(){
+        console.log('result...', this.result);
+        axios({
+            method: 'post',
+            url: 'http://123.206.55.50:11000/upload_base64',
+            data: {base64: this.result}
+        }).then(body=>{
+            console.log('body...', body);
+        }).catch(e=>{
+            console.log('e..', e);
+        })
+    }
+    reader.readAsDataURL(files[0]);
+}
 ```
 - 图片转成base64 post http://123.206.55.50:11000/tobase64
+``` js
+axios({
+    method: 'post',
+    url: 'http://123.206.55.50:11000/tobase64',
+    data: {url: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3360034032,4096528553&fm=26&gp=0.jpg'}
+}).then(body=>{
+    console.log('body...', body);
+}).catch(e=>{
+    console.log('e..', e);
+})
 ```
-    axios({
-        method: 'post',
-        url: 'http://123.206.55.50:11000/tobase64',
-        data: {url: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3360034032,4096528553&fm=26&gp=0.jpg'}
-    }).then(body=>{
-        console.log('body...', body);
-    }).catch(e=>{
-        console.log('e..', e);
-    })
-```
+#### get请求转发
 - 请求代理    http://123.206.55.50:11000/api?url=需要代理的地址
+
+#### 短信验证码接口
 - 发送短信验证码   http://123.206.55.50:11000/smsCode 五分钟有效期
 ```
 post phone='your phone'
