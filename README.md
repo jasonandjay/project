@@ -87,6 +87,28 @@ ele.onchange = function(e){
     }).catch(e=>{
         console.log('e..', e);
     })
+    
+     // jquery版本
+    let input = document.querySelector('input');
+    input.onchange = function(e){
+        console.log('e..', e.target.files);
+        let form = new FormData();
+        for (let i=0,len=e.target.files.length; i<len; i++){
+            form.append(e.target.files[i].name, e.target.files[i]);
+        }
+
+        $.ajax({
+            method: 'post',
+            url: 'http://123.206.55.50:11000/upload',
+            processData: false,
+            contentType: false,
+            data: form,
+            dataType:"json",
+            success: function(res){
+                console.log('res...', res)
+            }
+        })
+    }
 }
 
 ```
