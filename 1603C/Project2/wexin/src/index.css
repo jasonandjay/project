@@ -1,8 +1,0 @@
-
-html, body, :global(#root) {
-  height: 100%;
-  width:100%;
-}
-:global(#root) {
-  padding: 20px;
-}
