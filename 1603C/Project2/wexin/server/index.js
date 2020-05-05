@@ -5,7 +5,7 @@ var md5 = require('md5');
 var connection = mysql.createConnection({
   host: '127.0.0.1',
   user: 'root',
-  password: '1601n',
+  password: '',
   database: '1603c'
 });
 
@@ -27,43 +27,43 @@ const wss = new WebSocket.Server({port: 8080});
 // 监听建立连接
 wss.on('connection', function (ws) {
   ws.on('message', function incoming(message) {
-    let messgaeObj = JSON.parse(message);
-    switch (messgaeObj.type) {
-      case 'login': doLogin(messgaeObj, ws); break;
-      default: {
-        // 收到消息之后,广播出去
-        wss.clients.forEach(function each(client) {
-          console.log(client._id);
-          if (client !== ws && client.readyState === WebSocket.OPEN) {
-            messgaeObj.pos = 1;
-            client.send(JSON.stringify(messgaeObj));
-          }
-        });
-        // 判断是否需要自动回复消息
-        if (messgaeObj.content.indexOf('1603C') != -1){
-          wss.clients.forEach(function each(client) {
-            if (client.readyState === WebSocket.OPEN) {
-              client.send(JSON.stringify({
-                ind: messgaeObj.ind,
-                name: 'QQ小冰',
-                pos: 1,
-                con_img: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541751438067&di=2f648d63409c560cbd26b6d6781a9ea8&imgtype=0&src=http%3A%2F%2Fi1.hdslb.com%2Fbfs%2Fface%2F9d8a68e017039f1c715e7f4adf498774f6b2d5e1.jpg',
-                time: "昨天",
-                con: "",
-                content: autoReplies[Math.floor(Math.random()*9)]
-              }));
-            }
-          });
-        }
-      }
-    }
+    // let messgaeObj = JSON.parse(message);
+    // switch (messgaeObj.type) {
+    //   case 'login': doLogin(messgaeObj, ws); break;
+    //   default: {
+    //     // 收到消息之后,广播出去
+    //     wss.clients.forEach(function each(client) {
+    //       console.log(client._id);
+    //       if (client !== ws && client.readyState === WebSocket.OPEN) {
+    //         messgaeObj.pos = 1;
+    //         client.send(JSON.stringify(messgaeObj));
+    //       }
+    //     });
+    //     // 判断是否需要自动回复消息
+    //     if (messgaeObj.content.indexOf('1603C') != -1){
+    //       wss.clients.forEach(function each(client) {
+    //         if (client.readyState === WebSocket.OPEN) {
+    //           client.send(JSON.stringify({
+    //             ind: messgaeObj.ind,
+    //             name: 'QQ小冰',
+    //             pos: 1,
+    //             con_img: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541751438067&di=2f648d63409c560cbd26b6d6781a9ea8&imgtype=0&src=http%3A%2F%2Fi1.hdslb.com%2Fbfs%2Fface%2F9d8a68e017039f1c715e7f4adf498774f6b2d5e1.jpg',
+    //             time: "昨天",
+    //             con: "",
+    //             content: autoReplies[Math.floor(Math.random()*9)]
+    //           }));
+    //         }
+    //       });
+    //     }
+    //   }
+    // }
     console.log('message...', message);
 
 
-
-    // setInterval(()=>{
-    //   ws.send(message);
-    // }, 1000);
+    // 定时器每隔1秒发一个消息
+    setInterval(()=>{
+      ws.send(autoReplies[Math.floor(Math.random()*9)]);
+    }, 3000);
 
     // message = JSON.parse(message);
     // switch(message.type){

@@ -58,7 +58,8 @@
     - 更改文件格式：https://www.cnblogs.com/zyb-pp/p/6429448.html
 ### 配置邮件服务器，在push钩子里触发，自动通知收件人
 
-### 线上公用接口
+### 线上公用接口 
+- 公共服务域名,支持https service.jasonandjay.com
 #### 文件上传
 - formData文件上传    post http://123.206.55.50:11000/upload
 ```html

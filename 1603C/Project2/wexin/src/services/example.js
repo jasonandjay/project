@@ -27,23 +27,11 @@ export function createSocket(dispatch){
 
 function connectSocket(){
   // socket = new WebSocket(`ws://${host}:8080`);
-  socket = new WebSocket(`ws://123.206.55.50:8080`);
+  socket = new WebSocket(`ws://127.0.0.1:8080`);
 
   // 建立连接
   socket.addEventListener('open', function (event) {
-    // socket.send('hello world');
-    isConnect = true;
-    // 把缓存的消息发出去
-    cacheList.forEach(obj=>{
-      if (obj.callback){
-        let id = requestList.push(obj.callback);
-        obj.id = id;
-      }
-
-      socket.send(JSON.stringify(obj));
-    })
-    // 清空cacheList
-    cacheList = [];
+    socket.send('hello world')
   });
 
   // 接收到服务端发送的数据
@@ -72,10 +60,6 @@ function connectSocket(){
         }
     }
     console.log('data..', event.data);
-    // dispatch({
-    //   type: 'index/receiveMessage',
-    //   payload: JSON.parse(event.data)
-    // })
   });
 
   // 连接被关闭

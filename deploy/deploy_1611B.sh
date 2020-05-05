@@ -1,6 +1,6 @@
 #!/bin/bash
 
-WEB_PATH='/home/ubuntu/1609B/chenmanjie/'$1
+WEB_PATH='/home/ubuntu/1611B/chenmanjie/'$1
 WEB_USER='ubuntu'
 WEB_USERGROUP='ubuntu'
 
