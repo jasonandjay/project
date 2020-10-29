@@ -1,10 +1,13 @@
 const express = require('express');
 const multipart = require('connect-multiparty');
-const request = require('request');
 const query = require('./db.js');
 const base64Img = require('base64-img');
 const image2base64 = require('image-to-base64');
 const md5 = require('md5');
+const fs = require('fs');
+const path = require('path');
+const JSZip = require('jszip');
+
 const app = express();
 
 // 设置跨域访问
@@ -82,20 +85,41 @@ app.post('/tobase64', (req, res)=>{
         })
     }
 })
-// 代理转发接口
-app.get('/api', (req, res)=>{
-	console.log('req...', req.query)
-	request(req.query.url, function (error, response, body) {
-    /*判断请求是否成功*/
-    if (!error && response.statusCode == 200) {
-	      	/*把字符串转换为json*/
-	      	var data = JSON.parse(body);
-	      	/*返回数据*/
-	      	res.json(data);
-	    }
- 	});
-})
 
+/** 
+ * 文件合并接口
+ * @param title 合并后的文件标题
+ * @param files 需要合并的文件列表
+ * prefix = //service.jasonandjay.com/static/
+ */
+app.post('/mergeFiles', (req, res)=>{
+    const prefix = '//service.jasonandjay.com/static/';
+    const zip = new JSZip();
+    let {title} = req.body;
+
+    const dir =  path.join(__dirname, `/static/${title}`);
+    for (let item of req.body.files){
+        let name = 'static/'+item.path.replace(prefix, '');
+        zip.file(item.name+'.zip', fs.readFileSync(path.join(__dirname, name)))
+    }
+
+    zip
+    .generateNodeStream({type:'nodebuffer',streamFiles:true})
+    .pipe(fs.createWriteStream(dir+'.zip'))
+    .on('finish', function () {
+        // JSZip generates a readable stream with a "end" event,
+        // but is piped here in a writable stream which emits a "finish" event.
+        console.log("out.zip written.");
+        res.json({
+            code: 1,
+            data: {
+                title: req.body.title,
+                path: `http://123.206.55.50:11000/static/${title}.zip`
+            },
+            msg: '多文件合并成功'
+        })
+    }); 
+})
 // 发送短信验证码的接口
 // 发送短信验证码
 app.post('/smsCode', function(req, res, next){
