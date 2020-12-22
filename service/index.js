@@ -124,8 +124,8 @@ app.post('/mergeFiles', (req, res)=>{
 app.post('/smsCode', function(req, res, next){
     const SMSClient = require('@alicloud/sms-sdk')
     // ACCESS_KEY_ID/ACCESS_KEY_SECRET 根据实际申请的账号信息进行替换
-    const accessKeyId = 'omFtRkaRs3Xu0pTW'
-    const secretAccessKey = 'a8LXFS3hXAU3vbtJqjEQh038j7iTDU'
+    const accessKeyId = 'LTAI4GFVi23hJQmhoHZVbXsV'
+    const secretAccessKey = 'kXuW0M1IEHUVTXjGx4fFUduDNlCCEq'
     //初始化sms_client
     let smsClient = new SMSClient({accessKeyId, secretAccessKey})
     // 生成短信验证码
