@@ -34,11 +34,10 @@ app.post('/upload', multipart({
     const data = [];
     Object.keys(req.files).forEach(item=>{
         let file = req.files[item];
-        let key = Object.keys(file)[0];
-       
+        // let key = Object.keys(file)[0];
         data.push({
             name: item,
-            path:  `http://123.206.55.50:11000/${file[key].path}`
+            path:  `http://123.206.55.50:11000/${file.path}`
         })
     })
     console.log('data...', data);
