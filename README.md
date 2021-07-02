@@ -9,12 +9,12 @@
 - 切换分支：git checkout chenmanjie
 - 推送远程：git push origin master
 - 查看提交记录：git log 
-- 回滚代码： git reset --hard [commit:6]
+- 回滚代码： git reset --hard(--soft) [commit:6]
 - 回滚文件： git checkout -- filepath
 - 回到最新代码：git reset HEAD | git pull origin master
 - 隐藏当前分支改动： git stash 
 - 回退隐藏：git stash pop
-- 合并分支：git merge chenmanjie
+- 合并分支：git merge [your branch]
 - 会用PR给他人仓库贡献代码
 
 ## linux日常操作
@@ -40,11 +40,7 @@
 - 修改config/index.js里的build/assetsPublicPath为相对路径，在/前面加个.
 
 ### 遇到404，修改文件夹的权限
-- chmod 666 -R dir
-
-## 启动一些线上服务
-### 短信验证码服务
-
+- chmod 666 -R [dir]
 
 ## 服务器配置
 ### nginx虚拟域名配置
