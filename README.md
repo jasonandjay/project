@@ -151,3 +151,4 @@ axios({
 ```
 post phone='your phone'
 ```
+- 验证短信验证码
